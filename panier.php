@@ -1,6 +1,22 @@
 <?php
+session_start();
 
 
+if(isset($_POST[''])) {
+    $total='';
+    $produits_id='';
+
+if(!isset($_SESSION['panier'])) {
+
+    $_SESSION['panier'] = ['Produit'=> [$produits_id], 'Total' => $total] ;
+   
+    
+} else {
+
+
+    
+}
+}
 
 ?>
 
@@ -15,7 +31,18 @@
 </head>
 <body>
     
-    
+    <section>
+
+        <table>
+
+        <th>Produit</th>
+        <th>Prix</th>
+        <th>Quantite</th>
+        <th>Action</th>
+
+        </table>
+
+    </section>
 
 </body>
 </html>
