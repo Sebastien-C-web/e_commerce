@@ -2,12 +2,17 @@
 session_start();
 require_once ("config/db.php");
 require_once ('ressources/produits.php');
+require_once ('ressources/produits_quantite.php');
 
 $db = new db();
 $db->connecte();
 
 $newProd = new Produits();
 $produits = $newProd->getAllProduits();
+
+$newQuant = new ProduitsQuantites();
+$produitsQuants = $newQuant->getAllQuantite();
+
 
 
 
@@ -21,26 +26,38 @@ $produits = $newProd->getAllProduits();
 if(isset($_POST["envoi_article"])) {
     $name = $_POST["name"];
     $description = $_POST["description"];
-    $image = $_FILES["image"];
+    $image = $_FILES["image"]["name"];
     $prix = $_POST["prix"];
-
-    if (isset($image)) {
-        move_uploaded_file($image["tmp_name"], "ressources/uploads/" . $image["name"]);
-    };
     
+    var_dump($image);
 
+   
     $newProd-> setName($name);
     $newProd-> setDescription($description);
     $newProd-> setImage($image);
     $newProd-> setPrix($prix);
     $newProd-> addProduit();
+    if (isset($image["name"])) {
+        move_uploaded_file($image["tmp_name"], "ressources/uploads/" . $image["name"]);
+    };
 
+    header("Location: stock.php");
+}
+
+if(isset($_POST["qtte"])) {
+    $produitID = $_POST["qtte"];
+    $quantite = $_POST["num"];
+
+    $newQuant-> setId($produitID);
+    $newQuant-> setQuantite($quantite);
+    $newQuant->addQuantite();
+    header("Location: stock.php");
 }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -62,7 +79,7 @@ if(isset($_POST["envoi_article"])) {
 
 <body>
     <header>
-
+    <?php include('compo/header.php'); ?>
     </header>
     <main>
         <section class="bg-[#EDAC70] flex flex-col justify-center items-center gap-5 px-5 ">
@@ -90,16 +107,14 @@ if(isset($_POST["envoi_article"])) {
                             <th class="px-5 py-2 border-2 border-black bg-white"><?php if(isset($produitsQuants)) { foreach ($produitsQuants as $produitsQuant) {
                                 if ($produitsQuant["produits_id"] == $produit["id"]) {
                                     echo $produitsQuant["quantites"];
-                                } else {
-                                    print "La quantitée n'est pas connue";
                                 }
                             }
                             ?></th>
                             <?php } else {
                         print "La quantitée n'a pas encore été définie";
                     } ?>
-                    <th class="px-5 py-2 border-2 border-black bg-white"> <form method="POST" action=""><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"] ?>">Modif</button></form></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white"> <form method="POST" action=""><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"] ?>">Modif</button></form></th>
+                    <th class="px-5 py-2 border-2 border-black bg-white"> <form method="POST" action=""><input type="text" class="border-2 border-black w-[50%] mr-5" name="num"></input><button class="bg-black text-white border-2 border-black p-2" id="qtte" type="submit" name="qtte" value="<?php print $produit["id"] ?>">QTTE</button></form></th>
+                    <th class="px-5 py-2 border-2 border-black bg-white"> <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"] ?>">Modif</button></form></th>
 
                   <?php  } ?>
                         </tr>
@@ -134,34 +149,6 @@ if(isset($_POST["envoi_article"])) {
                         <input type="file" name="image" id="image"><br>
                     </div>
                     <button class="border-2 border-black bg-gray-300 w-[10%] text-center" type="submit" name="envoi_article">Envoyer</button>
-                </div>
-            </form>
-
-            <form action="" method="post" class="flex flex-col justify-between" enctype="multipart/form-data">
-                <div class="flex justify-around items-center">
-                    <div class="flex flex-col items-center">
-                        <label for="name">Nom de l'article :</label>
-                        <textarea class="border-2 border-black" name="name" rows="5" cols="70"></textarea>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <label for="description">Description de l'aricle :</label>
-                        <textarea class="border-2 border-black" name="description" rows="5" cols="70"></textarea>
-                    </div>
-                </div>
-                <div class="flex justify-around items-center pt-5">
-                    <div class="flex flex-col items-center">
-                        <label for="prix">Prix de l'article :</label>
-                        <input type="text" class="border-2 border-black" name="prix"></input>
-                    </div>
-                    <!-- <div class="flex flex-col items-center pl-24">
-                        <label for="stock">Entrées en stock :</label>
-                        <input type="text" class="border-2 border-black" name="stock"></input>
-                    </div> -->
-                    <div class="flex flex-col items-center">
-                        <label for="image">Image de l'article :</label><br>
-                        <input type="file" name="image" id="image"><br>
-                    </div>
-                    <button class="border-2 border-black bg-gray-300 w-[10%] text-center" type="submit" name="modif_article">Envoyer</button>
                 </div>
             </form>
         </section>
