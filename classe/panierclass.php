@@ -9,6 +9,8 @@ class panier extends db
 
     private $reduction_id;
 
+    public $db;
+
 
 
 public function __construct()
@@ -16,7 +18,7 @@ public function __construct()
         $this->db = new db();
     }
 
-public function setProduitsid()
+public function setProduitsid($produits_id)
 
 {
 
@@ -32,7 +34,7 @@ return $this->produits_id;
 
 }
 
-public function setTotal()
+public function setTotal($total)
 
 {
 
@@ -44,11 +46,11 @@ public function getTotal()
 
 {
 
-    return $this->$total;
+    return $this->total;
 
 }
 
-public function setReductionid()
+public function setReductionid($reduction_id)
 
 {
 
@@ -60,7 +62,7 @@ public function getReductionid()
 
 {
 
-    return $this->$reduction_id;
+    return $this->reduction_id;
 
 }
 

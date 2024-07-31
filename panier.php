@@ -1,8 +1,11 @@
 <?php
+require_once('config/db.php');
+require_once('classe/panierclass.php');
 session_start();
 
 
-if(isset($_POST[''])) {
+
+/* if(isset($_POST[''])) {
     $total='';
     $produits_id='';
 
@@ -17,6 +20,25 @@ if(!isset($_SESSION['panier'])) {
     
 }
 }
+*/
+
+if(!isset($_SESSION['panier'])){
+    $_SESSION['panier']=array();
+}
+
+if(isset($_GET['id'])){
+    $produits_id= $_GET['id'];
+
+}
+
+if(isset($_SESSION['panier'][$produits_id])) {
+    $_SESSION['panier'][$produits_id]++;
+} else {
+    $_SESSION['panier'][$produits_id]=1;
+    echo "le produit a bien été ajouté au panier";
+    var_dump($_SESSION['panier']);
+}
+
 
 ?>
 
