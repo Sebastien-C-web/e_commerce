@@ -56,7 +56,9 @@ if (isset($_POST['addAvis'])) {
 </head>
 
 <body>
-  
+  <header>
+    <?php include_once('compo/header.php'); ?>
+  </header>
     <main class="container mx-auto">
         <?php foreach ($all_prod as $all_prods) {
             if ($all_prods['id'] == $id) { ?>
