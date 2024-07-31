@@ -31,6 +31,9 @@ if(isset($_POST['envoyer'])){
     <title>inscription</title>
 </head>
 <body>
+    <nav>
+    <?php include('compo/header.php'); ?>
+    </nav>
     
 <div class="flex min-h-screen bg-white">
 
@@ -49,17 +52,17 @@ if(isset($_POST['envoyer'])){
         <div class="mt-5">
 
             <input type="mail" name="email"
-                class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent "
+                class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600 "
                 placeholder="Email">
         </div>
         <div class="mt-5">
             <input type="text" name="name_ins"
-                class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent "
+                class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
                 placeholder="name">
         </div>
         <div class="mt-5">
             <input type="password" name="password"
-                class="block w-full p-2 border rounded border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-transparent  "
+                class="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600  "
                 placeholder="Mot de passe">
         </div>
 
@@ -67,10 +70,10 @@ if(isset($_POST['envoyer'])){
 
         <div class="mt-10">
             <input type="submit" name="envoyer" href="index.php" value="S'inscrire avec son email"
-                class="py-3 bg-green-500 text-white w-full rounded hover:bg-green-600">
+                class="py-3 bg-orange-500 text-white w-full rounded hover:bg-orange-600">
         </div>
     </form>
-    <a class="" href="login.php" data-test="Link"><span
+    <a href="connexion.php" data-test="Link"><span
             class="block  p-5 text-center text-gray-800  text-xs ">Tu as déja un compte ?</span></a>
 </div>
 
