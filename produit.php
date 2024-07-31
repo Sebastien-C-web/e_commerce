@@ -1,4 +1,4 @@
-<h2?php
+<?php
 require_once('./config/db.php');
 require_once('ressources/avis.php');
 require_once('ressources/produits.php');
@@ -25,22 +25,24 @@ $id=$_GET['id'];
     }
     ?>
     </title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     <main class="container mx-auto">
         <?php foreach ($all_prod as $all_prods){ 
             if ($all_prods['id']= $id){?>
             <div>
-                <img src="<?php print $all_prods['image'];?>" alt="produit numero <?php print $id ?>">
+                <img src="<?php print $all_prods['image'];?>" alt="produit numero <?php print $id ?>" class="w-40 h-fit">
                 <h2><?php print $all_prods['name']; ?></h2>
                 <p><?php print $all_prods['description']; ?></p>
-                <form action="">
-
+                <h2><?php print $all_prods['prix'];?></h2>
+                <form action="" method="post">
+                    <button type="submit" value="<?php print $all_prods['id']; ?>" class="p-2 border border-black">Ajouter au panier</button>
                 </form>
             </div>
             <?php ?>
             <div>
-                
+
             </div>
             <?php }}?>
     </main>
