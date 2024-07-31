@@ -13,14 +13,9 @@ $produits = $newProd->getAllProduits();
 $newQuant = new ProduitsQuantites();
 $produitsQuants = $newQuant->getAllQuantite();
 
-
-
-
 // if($_SESSION["user"]["statut"] != "admin" ){
 //     header("Location: index.php");
 // }
-// $produits = [["id" => 0, "name" => "veste orange stylée", "description" => "Mon cul commode, mes couilles mickey", "prix" => 175]];
-// $produitsQuants = [["id" => 0, "produits_id" => 0, "quantites" => 27000]];
 
 
 if(isset($_POST["envoi_article"])) {
@@ -28,8 +23,6 @@ if(isset($_POST["envoi_article"])) {
     $description = $_POST["description"];
     $image = $_FILES["image"]["name"];
     $prix = $_POST["prix"];
-    
-    var_dump($image);
 
    
     $newProd-> setName($name);
@@ -72,9 +65,6 @@ if(isset($_POST["qtte"])) {
     <link href="//cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css" rel="stylesheet">
     <script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
     <script src="JS/tableau.js"></script>
-
-
-
 </head>
 
 <body>

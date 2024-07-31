@@ -29,7 +29,7 @@ if(isset($_POST["modif_article"])) {
     
 
     $newProd->modifProduit(["name" => $name, "description" => $description, "image" => $image, "prix" => $prix, "id" => $ID]);
-    if (isset($image)) {
+    if (isset($image["name"])) {
         move_uploaded_file($image["tmp_name"], "ressources/uploads/".$image["name"]);
     };
     header("Location: stock.php");
