@@ -9,12 +9,12 @@ if (isset($_POST['submit'])) {
 
     $name = trim($_POST['name_con']);
     $password = trim($_POST['password_con']);
-    // $email = trim($_POST['email']);
+    $email = trim($_POST['email']);
 
     if (!empty($name) && !empty($password) || (!empty($email) && !empty($password))) {
         $user = new Users();
         $utilisateur = $user->userConnect(["name" => $name, "password" => $password]);
-        // $user = $user->userConnect(["email"=> $email, "password"=>$password]);
+        $utilisateur = $user->userConnect(["email" => $email, "password" => $password]);
 
         if ($user) {
             $_SESSION['user'] = $utilisateur;
@@ -26,7 +26,6 @@ if (isset($_POST['submit'])) {
     } else {
         $message = "veuillez remplir tous les champs";
     }
-    
 }
 
 
@@ -45,7 +44,7 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-   
+
 
 
     <div class="  text-red-700 text-2xl text-center ">
@@ -71,7 +70,7 @@ if (isset($_POST['submit'])) {
     </div>
 
     <footer>
-       
+
     </footer>
 
 </body>
