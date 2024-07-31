@@ -63,6 +63,22 @@ require_once('./config/db.php');
 
         }    
 
-        
+        public function addAvisUsers($param = [])
+        {
+            $users_id = $param['users_id'];
+            $produit_id = $param['produit_id'];
+            $vote = true;
+            $sql = $this->connecte()->prepare('INSERT INTO avis_users (users_id, produit_id, vote) VALUES (:users_id, :produit_id, :vote)');
+            $sql->bindParam(':users_id', $users_id);
+            $sql->bindParam(':produit_id', $produit_id);
+            $sql->bindParam(':vote', $vote);
+            $sql->execute();
+        }
+        public function getAllAvisUsers()
+        {
+            $sql = 'SELECT * FROM avis_users';
+            $done = $this->connecte()->query($sql);
+            return $done->fetchAll(PDO::FETCH_ASSOC);
+        }
 
  }

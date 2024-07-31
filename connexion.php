@@ -9,8 +9,7 @@ if (isset($_POST['submit'])) {
 
     $name = trim($_POST['name_con']);
     $password = trim($_POST['password_con']);
-
-
+    
     if (!empty($name) && !empty($password) || (!empty($email) && !empty($password))) {
         $user = new Users();
         $utilisateur = $user->userConnect(["name" => $name, "password" => $password]);
