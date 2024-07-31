@@ -84,7 +84,7 @@ public function userConnect($tab = [])
 {
     $user = $this->getAllUsers();
     foreach ($user as $users) {
-        if (($tab['name'] == $users['name'] || $tab['email'] == $users['email']) && password_verify($tab['password'], $users['password'])) {
+        if (($tab['name'] == $users['name'] || $tab['name'] == $users['email']) && password_verify($tab['password'], $users['password'])) {
             return $users;
         }
     }
