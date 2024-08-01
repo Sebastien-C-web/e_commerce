@@ -1,7 +1,7 @@
 function selectEtoileA(aEtoiles, bUnselect, iNote, sClassSlelected){
     for(var h = 0; h < aEtoiles.length; h++) {
       let oClass = aEtoiles[h].classList;
-      if(bUnselect==false && h <= iNote - 1 ){//
+      if(bUnselect==false && h <= iNote - 1 ){
         oClass.add(sClassSlelected);
       }else{
         oClass.remove(sClassSlelected);
@@ -17,15 +17,7 @@ function selectEtoileA(aEtoiles, bUnselect, iNote, sClassSlelected){
     selectEtoileA(aEtoilesExempleA, false, (oEvent.type == 'mouseleave')? oFormExempleA.note.value:oEl.iNote, sClassSlelected);
   }
   
-  function selectEtoileB(oEvent){
-    var oEl = oEvent.currentTarget,
-        sClass = "selected"; 
-    if(oEvent.type == 'mouseleave'|| oEvent.type == 'touchend'){
-      oEl.classList.remove(sClass);
-    }else{
-      oEl.classList.add(sClass);
-    } 
-  }
+ 
   document.addEventListener('DOMContentLoaded',function(){
    
     
@@ -48,3 +40,31 @@ function selectEtoileA(aEtoiles, bUnselect, iNote, sClassSlelected){
       }
     } 
   });
+  
+  document.addEventListener('DOMContentLoaded',function(){
+    
+    let formA =  document.forms["etoileNote1"],
+    etoileA = formA.getElementsByClassName('etoile1');
+    sClassSlelected = 'gold';
+    
+    selectEtoileA(etoileA, false, formA.note1.value, sClassSlelected)
+   
+
+  
+  
+    let concatest = document.querySelectorAll('.etoiles');
+  
+  
+    for (k=0; k < concatest.length; k++) {
+      let l = concatest[k].id,
+      formComment =  document.forms["etoileNote"+l],
+      etoileB = formComment.getElementsByClassName('etoile'+l);
+      selectEtoileA(etoileB, false, formComment.note2.value, sClassSlelected)
+    }
+   
+   
+});
+ 
+
+
+
