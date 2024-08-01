@@ -80,4 +80,13 @@ class Produits extends db {
         $sql->execute();
         
     }
+
+    public function deleteProduit($id)
+    {
+            $sql = $this->connecte()->prepare("DELETE FROM produits WHERE id = :id");
+    
+            $sql->bindParam(":id", $id);
+            $sql->execute();
+        
+    }
 }

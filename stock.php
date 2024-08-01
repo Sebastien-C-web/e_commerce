@@ -44,9 +44,16 @@ if (isset($_POST["qtte"])) {
     $newQuant->setQuantite($quantite);
     $newQuant->addQuantite();
     header("Location: stock.php");
-    
 }
-
+ 
+if (isset($_POST["delete"])) {
+    foreach ($produits as $produit) {
+        if ($_POST["delete"] == $produit["id"]) {
+                    $newProd->deleteProduit($produit["id"]);
+                    header("Location: stock.php");
+                }
+            }
+        }
 ?>
 
 <!DOCTYPE html>
@@ -82,6 +89,7 @@ if (isset($_POST["qtte"])) {
                         <th class=" px-5 py-2 border-2 border-black bg-white">Stock</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Nouveau stock</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Modif</th>
+                        <th class=" px-5 py-2 border-2 border-black bg-white">DELETE</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -108,6 +116,10 @@ if (isset($_POST["qtte"])) {
                         <th class="px-5 py-2 border-2 border-black bg-white">
                             <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"]; ?>">Modif</button></form>
                         </th>
+                        <th class="px-5 py-2 border-2 border-black bg-white">
+                        <form action="" method="post">
+                        <button class="border-2 border-black bg-red-500 h-fit text-white" name="delete"
+                            value="<?php print $produit["id"]; ?>">DELETE</button></th>
 
                     <?php  } ?>
                         </tr>
