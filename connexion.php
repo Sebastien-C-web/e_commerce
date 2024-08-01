@@ -9,8 +9,7 @@ if (isset($_POST['submit'])) {
 
     $name = trim($_POST['name_con']);
     $password = trim($_POST['password_con']);
-
-
+    
     if (!empty($name) && !empty($password) || (!empty($email) && !empty($password))) {
         $user = new Users();
         $utilisateur = $user->userConnect(["name" => $name, "password" => $password]);
@@ -48,14 +47,9 @@ if (isset($_POST['submit'])) {
     <nav>
         <?php include('compo/header.php'); ?>
     </nav>
-
-
-
+    <div class="flex min-h-screen bg-white">
     <div class="md:w-1/2 max-w-lg mx-auto my-24 px-4 py-5 shadow-none">
-
         <div class="max-w-md w-full">
-
-
             <div class="p-6 rounded-2xl bg-white shadow">
                 <h2 class=" text-gray-800 text-3xl font-medium">Connexion</h2>
                 <div class="  text-red-700 text-2xl text-center ">
@@ -63,7 +57,6 @@ if (isset($_POST['submit'])) {
                         echo $message;
                     } ?>
                 </div>
-
                 <form class="mt-1 space-y-4" method="post">
                     <div>
                         <label for="name" class="text-gray-800 text-sm mb-2 block">name or email</label>
@@ -75,7 +68,6 @@ if (isset($_POST['submit'])) {
                             </svg>
                         </div>
                     </div>
-
                     <div>
                         <label for="password" class="text-gray-800 text-sm mb-2 block">Password</label>
                         <div class="relative flex items-center">
@@ -85,9 +77,6 @@ if (isset($_POST['submit'])) {
                             </svg>
                         </div>
                     </div>
-
-
-
                     <div class="!mt-8">
                         <button type="submit" name="submit" class="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-orange-500 hover:bg-orange-500 focus:outline-none">
                             connexion
@@ -102,12 +91,7 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
     </div>
-    </div>
-
-
-
-
-    <footer>
+          <footer>
         <?php include('compo/footer.php'); ?>
     </footer>
 
