@@ -18,7 +18,7 @@ if (!isset($_SESSION["user"]["statut"]) == "admin") {
 }
 
 
-if (isset($_POST["envoi_article"])) {
+if (isset($_POST['envoi_article'])) {
     $name = $_POST["name"];
     $description = $_POST["description"];
     $image = $_FILES["image"]["name"];
@@ -111,25 +111,23 @@ if (isset($_POST["delete"])) {
                                                                                         print "La quantitée n'a pas encore été définie";
                                                                                     } ?>
                         <th class="px-5 py-2 border-2 border-black bg-white">
-                            <form method="POST"><input type="text" class="border-2 border-black w-[50%] mr-5" name="num" required><button class="bg-black text-white border-2 border-black p-2" type="submit" name="qtte" value="<?php print $produit["id"]; ?>">QTTE</button></form>
+                            <form method="POST" action=""><input type="text" class="border-2 border-black w-[50%] mr-5" name="num" required><button class="bg-black text-white border-2 border-black p-2" type="submit" name="qtte" value="<?php print $produit["id"]; ?>">QTTE</button></form>
                         </th>
                         <th class="px-5 py-2 border-2 border-black bg-white">
                             <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"]; ?>">Modif</button></form>
                         </th>
                         <th class="px-5 py-2 border-2 border-black bg-white">
                         <form action="" method="post">
-                        <button class="border-2 border-black bg-red-500 h-fit text-white" name="delete"
-                            value="<?php print $produit["id"]; ?>">DELETE</button></th>
-
+                        <button class="border-2 border-black bg-red-500 h-fit text-white" type="submit" name="delete"
+                            value="<?php print $produit["id"]; ?>">DELETE</button></th></form>
                     <?php  } ?>
                         </tr>
-
                 </tbody>
             </table>
         </section>
         <section class="pt-5">
             <h2 class="text-center font-semibold font-heading">AJOUT :</h2>
-            <form action="" method="post" class="flex flex-col justify-between" enctype="multipart/form-data">
+            <form action="" method="POST" class="flex flex-col justify-between" enctype="multipart/form-data">
                 <div class="flex justify-around items-center">
                     <div class="flex flex-col items-center">
                         <label for="name">Nom de l'article :</label>

@@ -79,7 +79,7 @@ public function getArticle($id){
 
 
 
-Ajout panier db 
+// Ajout panier db 
 
 public function getAllpanier()
 {
