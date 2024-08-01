@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once ("config/db.php");
-require_once ('ressources/produits.php');
-require_once ('ressources/produits_quantite.php');
+require_once("config/db.php");
+require_once('ressources/produits.php');
+require_once('ressources/produits_quantite.php');
 
 $db = new db();
 $db->connecte();
@@ -13,23 +13,23 @@ $produits = $newProd->getAllProduits();
 $newQuant = new ProduitsQuantites();
 $produitsQuants = $newQuant->getAllQuantite();
 
-// if($_SESSION["user"]["statut"] != "admin" ){
-//     header("Location: index.php");
-// }
+if (!isset($_SESSION["user"]["statut"]) == "admin") {
+    header("Location: index.php");
+}
 
 
-if(isset($_POST["envoi_article"])) {
+if (isset($_POST["envoi_article"])) {
     $name = $_POST["name"];
     $description = $_POST["description"];
     $image = $_FILES["image"]["name"];
     $prix = $_POST["prix"];
 
-   
-    $newProd-> setName($name);
-    $newProd-> setDescription($description);
-    $newProd-> setImage($image);
-    $newProd-> setPrix($prix);
-    $newProd-> addProduit();
+
+    $newProd->setName($name);
+    $newProd->setDescription($description);
+    $newProd->setImage($image);
+    $newProd->setPrix($prix);
+    $newProd->addProduit();
     if (isset($image["name"])) {
         move_uploaded_file($image["tmp_name"], "ressources/uploads/" . $image["name"]);
     };
@@ -37,14 +37,14 @@ if(isset($_POST["envoi_article"])) {
     header("Location: stock.php");
 }
 
-if(isset($_POST["qtte"])) {
+if (isset($_POST["qtte"])) {
     $produitID = $_POST["qtte"];
     $quantite = $_POST["num"];
-
-    $newQuant-> setId($produitID);
-    $newQuant-> setQuantite($quantite);
+    $newQuant->setId($produitID);
+    $newQuant->setQuantite($quantite);
     $newQuant->addQuantite();
     header("Location: stock.php");
+    
 }
 
 ?>
@@ -55,13 +55,11 @@ if(isset($_POST["qtte"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock</title>
+    <title class="font-semibold font-heading">Stock</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="CSS/tableau.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"
-        integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js" integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" crossorigin="anonymous"></script>
     <link href="//cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css" rel="stylesheet">
     <script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
     <script src="JS/tableau.js"></script>
@@ -69,7 +67,7 @@ if(isset($_POST["qtte"])) {
 
 <body>
     <header>
-    <?php include('compo/header.php'); ?>
+        <?php include('compo/header.php'); ?>
     </header>
     <main>
         <section class="bg-[#EDAC70] flex flex-col justify-center items-center gap-5 px-5 ">
@@ -94,26 +92,31 @@ if(isset($_POST["qtte"])) {
                             <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $produit["description"]; ?>
                             </th>
                             <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $produit["prix"]; ?> € </th>
-                            <th class="px-5 py-2 border-2 border-black bg-white"><?php if(isset($produitsQuants)) { foreach ($produitsQuants as $produitsQuant) {
-                                if ($produitsQuant["produits_id"] == $produit["id"]) {
-                                    echo $produitsQuant["quantites"];
-                                }
-                            }
-                            ?></th>
-                            <?php } else {
-                        print "La quantitée n'a pas encore été définie";
-                    } ?>
-                    <th class="px-5 py-2 border-2 border-black bg-white"> <form method="POST" action=""><input type="text" class="border-2 border-black w-[50%] mr-5" name="num"></input><button class="bg-black text-white border-2 border-black p-2" id="qtte" type="submit" name="qtte" value="<?php print $produit["id"] ?>">QTTE</button></form></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white"> <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"] ?>">Modif</button></form></th>
+                            <th class="px-5 py-2 border-2 border-black bg-white"><?php if (isset($produitsQuants)) {
+                                                                                        foreach ($produitsQuants as $produitsQuant) {
+                                                                                            if ($produitsQuant["produits_id"] == $produit["id"]) {
+                                                                                                echo $produitsQuant["quantites"];
+                                                                                            }
+                                                                                        }
+                                                                                    ?></th>
+                        <?php } else {
+                                                                                        print "La quantitée n'a pas encore été définie";
+                                                                                    } ?>
+                        <th class="px-5 py-2 border-2 border-black bg-white">
+                            <form method="POST"><input type="text" class="border-2 border-black w-[50%] mr-5" name="num" required><button class="bg-black text-white border-2 border-black p-2" type="submit" name="qtte" value="<?php print $produit["id"]; ?>">QTTE</button></form>
+                        </th>
+                        <th class="px-5 py-2 border-2 border-black bg-white">
+                            <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"]; ?>">Modif</button></form>
+                        </th>
 
-                  <?php  } ?>
+                    <?php  } ?>
                         </tr>
-                    
+
                 </tbody>
             </table>
         </section>
         <section class="pt-5">
-            <h2 class="text-center">AJOUT :</h2>
+            <h2 class="text-center font-semibold font-heading">AJOUT :</h2>
             <form action="" method="post" class="flex flex-col justify-between" enctype="multipart/form-data">
                 <div class="flex justify-around items-center">
                     <div class="flex flex-col items-center">

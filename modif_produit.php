@@ -42,7 +42,7 @@ if(isset($_POST["modif_article"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><title>
+    <title>
         <?php foreach ($all_prod as $all_prods) {
             if ($all_prods['id'] == $id) {
                 print $all_prods['name'];
@@ -55,21 +55,23 @@ if(isset($_POST["modif_article"])) {
     <?php include_once('compo/header.php'); ?>
   </header>
   <main>
-        <section class="bg-[#EDAC70] flex flex-col justify-center items-center gap-5 px-5 ">
+        <section class="bg-[#EDAC70] flex flex-row justify-center items-center gap-5 px-5 py-5">
         <?php foreach ($all_prod as $all_prods) {
             if ($all_prods['id'] == $id) { ?>
-                <div class="flex flex-col justify-center items-center">
+                <div class="flex flex-col justify-center pr-10 items-center">
                     <img src="ressources/uploads/<?php echo $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-40 h-fit">
+                    </div>
+                    <div class="flex flex-col justify-center items-center">
                     <h2>Nom de l'article : <?php print $all_prods['name']; ?></h2>
                     <p> Description de l'article : <?php print $all_prods['description']; ?></p>
-                    <h2>Prix : <?php print $all_prods['prix']; ?></h2>
+                    <h2>Prix : <?php print $all_prods['prix']; ?> € </h2>
                     <?php foreach($produitsQuants as $produitsQuant) { 
                         if($produitsQuant["produits_id"] == $id) { ?>
                         <h2>Quantitée en stock : <?php print $produitsQuant["quantites"]; ?></h2>
                   <?php  }
                 }
                     ?>
-
+                    </div>
                     <?php }} ?>
         </section>
         <section>

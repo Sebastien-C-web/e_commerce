@@ -1,13 +1,15 @@
-<?php 
+<?php
 require_once('./config/db.php');
 
-class ProduitsQuantites extends db {
+class ProduitsQuantites extends db
+{
 
     private $id;
-    
+
     private $quantite;
 
-    public function setId($id){
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
@@ -16,7 +18,8 @@ class ProduitsQuantites extends db {
         return $this->id;
     }
 
-    public function setQuantite($quantite){
+    public function setQuantite($quantite)
+    {
         $this->quantite = $quantite;
     }
 
@@ -37,9 +40,21 @@ class ProduitsQuantites extends db {
         $id = $this->getId();
         $quantite = $this->getQuantite();
 
-        $sql = $this->connecte()->prepare("INSERT INTO produits_quantite (produits_id, quantites) VALUES (:id, :quantites)");
-        $sql->bindParam(":id", $id);
+        $sql3 = $this->connecte()->prepare("SELECT * FROM produits_quantite WHERE produits_id = :produits_id");
+        $sql3->bindParam(":produits_id", $id);
+        $sql3->execute();
+        $data = $sql3->fetch();
+
+        if (!$data) {
+            $sql = $this->connecte()->prepare("INSERT INTO produits_quantite (produits_id, quantites) VALUES (:produits_id, :quantites)");
+        } else {
+            $sql = $this->connecte()->prepare("UPDATE produits_quantite SET quantites = :quantites WHERE produits_id = :produits_id");
+        }
+
+        $sql->bindParam(":produits_id", $id);
         $sql->bindParam(":quantites", $quantite);
         $sql->execute();
     }
+
 }
+
