@@ -15,6 +15,7 @@ class panier extends db
 
     private $panier;
 
+    private $calculetotal;
 
 
 public function __construct()
@@ -130,7 +131,10 @@ public function addPanier()
 
 }
 
-
+public function calculerTotal()
+{
+    
+}
 
 
 }

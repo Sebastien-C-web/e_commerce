@@ -11,6 +11,7 @@ $articles = $_SESSION['panier'];
 var_dump($articles);
 
 
+$total=0;
 
 
 ?>
@@ -34,7 +35,7 @@ var_dump($articles);
     </nav>
 
     <section>
-        <div class="container mx-auto">
+        <div class="container mx-auto flex flex-col gap-6">
 
         <h2 class="text-bold flex justify-center items-center uppercase font-bold text-orange-400 pb-6 pt-6">Mon panier</h2>
 
@@ -53,9 +54,12 @@ var_dump($articles);
             <tbody>
                 <?php
                 foreach ($articles as $key => $article) {
+
+          
                    /* var_dump($article); */
                     $produit = $newPanier->getArticle($key);
                     /* var_dump($produit); */
+                    $total += ($produit['prix'] * $article);
                 ?>
 
                     <tr>
@@ -69,7 +73,25 @@ var_dump($articles);
                 <?php
                 } ?>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><?php print $total ?></td>
+                </tr>
+            </tfoot>
         </table>
+
+        <table>
+        </table>
+
+                <div class="flex justify-center">
+        <button class="border border-orange-400 bg-orange-400 w-[10%] flex justify-center items-center" type="submit" name="acheter">Acheter</button>
+        </div>
+
         </div>
 
     </section>
