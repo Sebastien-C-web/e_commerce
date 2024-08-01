@@ -7,6 +7,8 @@ class panier extends db
 
     private $total;
 
+    private $rowguid;
+
     private $reduction_id;
 
     public $db;
@@ -51,6 +53,21 @@ public function getTotal()
     return $this->total;
 
 }
+public function setRowguid($rowguid)
+
+{
+
+$this->rowguid=$rowguid;
+
+}
+
+public function getRowguid()
+
+{
+
+    return $this->rowguid;
+
+}
 
 public function setReductionid($reduction_id)
 
@@ -79,7 +96,7 @@ public function getArticle($id){
 
 
 
-/*
+
 public function addPanier()
 {
 
@@ -87,16 +104,33 @@ public function addPanier()
     $produits_id = $this->getProduitsid();
     $total = $this->getTotal();
     $reduction_id = $this->getReductionid();
+    $rowguid = $this->getRowguid();
 
-    $sql = $this->db->prepare("INSERT INTO panier (produits_id, total, reduction_id) VALUES (:produits_id, :total, :reduction_id)");
-    $sql->bindParam(':produits_id', $produits_id);
-    $sql->bindParam(':total', $total);
-    $sql->bindParam(':reduction_id', $reduction_id);
+    $sql2 = $this->db->prepare("SELECT * FROM panier WHERE rowguid = :rowguid AND produits_id = :produits_id");
+    $sql2->bindParam(":produits_id", $produits_id);
+    $sql2->bindParam(':rowguid', $rowguid);
+    $sql2->execute();
+    $exist = $sql2->fetch(PDO::FETCH_ASSOC);
+    var_dump($exist);
+    if($exist){
+        $sql = $this->db->prepare("UPDATE panier SET total = :total WHERE rowguid = :rowguid AND produits_id = :produits_id");
+        $sql->bindParam(':produits_id', $exist["produits_id"]);
+        $sql->bindParam(':rowguid', $rowguid);
+        $sql->bindParam(':total', $total);
+    }else{
+        $sql = $this->db->prepare("INSERT INTO panier (produits_id, total, reduction_id, rowguid) VALUES (:produits_id, :total, :reduction_id, :rowguid)");
+        $sql->bindParam(':produits_id', $produits_id);
+        $sql->bindParam(':rowguid', $rowguid);
+        $sql->bindParam(':total', $total);
+        $sql->bindParam(':reduction_id', $reduction_id);
+    }
+
+ 
     $sql->execute();
 
 }
 
-*/
+
 
 
 }

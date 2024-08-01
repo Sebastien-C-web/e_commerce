@@ -36,6 +36,8 @@ var_dump($articles);
     <section>
         <div class="container mx-auto">
 
+        <h2 class="text-bold flex justify-center items-center uppercase font-bold text-orange-400 pb-6 pt-6">Mon panier</h2>
+
         <table class="border border-2 border-black mt-4">
 
             <thead>
@@ -45,6 +47,7 @@ var_dump($articles);
                 <th class="border border border-2 border-black">Prix</th>
                 <th class="border border border-2 border-black">Quantite</th>
                 <th class="border border border-2 border-black">Action</th>
+                <th class="border border border-2 border-black" >Total</th>
 
             </thead>
             <tbody>
