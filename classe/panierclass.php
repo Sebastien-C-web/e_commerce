@@ -1,5 +1,5 @@
 <?php
-
+require_once("./config/db.php");
 class panier extends db 
 {
 
@@ -15,7 +15,7 @@ class panier extends db
 
 public function __construct()
     {
-        $this->db = new db();
+        $this->db = $this->connecte();
     }
 
 public function setProduitsid($produits_id)
@@ -64,6 +64,14 @@ public function getReductionid()
 
     return $this->reduction_id;
 
+}
+
+
+public function getArticle($id){
+    $sql = $this->db->prepare("SELECT * FROM produits WHERE id = :id");
+    $sql->bindParam(":id", $id);
+    $sql->execute();
+    return $sql->fetch(PDO::FETCH_ASSOC);
 }
 
 }
