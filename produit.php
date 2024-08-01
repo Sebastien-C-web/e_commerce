@@ -71,14 +71,20 @@ if (isset($_POST['addAvis'])) {
             <div class="container mx-auto">
                 <?php foreach ($all_prod as $all_prods) {
                     if ($all_prods['id'] == $id) { ?>
-                        <div class="flex flex-col justify-center items-center py-4">
-                            <img src="<?php print $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-48 h-fit">
-                            <h2><?php print $all_prods['name']; ?></h2>
-                            <p><?php print $all_prods['description']; ?></p>
-                            <h2><?php print $all_prods['prix']; ?>&euro; </h2>
-                            <form action="" method="post">
-                                <button type="submit" value="<?php print $all_prods['id']; ?>" class="p-2 border border-black bg-white">Ajouter au panier</button>
-                            </form>
+                        <div class=" flex justify-center py-6">
+                            <img src="<?php print $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-fit h-96">
+
+                            <div class="flex flex-col items-center justify-around mx-6 ">
+                                <div class="">
+                                    <h2 class="text-4xl font-semibold uppercase underline"><?php print $all_prods['name']; ?></h2>
+                                </div>
+
+                                <p><?php print $all_prods['description']; ?></p>
+                                <h2 class="text-4xl font-semibold text-red-500"><?php print $all_prods['prix']; ?>&euro; TTC</h2>
+                                <form action="" method="post">
+                                    <button type="submit" value="<?php print $all_prods['id']; ?>" class="p-2 border border-black bg-white">Ajouter au panier</button>
+                                </form>
+                            </div>
                         </div>
                 <?php }
                 } ?>
@@ -86,7 +92,16 @@ if (isset($_POST['addAvis'])) {
         </section>
 
         <section class="container mx-auto">
-            <h3>La moyenne de cet article de fou est de : <?php print number_format($all_note['AVG(note)'], 1, ","); ?></h3>
+            <h3>La moyenne de cet article de fou est de : <span id="average"><?php print number_format($all_note['AVG(note)'], 1, ","); ?></span>
+            <div class="moyenne">
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+            </div>
+                
+            </h3>
 
             <?php if (isset($_SESSION['user']) && (!$all_avis_users)) {
             ?>

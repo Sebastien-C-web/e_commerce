@@ -48,3 +48,10 @@ function selectEtoileA(aEtoiles, bUnselect, iNote, sClassSlelected){
       }
     } 
   });
+
+let average = document.getElementById('average');
+let moyenne = document.querySelector('.moyenne').style;
+let averageperc = average.innerText * 20;
+
+moyenne.setProperty('--average', averageperc );
+

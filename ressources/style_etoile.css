@@ -2,8 +2,26 @@ form span{
     font-size: 3em;
     cursor: pointer;
     color: grey;
-  }
+}
   
-  form span.gold {
+form span.gold {
     color: gold;
-  }
+}
+
+.moyenne {
+
+    color: grey;
+    position: relative;
+    width: 500px;
+    
+}
+
+.moyenne::after{
+  position: absolute;
+ color: gold;
+  top:0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+}
+
