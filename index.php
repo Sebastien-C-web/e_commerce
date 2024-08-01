@@ -1,11 +1,15 @@
 <?php
-
+require_once('ressources/produits.php');
 require_once('config/db.php');
 session_start();
 
 $bdd = new db();
 $bdd->connecte();
 
+$newProd = new Produits();
+$produits = $newProd->getAllProduits();
+
+$randomProd = array_rand($produits, 2);
 
 ?>
 
@@ -29,18 +33,44 @@ $bdd->connecte();
     </header>
     <main>
         <section class="bg-[#EDAC70]">
-            <article class="splide" aria-label="Splide Basic HTML Example">
+            <article class="splide" aria-label="Splide Basic HTML Example" >
                 <div class="splide__track">
-                    <ul class="splide__list">
-                        <li class="splide__slide">Slide 01</li>
-                        <li class="splide__slide">Slide 02</li>
-                        <li class="splide__slide">Slide 03</li>
+                    <ul class="splide__list ">
+                        <?php foreach($produits as $key => $produit) {
+                            if ($key == $randomProd[0]) { ?>
+                        <li class="splide__slide flex flex-row justify-center items-center gap-36 my-5">
+                            <div>
+                                <img class="w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"];?>">
+                            </div>
+                            <div class="flex flex-col gap-36">
+                                <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
+                                <h2 class="text-2xl"><?php print $produit["description"]; ?></h2>
+                                <h2 class="text-4xl font-extrabold text-white">Seulement <?php print $produit["prix"]; ?> € ! </h2>
+                            </div>
+                        </li>
+                   <?php } if ($key == $randomProd[1]) { ?>
+                        <li class="splide__slide flex flex-row justify-center items-center gap-36 my-5">
+                            <div>
+                                <img class="w-96 h-fit" src="ressources/uploads/<?php echo $produit["image"];?>">
+                            </div>
+                            <div class="flex flex-col gap-36">
+                                <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
+                                <h2 class="text-2xl"><?php print $produit["description"]; ?></h2>
+                                <h2 class="text-4xl font-extrabold text-white">Seulement <?php print $produit["prix"]; ?> € ! </h2>
+                            </div>
+                        </li> 
+                   <?php } ?>
+                   <?php } ?>
                     </ul>
                 </div>
             </article>
         </section>
         <section>
+        <?php foreach($produits as $produit) { ?>
+                    <article>
 
+                    </article>
+            <?php } ?>
         </section>
     </main>
     <script>
