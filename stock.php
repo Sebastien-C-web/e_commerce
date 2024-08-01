@@ -19,9 +19,12 @@ if (!isset($_SESSION["user"]["statut"]) == "admin") {
 
 
 if (isset($_POST['envoi_article'])) {
+
+    $imgInfos = $_FILES["image"]["name"];
+
     $name = $_POST["name"];
     $description = $_POST["description"];
-    $image = $_FILES["image"]["name"];
+    $image = $imgInfos. "_". time();
     $prix = $_POST["prix"];
 
 
@@ -30,8 +33,8 @@ if (isset($_POST['envoi_article'])) {
     $newProd->setImage($image);
     $newProd->setPrix($prix);
     $newProd->addProduit();
-    if (isset($image["name"])) {
-        move_uploaded_file($image["tmp_name"], "ressources/uploads/" . $image["name"]);
+    if (isset($image)) {
+        move_uploaded_file($_FILES["image"]["tmp_name"], "ressources/uploads/" .$image);
     };
 
     header("Location: stock.php");
@@ -149,7 +152,7 @@ if (isset($_POST["delete"])) {
                     </div> -->
                     <div class="flex flex-col items-center">
                         <label for="image">Image de l'article :</label><br>
-                        <input type="file" name="image" id="image"><br>
+                        <input type="file" name="image" ><br>
                     </div>
                     <button class="border-2 border-black bg-gray-300 w-[10%] text-center" type="submit" name="envoi_article">Envoyer</button>
                 </div>
