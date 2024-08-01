@@ -11,6 +11,8 @@ $articles = $_SESSION['panier'];
 var_dump($articles);
 
 
+
+
 ?>
 
 
@@ -32,39 +34,40 @@ var_dump($articles);
     </nav>
 
     <section>
+        <div class="container mx-auto">
 
-        <table class="border">
+        <table class="border border-2 border-black mt-4">
 
             <thead>
 
                 <th></th>
-                <th class="border">Produit</th>
-                <th class="border">Prix</th>
-                <th class="border">Quantite</th>
-                <th class="border">Action</th>
+                <th class="border border border-2 border-black">Produit</th>
+                <th class="border border border-2 border-black">Prix</th>
+                <th class="border border border-2 border-black">Quantite</th>
+                <th class="border border border-2 border-black">Action</th>
 
             </thead>
             <tbody>
                 <?php
                 foreach ($articles as $key => $article) {
-                    var_dump($article);
+                   /* var_dump($article); */
                     $produit = $newPanier->getArticle($key);
-                    var_dump($produit);
+                    /* var_dump($produit); */
                 ?>
 
                     <tr>
-                        <td class="border"><img class="h-[7%] w-[7%]" src="<?php echo $produit['image'] ?>" alt="Image du produit"></td>
-                        <td class="border"><?php echo $produit['name'] ?></td>
-                        <td class="border"><?php echo $produit['prix'] ?></td>
-                        <td><?= $article ?></td>
-                        <td class="border"><a href="delPanier.php?id=<?php print $produit["id"] ?>"><img class="w-[7%] h-[7%]" src="iconepoubelle.webp" alt="icone poubelle"></a></td>
+                        <td class="border border-2 border-black"><img class="h-[7%] w-[7%]" src="<?php echo $produit['image'] ?>" alt="Image du produit"></td>
+                        <td class="border border-2 border-black"><?php echo $produit['name'] ?></td>
+                        <td class="border border-2 border-black"><?php echo $produit['prix'] ?></td>
+                        <td class="border border-2 border-black"><?= $article ?></td>
+                        <td class="border border-2 border-black"><a href="delPanier.php?id=<?php print $produit["id"] ?>"><img class="w-[7%] h-[7%]" src="iconepoubelle.webp" alt="icone poubelle"></a></td>
 
                     </tr>
                 <?php
                 } ?>
             </tbody>
         </table>
-
+        </div>
 
     </section>
 

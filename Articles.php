@@ -8,29 +8,38 @@ $db = new db();
 $db->connecte();
 $newArticles = new Produits();
 $articles = $newArticles->getAllProduits();
+$newpanier=new panier();
 
 
 
 
-/* 
+
 
 print "<pre>";
 var_dump($_SESSION['panier']);
 print "</pre>";
 
 
-Ajout panier dans db
 
-if (isset($_POST['panier'])) {
-  $panier = new panier();
-  $panier->setProduitsid($produits_id);
-  $panier->setTotal($total);
-  $panier->setReductionid($reduction_id);
-  $db->getAllpanier($panier);
-  header("Location: Articles.php");
-}
-  
- */
+/*
+
+if (isset($_POST['panier'])) { 
+
+  foreach ($articles as $article) {
+
+    if($article['id']==$_POST['panier']) {
+      $produits_id=$_POST['panier'];
+      $total=$article['prix'];
+    
+      $newpanier->setProduitsid($produits_id);
+      $newpanier->setTotal($total);
+      $newpanier->addPanier();
+      header("Location: Articles.php");
+    }
+    }
+
+  */
+ 
 
 ?>
 

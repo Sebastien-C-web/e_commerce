@@ -69,6 +69,7 @@ public function getReductionid()
 }
 
 
+
 public function getArticle($id){
     $sql = $this->db->prepare("SELECT * FROM produits WHERE id = :id");
     $sql->bindParam(":id", $id);
@@ -78,26 +79,24 @@ public function getArticle($id){
 
 
 
-
-Ajout panier db 
-
-public function getAllpanier()
+/*
+public function addPanier()
 {
 
  
-    $produits_id = $panier->getArticle();
-    $total = $panier->getTotal();
-    $reduction_id = $panier->getReductionid();
+    $produits_id = $this->getProduitsid();
+    $total = $this->getTotal();
+    $reduction_id = $this->getReductionid();
 
     $sql = $this->db->prepare("INSERT INTO panier (produits_id, total, reduction_id) VALUES (:produits_id, :total, :reduction_id)");
-    $sql->bindParam(':produit', $produits_id);
+    $sql->bindParam(':produits_id', $produits_id);
     $sql->bindParam(':total', $total);
-    $sql->bindParam(':reductin_id', $reduction_id);
+    $sql->bindParam(':reduction_id', $reduction_id);
     $sql->execute();
-    $this->db->commit();
 
 }
-    
+
+*/
 
 
 }
