@@ -1,9 +1,7 @@
-<?php
-require_once('./config/db.php');
+<?php require_once('./config/db.php');
 require_once('ressources/avis.php');
 require_once('ressources/produits.php');
 session_start();
-
 $sql = new db();
 $sql->connecte();
 
@@ -22,6 +20,7 @@ $all_note = $newAvis->getAllNotes($id);
 $newUser = new Users();
 $all_users = $newUser->getAllUsers();
 
+$n=2;
 
 if (isset($_POST['addAvis'])) {
 
@@ -39,6 +38,7 @@ if (isset($_POST['addAvis'])) {
         $newAvis->setUsersId($user_id);
         $newAvis->addAvis();
         $newAvis->addAvisUsers(['users_id' => $user_id, 'produit_id' => $produit_id]);
+        header('location: produit.php?id='.$id);
     }
 }
 
@@ -92,16 +92,22 @@ if (isset($_POST['addAvis'])) {
         </section>
 
         <section class="container mx-auto">
-            <h3>La moyenne de cet article de fou est de : <span id="average"><?php print number_format($all_note['AVG(note)'], 1, ","); ?></span>
-            <div class="moyenne">
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
+            <div class="flex justify-center items-center">
+                <h3>La moyenne de cet article de fou est de : <span id="average"><?php print number_format($all_note['AVG(note)'], 1, ","); ?></span>
+                    <div class="flex justify-center items-center">
+                        <form action="" method="post" id="etoileNote1">
+                            <input type="hidden" name="note1" value="<?php print number_format($all_note['AVG(note)'], 0, ","); ?>" />
+                            <span class="etoile1">★</span>
+                            <span class="etoile1">★</span>
+                            <span class="etoile1">★</span>
+                            <span class="etoile1">★</span>
+                            <span class="etoile1">★</span>
+                        </form>
+                    </div>
+
+                </h3>
             </div>
-                
-            </h3>
+
 
             <?php if (isset($_SESSION['user']) && (!$all_avis_users)) {
             ?>
@@ -135,11 +141,18 @@ if (isset($_POST['addAvis'])) {
                                 </h3>
                                 <article class="ml-2">
                                     <?php print $avis_prods['contenu']; ?></br>note: <?php print $avis_prods['note']; ?>/5
-
+                                    <form action="" method="post" id="etoileNote<?php print $n ?>">
+                                        <input type="hidden" class="etoiles" id="<?php print $n ?>" name="note2" value="<?php print $avis_prods['note']; ?>" />
+                                        <span class="etoile<?php print $n ?> cool">★</span>
+                                        <span class="etoile<?php print $n ?> cool">★</span>
+                                        <span class="etoile<?php print $n ?> cool">★</span>
+                                        <span class="etoile<?php print $n ?> cool">★</span>
+                                        <span class="etoile<?php print $n ?> cool">★</span>
+                                    </form>
                                 </article>
                             </div>
 
-                <?php }
+                <?php $n++; }
                     }
                 } ?>
                 <div>
