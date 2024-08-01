@@ -10,25 +10,6 @@ $articles = $_SESSION['panier'];
 
 var_dump($articles);
 
-/* if(isset($_POST[''])) {
-    $total='';
-    $produits_id='';
-
-if(!isset($_SESSION['panier'])) {
-
-    $_SESSION['panier'] = ['Produit'=> [$produits_id], 'Total' => $total] ;
-   
-    
-} else {
-
-
-    
-}
-}
-*/
-
-var_dump($articles);
-
 
 ?>
 
@@ -45,6 +26,10 @@ var_dump($articles);
 </head>
 
 <body>
+
+    <nav>
+        <?php include('compo/header.php'); ?>
+    </nav>
 
     <section>
 

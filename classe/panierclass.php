@@ -11,6 +11,8 @@ class panier extends db
 
     public $db;
 
+    private $panier;
+
 
 
 public function __construct()
@@ -73,5 +75,29 @@ public function getArticle($id){
     $sql->execute();
     return $sql->fetch(PDO::FETCH_ASSOC);
 }
+
+
+
+
+Ajout panier db 
+
+public function getAllpanier()
+{
+
+ 
+    $produits_id = $panier->getArticle();
+    $total = $panier->getTotal();
+    $reduction_id = $panier->getReductionid();
+
+    $sql = $this->db->prepare("INSERT INTO panier (produits_id, total, reduction_id) VALUES (:produits_id, :total, :reduction_id)");
+    $sql->bindParam(':produit', $produits_id);
+    $sql->bindParam(':total', $total);
+    $sql->bindParam(':reductin_id', $reduction_id);
+    $sql->execute();
+    $this->db->commit();
+
+}
+    
+
 
 }
