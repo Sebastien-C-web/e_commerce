@@ -20,7 +20,7 @@ $all_note = $newAvis->getAllNotes($id);
 $newUser = new Users();
 $all_users = $newUser->getAllUsers();
 
-$n=2;
+$n = 2;
 
 if (isset($_POST['addAvis'])) {
 
@@ -38,7 +38,7 @@ if (isset($_POST['addAvis'])) {
         $newAvis->setUsersId($user_id);
         $newAvis->addAvis();
         $newAvis->addAvisUsers(['users_id' => $user_id, 'produit_id' => $produit_id]);
-        header('location: produit.php?id='.$id);
+        header('location: produit.php?id=' . $id);
     }
 }
 
@@ -115,13 +115,18 @@ if (isset($_POST['addAvis'])) {
 
                 <form action="" method="post" id="etoileNote">
                     <div class="flex justify-center items-center">
+                        <div class="flex flex-col justify-center items-center">
+                            <h2 class="text-2xl">Notez cet article incroyable (Pas en dessous de 4)</h2>
+                            <div>
+                                <input type="hidden" name="note" value="5" />
+                                <span class="etoile">★</span>
+                                <span class="etoile">★</span>
+                                <span class="etoile">★</span>
+                                <span class="etoile">★</span>
+                                <span class="etoile">★</span>
+                            </div>
+                        </div>
 
-                        <input type="hidden" name="note" value="5" />
-                        <span class="etoile">★</span>
-                        <span class="etoile">★</span>
-                        <span class="etoile">★</span>
-                        <span class="etoile">★</span>
-                        <span class="etoile">★</span>
                     </div>
                     <div class="flex flex-col justify-center items-center">
                         <textarea name="avisNote" id="" placeholder="Donnez votre avis !" class="w-[80%] h-96 border border-black"></textarea>
@@ -132,16 +137,23 @@ if (isset($_POST['addAvis'])) {
                     } ?>
                     </div>
                 </form>
+                <div class="flex flex-col justify-center items-center">
+                    <p class="text-2xl font-semibold">Les avis de notre commu' </p>
+                    <p class="text-sm">(prix +50% pour les notes en dessous de 5)</p>
+                </div>
+
                 <?php foreach ($avis_prod as $avis_prods) {
                     foreach ($all_users as $all_user) {
                         if ($all_user['id'] == $avis_prods['users_id']) { ?>
-                            <div class="flex ">
-                                <h3>
-                                    <?php print $all_user['name'] ?> :
-                                </h3>
-                                <article class="ml-2">
-                                    <?php print $avis_prods['contenu']; ?></br>note: <?php print $avis_prods['note']; ?>/5
-                                    <form action="" method="post" id="etoileNote<?php print $n ?>">
+
+                            <h3 class="text-xl font-semibold mx-56">
+                                <?php print $all_user['name'] ?> :
+                            </h3>
+                            <div class="flex justify-center my-2">
+                                <article class="mx-2">
+                                    <?php print $avis_prods['contenu']; ?>
+                                    <div class="flex justify-center ">
+                                        <form action="" method="post" id="etoileNote<?php print $n ?>">
                                         <input type="hidden" class="etoiles" id="<?php print $n ?>" name="note2" value="<?php print $avis_prods['note']; ?>" />
                                         <span class="etoile<?php print $n ?> cool">★</span>
                                         <span class="etoile<?php print $n ?> cool">★</span>
@@ -149,10 +161,15 @@ if (isset($_POST['addAvis'])) {
                                         <span class="etoile<?php print $n ?> cool">★</span>
                                         <span class="etoile<?php print $n ?> cool">★</span>
                                     </form>
-                                </article>
+                                    </div>
+                                    
+                                </article> 
+                                
                             </div>
+                           <hr />
 
-                <?php $n++; }
+                <?php $n++;
+                        }
                     }
                 } ?>
                 <div>

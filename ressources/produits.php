@@ -33,7 +33,7 @@ class Produits extends db {
         $this->image = $image;
     }
 
-    public function getImage(): string
+    public function getImage()
     {
         return $this->image;
     }
@@ -54,5 +54,39 @@ class Produits extends db {
         return $done->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function addProduit()
+    {
+        $name = $this->getName();
+        $description = $this->getDescription();
+        $image = $this->getImage();
+        $prix = $this->getPrix();
+
+        $sql = $this->connecte()->prepare("INSERT INTO produits (name, description, image, prix) VALUES (:name, :description, :image, :prix)");
+        $sql->bindParam(":name", $name);
+        $sql->bindParam(":description", $description);
+        $sql->bindParam(":image", $image);
+        $sql->bindParam(":prix", $prix);
+        $sql->execute();
+    }
+
+    public function modifProduit($param = [])
+    {
+        $sql =$this->connecte()->prepare("UPDATE produits SET name = :name, description = :description, image = :image, prix = :prix WHERE id = :id");
+        $sql->bindParam(":name", $param["name"]);
+        $sql->bindParam(":description", $param["description"]);
+        $sql->bindParam(":image", $param["image"]);
+        $sql->bindParam(":prix", $param["prix"]);
+        $sql->bindParam(":id", $param["id"]);
+        $sql->execute();
+        
+    }
+
+    public function deleteProduit($id)
+    {
+            $sql = $this->connecte()->prepare("DELETE FROM produits WHERE id = :id");
     
+            $sql->bindParam(":id", $id);
+            $sql->execute();
+        
+    }
 }
