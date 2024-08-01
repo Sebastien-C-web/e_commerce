@@ -14,7 +14,7 @@
                     <?php if (isset($_SESSION['user'])) { ?>                        
                         <li><a href="logout.php" class="hover:text-orange-500">deconnexion</a></li>
                         <?php if ($_SESSION['user']['statut'] == 'admin') { ?>
-                        <li><a class="hover:text-orange-600" href="admin.php">admin</a></li>
+                        <li><a class="hover:text-orange-600" href="stock.php">stock</a></li>
                         <?php } ?>
                     <?php } else { ?>
 
