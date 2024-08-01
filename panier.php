@@ -11,7 +11,7 @@ $articles = $_SESSION['panier'];
 var_dump($articles);
 
 
-$total=0;
+$total = 0;
 
 
 ?>
@@ -37,60 +37,60 @@ $total=0;
     <section>
         <div class="container mx-auto flex flex-col gap-6">
 
-        <h2 class="text-bold flex justify-center items-center uppercase font-bold text-orange-400 pb-6 pt-6">Mon panier</h2>
+            <h2 class="text-bold flex justify-center items-center uppercase font-bold text-orange-400 pb-6 pt-6">Mon panier</h2>
 
-        <table class="border border-2 border-black mt-4">
+            <table class="border border-2 border-black mt-4">
 
-            <thead>
+                <thead>
 
-                <th></th>
-                <th class="border border border-2 border-black">Produit</th>
-                <th class="border border border-2 border-black">Prix</th>
-                <th class="border border border-2 border-black">Quantite</th>
-                <th class="border border border-2 border-black">Action</th>
-                <th class="border border border-2 border-black" >Total</th>
+                    <th></th>
+                    <th class="border border border-2 border-black">Produit</th>
+                    <th class="border border border-2 border-black">Prix</th>
+                    <th class="border border border-2 border-black">Quantite</th>
+                    <th class="border border border-2 border-black">Action</th>
+                    <th class="border border border-2 border-black">Total</th>
 
-            </thead>
-            <tbody>
-                <?php
-                foreach ($articles as $key => $article) {
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($articles as $key => $article) {
 
-          
-                   /* var_dump($article); */
-                    $produit = $newPanier->getArticle($key);
-                    /* var_dump($produit); */
-                    $total += ($produit['prix'] * $article);
-                ?>
 
+                        /* var_dump($article); */
+                        $produit = $newPanier->getArticle($key);
+                        /* var_dump($produit); */
+                        $total += ($produit['prix'] * $article);
+                    ?>
+
+                        <tr>
+                            <td class="border border-2 border-black"><img class="h-[7%] w-[7%]" src="<?php echo $produit['image'] ?>" alt="Image du produit"></td>
+                            <td class="border border-2 border-black"><?php echo $produit['name'] ?></td>
+                            <td class="border border-2 border-black"><?php echo $produit['prix'] ?></td>
+                            <td class="border border-2 border-black"><?= $article ?></td>
+                            <td class="border border-2 border-black"><a href="delPanier.php?id=<?php print $produit["id"] ?>"><img class="w-[7%] h-[7%]" src="iconepoubelle.webp" alt="icone poubelle"></a></td>
+
+                        </tr>
+                    <?php
+                    } ?>
+                </tbody>
+                <tfoot>
                     <tr>
-                        <td class="border border-2 border-black"><img class="h-[7%] w-[7%]" src="<?php echo $produit['image'] ?>" alt="Image du produit"></td>
-                        <td class="border border-2 border-black"><?php echo $produit['name'] ?></td>
-                        <td class="border border-2 border-black"><?php echo $produit['prix'] ?></td>
-                        <td class="border border-2 border-black"><?= $article ?></td>
-                        <td class="border border-2 border-black"><a href="delPanier.php?id=<?php print $produit["id"] ?>"><img class="w-[7%] h-[7%]" src="iconepoubelle.webp" alt="icone poubelle"></a></td>
-
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><?php print $total ?></td>
                     </tr>
-                <?php
-                } ?>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><?php print $total ?></td>
-                </tr>
-            </tfoot>
-        </table>
+                </tfoot>
+            </table>
 
-        <table>
-        </table>
+            <table>
+            </table>
 
-                <div class="flex justify-center">
-        <button class="border border-orange-400 bg-orange-400 w-[10%] flex justify-center items-center" type="submit" name="acheter">Acheter</button>
-        </div>
+            <div class="flex justify-center">
+                <button class="border border-orange-400 bg-orange-400 w-[10%] flex justify-center items-center font-bold" type="submit" name="acheter">Acheter</button>
+            </div>
 
         </div>
 
