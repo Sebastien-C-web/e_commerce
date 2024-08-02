@@ -1,6 +1,7 @@
 <?php require_once('./config/db.php');
 require_once('ressources/avis.php');
 require_once('ressources/produits.php');
+require_once('ressources/produits_quantite.php');
 session_start();
 $sql = new db();
 $sql->connecte();
@@ -9,6 +10,8 @@ $newProd = new Produits();
 $all_prod = $newProd->getAllProduits();
 $newAvis = new Avis();
 $id = $_GET['id'];
+$newQty = new ProduitsQuantites();
+$qty = $newQty->getAllQuantite();
 $message_avis = null;
 if (isset($_SESSION['user'])) {
     $all_avis_users = $newAvis->getAvisUser($_SESSION['user']['id'], $id);
@@ -81,7 +84,22 @@ if (isset($_POST['addAvis'])) {
 
                                 <p><?php print $all_prods['description']; ?></p>
                                 <h2 class="text-4xl font-semibold text-red-500"><?php print $all_prods['prix']; ?>&euro; TTC</h2>
-                                <form action="" method="post">
+                               
+                                <form action="" method="post"> 
+                                   
+                                    <select name="taille" id="">
+                                        <?php foreach($qty as $qtys){
+                                    if($qtys['produits_id'] == $id){ ?>
+                                        <option value="<?php print $qtys['taille'] ?>"><?php print $qtys['taille'] ?></option>  
+                                        <?php }} ?>
+                                    </select>
+                                    <select name="qty" id=""> 
+                                    <?php foreach($qty as $qtys){
+                                    if($qtys['produits_id'] == $id){ ?>
+                                        <option value="<?php print $qtys['quantites'] ?>"><?php print $qtys['quantites'] ?></option>
+                                        <?php }} ?>
+                                    </select>
+                                      
                                     <button type="submit" value="<?php print $all_prods['id']; ?>" class="p-2 border border-black bg-white">Ajouter au panier</button>
                                 </form>
                             </div>
@@ -154,19 +172,19 @@ if (isset($_POST['addAvis'])) {
                                     <?php print $avis_prods['contenu']; ?>
                                     <div class="flex justify-center ">
                                         <form action="" method="post" id="etoileNote<?php print $n ?>">
-                                            <input type="hidden" class="etoiles" id="<?php print $n ?>" name="note2" value="<?php print $avis_prods['note']; ?>" />
-                                            <span class="etoile<?php print $n ?> cool">★</span>
-                                            <span class="etoile<?php print $n ?> cool">★</span>
-                                            <span class="etoile<?php print $n ?> cool">★</span>
-                                            <span class="etoile<?php print $n ?> cool">★</span>
-                                            <span class="etoile<?php print $n ?> cool">★</span>
-                                        </form>
+                                        <input type="hidden" class="etoiles" id="<?php print $n ?>" name="note2" value="<?php print $avis_prods['note']; ?>" />
+                                        <span class="etoile<?php print $n ?> cool">★</span>
+                                        <span class="etoile<?php print $n ?> cool">★</span>
+                                        <span class="etoile<?php print $n ?> cool">★</span>
+                                        <span class="etoile<?php print $n ?> cool">★</span>
+                                        <span class="etoile<?php print $n ?> cool">★</span>
+                                    </form>
                                     </div>
-
-                                </article>
-
+                                    
+                                </article> 
+                                
                             </div>
-                            <hr />
+                           <hr />
 
                 <?php $n++;
                         }
@@ -178,12 +196,12 @@ if (isset($_POST['addAvis'])) {
 
         </section>
 
+
+
     </main>
     <footer>
-        <?php include('compo/footer.php'); ?>
-
+        <?php include_once('compo/footer.php'); ?>
     </footer>
-
     <script src="ressources/script_etoile.js"></script>
 </body>
 
