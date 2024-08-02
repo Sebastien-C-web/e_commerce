@@ -6,7 +6,12 @@ require_once("classe/users.php");
 $db = new db();
 $db->connecte();
 
+<<<<<<< HEAD
 if (isset($_POST['envoyer'])) {
+=======
+
+if(isset($_POST['envoyer'])){
+>>>>>>> ee819ad9cae3258742e1737bc564c3592a1022d2
     $email = htmlspecialchars(trim($_POST['email']));
     $password = htmlspecialchars(trim($_POST['password']));
     $name = htmlspecialchars(trim($_POST['name_ins']));
