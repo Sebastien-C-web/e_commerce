@@ -17,10 +17,6 @@ $randomProd = array_rand($produits, 2);
 <!DOCTYPE html>
 <html lang="en">
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ee819ad9cae3258742e1737bc564c3592a1022d2
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,26 +27,6 @@ $randomProd = array_rand($produits, 2);
     <link rel="stylesheet" href="url-to-cdn/splide.min.css">
 </head>
 
-<<<<<<< HEAD
-
-
-<body>
-
-
-<audio src="imagelog/son12.mp3" autoplay></audio>
-
-
-    <nav>
-        <?php include('compo/header.php'); ?>
-    </nav>
-
-
-
-    <footer>
-        <?php include('compo/footer.php'); ?>
-    </footer>
-    <script src="son.js"></script>
-=======
 <body>
     <header>
         <?php include('compo/header.php'); ?>
@@ -104,7 +80,6 @@ $randomProd = array_rand($produits, 2);
 
     </footer>
 
->>>>>>> ee819ad9cae3258742e1737bc564c3592a1022d2
 </body>
 
 </html>
