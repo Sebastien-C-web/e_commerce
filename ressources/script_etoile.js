@@ -1,4 +1,3 @@
-
 function selectEtoileA(aEtoiles, bUnselect, iNote, sClassSlelected){
     for(var h = 0; h < aEtoiles.length; h++) {
       let oClass = aEtoiles[h].classList;
