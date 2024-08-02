@@ -154,19 +154,19 @@ if (isset($_POST['addAvis'])) {
                                     <?php print $avis_prods['contenu']; ?>
                                     <div class="flex justify-center ">
                                         <form action="" method="post" id="etoileNote<?php print $n ?>">
-                                        <input type="hidden" class="etoiles" id="<?php print $n ?>" name="note2" value="<?php print $avis_prods['note']; ?>" />
-                                        <span class="etoile<?php print $n ?> cool">★</span>
-                                        <span class="etoile<?php print $n ?> cool">★</span>
-                                        <span class="etoile<?php print $n ?> cool">★</span>
-                                        <span class="etoile<?php print $n ?> cool">★</span>
-                                        <span class="etoile<?php print $n ?> cool">★</span>
-                                    </form>
+                                            <input type="hidden" class="etoiles" id="<?php print $n ?>" name="note2" value="<?php print $avis_prods['note']; ?>" />
+                                            <span class="etoile<?php print $n ?> cool">★</span>
+                                            <span class="etoile<?php print $n ?> cool">★</span>
+                                            <span class="etoile<?php print $n ?> cool">★</span>
+                                            <span class="etoile<?php print $n ?> cool">★</span>
+                                            <span class="etoile<?php print $n ?> cool">★</span>
+                                        </form>
                                     </div>
-                                    
-                                </article> 
-                                
+
+                                </article>
+
                             </div>
-                           <hr />
+                            <hr />
 
                 <?php $n++;
                         }
@@ -178,9 +178,12 @@ if (isset($_POST['addAvis'])) {
 
         </section>
 
-
-
     </main>
+    <footer>
+        <?php include('compo/footer.php'); ?>
+
+    </footer>
+
     <script src="ressources/script_etoile.js"></script>
 </body>
 

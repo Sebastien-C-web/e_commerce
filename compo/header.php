@@ -3,14 +3,14 @@
  
         <nav class="flex justify-between border-b-2  border-black bg-white-300 text-black w-screen">
             <div class="px-5 xl:px-12 py-6 flex w-full items-center">
-                <a class="text-3xl font-bold font-heading" href="#">
+                <a class="text-3xl font-bold font-heading" href="panier.php">
                     <img class="h-16" src="imagelog/logo1.png" alt="">
 
                 </a>
            
                 <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
                     <li><a class="hover:text-orange-500" href="index.php">Accueil</a></li>
-                    <li><a class="hover:text-orange-500" href="#">Commande</a></li>
+                    <li><a class="hover:text-orange-500" href="Articles.php">Nos Produits</a></li>
                     <?php if (isset($_SESSION['user'])) { ?>                        
                         <li><a href="logout.php" class="hover:text-orange-500">deconnexion</a></li>
                         <?php if ($_SESSION['user']['statut'] == 'admin') { ?>
