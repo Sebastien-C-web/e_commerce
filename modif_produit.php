@@ -3,7 +3,7 @@
 require_once('config/db.php');
 require_once('ressources/avis.php');
 require_once('ressources/produits.php');
-require_once ('ressources/produits_quantite.php');
+require_once('ressources/produits_quantite.php');
 session_start();
 
 $db = new db();
@@ -19,18 +19,18 @@ $produitsQuants = $newQuant->getAllQuantite();
 
 
 
-if(isset($_POST["modif_article"])) {
+if (isset($_POST["modif_article"])) {
     $name = $_POST["name"];
     $description = $_POST["description"];
     $image = $_FILES["image"]["name"];
     $prix = $_POST["prix"];
     $ID = $id;
 
-    
+
 
     $newProd->modifProduit(["name" => $name, "description" => $description, "image" => $image, "prix" => $prix, "id" => $ID]);
     if (isset($image["name"])) {
-        move_uploaded_file($image["tmp_name"], "ressources/uploads/".$image["name"]);
+        move_uploaded_file($image["tmp_name"], "ressources/uploads/" . $image["name"]);
     };
     header("Location: stock.php");
 }
@@ -39,6 +39,7 @@ if(isset($_POST["modif_article"])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,34 +49,36 @@ if(isset($_POST["modif_article"])) {
                 print $all_prods['name'];
             }
         } ?></title>
-        <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body>
-<header>
-    <?php include_once('compo/header.php'); ?>
-  </header>
-  <main>
+    <header>
+        <?php include_once('compo/header.php'); ?>
+    </header>
+    <main>
         <section class="bg-[#EDAC70] flex flex-row justify-center items-center gap-5 px-5 py-5">
-        <?php foreach ($all_prod as $all_prods) {
-            if ($all_prods['id'] == $id) { ?>
-                <div class="flex flex-col justify-center pr-10 items-center">
-                    <img src="ressources/uploads/<?php echo $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-40 h-fit">
+            <?php foreach ($all_prod as $all_prods) {
+                if ($all_prods['id'] == $id) { ?>
+                    <div class="flex flex-col justify-center pr-10 items-center">
+                        <img src="ressources/uploads/<?php echo $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-40 h-fit">
                     </div>
                     <div class="flex flex-col justify-center items-center">
-                    <h2>Nom de l'article : <?php print $all_prods['name']; ?></h2>
-                    <p> Description de l'article : <?php print $all_prods['description']; ?></p>
-                    <h2>Prix : <?php print $all_prods['prix']; ?> € </h2>
-                    <?php foreach($produitsQuants as $produitsQuant) { 
-                        if($produitsQuant["produits_id"] == $id) { ?>
-                        <h2>Quantitée en stock : <?php print $produitsQuant["quantites"]; ?></h2>
-                  <?php  }
-                }
-                    ?>
+                        <h2>Nom de l'article : <?php print $all_prods['name']; ?></h2>
+                        <p> Description de l'article : <?php print $all_prods['description']; ?></p>
+                        <h2>Prix : <?php print $all_prods['prix']; ?> € </h2>
+                        <?php foreach ($produitsQuants as $produitsQuant) {
+                            if ($produitsQuant["produits_id"] == $id) { ?>
+                                <h2>Quantitée en stock : <?php print $produitsQuant["quantites"]; ?></h2>
+                        <?php  }
+                        }
+                        ?>
                     </div>
-                    <?php }} ?>
+            <?php }
+            } ?>
         </section>
         <section>
-        <form action="" method="post" class="flex flex-col justify-between" enctype="multipart/form-data">
+            <form action="" method="post" class="flex flex-col justify-between" enctype="multipart/form-data">
                 <div class="flex justify-around items-center">
                     <div class="flex flex-col items-center">
                         <label for="name">Nom de l'article :</label>
@@ -103,9 +106,12 @@ if(isset($_POST["modif_article"])) {
                 </div>
             </form>
         </section>
-  </main>
+    </main>
+
     <footer>
+        <?php include('compo/footer.php'); ?>
 
     </footer>
 </body>
+
 </html>
