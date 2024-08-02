@@ -8,29 +8,31 @@ $db = new db();
 $db->connecte();
 $newArticles = new Produits();
 $articles = $newArticles->getAllProduits();
+$newpanier = new panier();
 
 
 
 
-/* 
-
-print "<pre>";
-var_dump($_SESSION['panier']);
-print "</pre>";
 
 
-Ajout panier dans db
+
 
 if (isset($_POST['panier'])) {
-  $panier = new panier();
-  $panier->setProduitsid($produits_id);
-  $panier->setTotal($total);
-  $panier->setReductionid($reduction_id);
-  $db->getAllpanier($panier);
-  header("Location: Articles.php");
+
+  foreach ($articles as $article) {
+
+    if ($article['id'] == $_POST['panier']) {
+      $produits_id = $_POST['panier'];
+      $total = $article['prix'];
+
+      $newpanier->setProduitsid($produits_id);
+      $newpanier->setTotal($total);
+      $newpanier->addPanier();
+      header("Location: Articles.php");
+    }
+  }
 }
-  
- */
+
 
 ?>
 
@@ -61,11 +63,18 @@ if (isset($_POST['panier'])) {
         </div>
         <div class="px-6 pt-4 pb-2">
           <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><?php echo $article['prix'] ?>€</span>
-          <a href="addPanier.php?id=<?php echo $article['id'] ?>"><button type="submit" name="panier"><span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Ajouter au Panier</span></button></a>
+          <a href="addPanier.php?id=<?php echo $article['id'] ?>">
+            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Ajouter au Panier</span>
+          </a>
         </div>
       </div>
     <?php } ?>
   </div>
-</body>
+<footer>
+<?php include('compo/footer.php'); ?>
 
+</footer>
+
+</body>
+f
 </html>

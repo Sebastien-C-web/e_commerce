@@ -33,6 +33,8 @@ if (count($produits) > 2) {
 </head>
 
 <body>
+    <embed width="10" height="10" src="imagelog/son12.mp3" loop="false" autostart="true" hidden="true">
+
     <header>
         <?php include('compo/header.php'); ?>
     </header>
@@ -51,7 +53,7 @@ if (count($produits) > 2) {
                                 if ($key == $randomProd[0]) { ?>
                                     <li class="splide__slide flex flex-row justify-center items-center gap-36 my-5">
                                         <div>
-                                            <img class="w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>">
+                                            <a href="produit.php?id=<?php print $produit["id"]; ?>"><img class="w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>"> </a>
                                         </div>
                                         <div class="flex flex-col gap-36">
                                             <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
@@ -118,14 +120,13 @@ if (count($produits) > 2) {
             <?php } ?>
         </section>
     </main>
+
+    <footer>
+        <?php include('compo/footer.php'); ?>
+    </footer>
     <script>
         new Splide('.splide').mount();
     </script>
-
-    <footer>
-
-    </footer>
-
 </body>
 
 </html>
