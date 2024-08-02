@@ -6,18 +6,10 @@ session_start();
 $bdd = new db();
 $bdd->connecte();
 
-<<<<<<< HEAD
-if (!isset($_SESSION["rowguids"])) {
-    $_SESSION["rowguid"] = uniqid();
-}
-
-
-=======
 $newProd = new Produits();
 $produits = $newProd->getAllProduits();
 
 $randomProd = array_rand($produits, 2);
->>>>>>> ee819ad9cae3258742e1737bc564c3592a1022d2
 
 ?>
 
@@ -36,13 +28,6 @@ $randomProd = array_rand($produits, 2);
 </head>
 
 <body>
-<<<<<<< HEAD
-
-
-    <nav>
-        <?php include('compo/header.php'); ?>
-    </nav>
-=======
     <header>
         <?php include('compo/header.php'); ?>
     </header>
@@ -95,7 +80,6 @@ $randomProd = array_rand($produits, 2);
 
     </footer>
 
->>>>>>> ee819ad9cae3258742e1737bc564c3592a1022d2
 </body>
 
 </html>
