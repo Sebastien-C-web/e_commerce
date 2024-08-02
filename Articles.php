@@ -15,15 +15,6 @@ $newpanier = new panier();
 
 
 
-print "<pre>";
-var_dump($_SESSION['panier']);
-print "</pre>";
-print "<pre>";
-var_dump($_SESSION["rowguid"]);
-print "</pre>";
-
-
-
 
 
 if (isset($_POST['panier'])) {
@@ -79,6 +70,11 @@ if (isset($_POST['panier'])) {
       </div>
     <?php } ?>
   </div>
-</body>
+<footer>
+<?php include('compo/footer.php'); ?>
 
+</footer>
+
+</body>
+f
 </html>

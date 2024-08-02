@@ -96,6 +96,10 @@ $total = 0;
 
     </section>
 
+    <footer>
+        <?php include('compo/footer.php'); ?>
+
+    </footer>
 </body>
 
 </html>
