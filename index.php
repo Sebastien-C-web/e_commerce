@@ -15,7 +15,6 @@ if (count($produits) > 2) {
     $randomProd = array_rand($produits, 3);
 }
 
-$k = count($produits) - 4;
 
 ?>
 
@@ -122,7 +121,7 @@ $k = count($produits) - 4;
     <script>
         new Splide('.splide').mount();
     </script>
-    
+
     <footer>
 
     </footer>

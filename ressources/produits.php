@@ -92,7 +92,7 @@ class Produits extends db {
 
     public function lastProduits()
     {
-        $sql = "SELECT * FROM produits ORDER BY id DESC LIMIT 4";
+        $sql = "SELECT * FROM produits ORDER BY id DESC LIMIT 3";
         $done = $this->connecte()->query($sql);
         return $done->fetchAll(PDO::FETCH_ASSOC);
     }
