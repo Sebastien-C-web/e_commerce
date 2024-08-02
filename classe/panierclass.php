@@ -1,11 +1,13 @@
 <?php
 require_once("./config/db.php");
-class panier extends db 
+class panier extends db
 {
 
     private $produits_id;
 
     private $total;
+
+    private $rowguid;
 
     private $reduction_id;
 
@@ -13,91 +15,115 @@ class panier extends db
 
     private $panier;
 
+    private $calculetotal;
 
 
-public function __construct()
+    public function __construct()
     {
         $this->db = $this->connecte();
     }
 
-public function setProduitsid($produits_id)
+    public function setProduitsid($produits_id)
 
-{
+    {
 
-$this->produits_id=$produits_id;
+        $this->produits_id = $produits_id;
+    }
 
-}
+    public function getProduitsid()
 
-public function getProduitsid()
+    {
 
-{
+        return $this->produits_id;
+    }
 
-return $this->produits_id;
+    public function setTotal($total)
 
-}
+    {
 
-public function setTotal($total)
+        $this->total = $total;
+    }
 
-{
+    public function getTotal()
 
-$this->total=$total;
+    {
 
-}
+        return $this->total;
+    }
+    public function setRowguid($rowguid)
 
-public function getTotal()
+    {
 
-{
+        $this->rowguid = $rowguid;
+    }
 
-    return $this->total;
+    public function getRowguid()
 
-}
+    {
 
-public function setReductionid($reduction_id)
+        return $this->rowguid;
+    }
 
-{
+    public function setReductionid($reduction_id)
 
-    $this->reduction_id=$reduction_id;
+    {
 
-}
+        $this->reduction_id = $reduction_id;
+    }
 
-public function getReductionid()
+    public function getReductionid()
 
-{
+    {
 
-    return $this->reduction_id;
-
-}
-
-
-public function getArticle($id){
-    $sql = $this->db->prepare("SELECT * FROM produits WHERE id = :id");
-    $sql->bindParam(":id", $id);
-    $sql->execute();
-    return $sql->fetch(PDO::FETCH_ASSOC);
-}
-
+        return $this->reduction_id;
+    }
 
 
 
-// Ajout panier db 
-
-public function getAllpanier()
-{
-
- 
-    $produits_id = $panier->getArticle();
-    $total = $panier->getTotal();
-    $reduction_id = $panier->getReductionid();
-
-    $sql = $this->db->prepare("INSERT INTO panier (produits_id, total, reduction_id) VALUES (:produits_id, :total, :reduction_id)");
-    $sql->bindParam(':produit', $produits_id);
-    $sql->bindParam(':total', $total);
-    $sql->bindParam(':reductin_id', $reduction_id);
-    $sql->execute();
-    $this->db->commit();
-
-}
-    
+    public function getArticle($id)
+    {
+        $sql = $this->db->prepare("SELECT * FROM produits WHERE id = :id");
+        $sql->bindParam(":id", $id);
+        $sql->execute();
+        return $sql->fetch(PDO::FETCH_ASSOC);
+    }
 
 
+
+
+    public function addPanier()
+    {
+
+
+        $produits_id = $this->getProduitsid();
+        $total = $this->getTotal();
+        $reduction_id = $this->getReductionid();
+        $rowguid = $this->getRowguid();
+
+        $sql2 = $this->db->prepare("SELECT * FROM panier WHERE rowguid = :rowguid AND produits_id = :produits_id");
+        $sql2->bindParam(":produits_id", $produits_id);
+        $sql2->bindParam(':rowguid', $rowguid);
+        $sql2->execute();
+        $exist = $sql2->fetch(PDO::FETCH_ASSOC);
+        var_dump($exist);
+        if ($exist) {
+            $sql = $this->db->prepare("UPDATE panier SET total = :total WHERE rowguid = :rowguid AND produits_id = :produits_id");
+            $sql->bindParam(':produits_id', $exist["produits_id"]);
+            $sql->bindParam(':rowguid', $rowguid);
+            $sql->bindParam(':total', $total);
+        } else {
+            $sql = $this->db->prepare("INSERT INTO panier (produits_id, total, reduction_id, rowguid) VALUES (:produits_id, :total, :reduction_id, :rowguid)");
+            $sql->bindParam(':produits_id', $produits_id);
+            $sql->bindParam(':rowguid', $rowguid);
+            $sql->bindParam(':total', $total);
+            $sql->bindParam(':reduction_id', $reduction_id);
+        }
+
+
+        $sql->execute();
+    }
+
+    public function calculerTotal()
+    {
+    }
 }
