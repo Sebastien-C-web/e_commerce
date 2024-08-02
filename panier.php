@@ -63,7 +63,7 @@ $total = 0;
                     ?>
 
                         <tr>
-                            <td class="border border-2 border-black"><img class="h-[7%] w-[7%]" src="<?php echo $produit['image'] ?>" alt="Image du produit"></td>
+                            <td class="border border-2 border-black"><img class="h-[7%] w-[7%]" src="ressources/uploads/<?php echo $produit['image'] ?>" alt="Image du produit"></td>
                             <td class="border border-2 border-black"><?php echo $produit['name'] ?></td>
                             <td class="border border-2 border-black"><?php echo $produit['prix'] ?></td>
                             <td class="border border-2 border-black"><?= $article ?></td>

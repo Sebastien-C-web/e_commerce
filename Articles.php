@@ -66,7 +66,7 @@ if (isset($_POST['panier'])) {
   <div class="flex flex-row gap-6 bg-[#EDAC70] pt-[3%] pb-[3%]">
     <?php foreach ($articles as $article) { ?>
       <div class="w-[15%] rounded overflow-hidden shadow-lg">
-        <a href="produit.php?id=<?php echo $article['id'] ?>"><img class="w-full" src="<?php echo $article['image']; ?>" alt="photo de l'article"></a>
+        <a href="produit.php?id=<?php echo $article['id'] ?>"><img class="w-full" src="ressources/uploads/<?php echo $article['image']; ?>" alt="photo de l'article"></a>
         <div class="px-6 py-4">
           <div class="font-bold text-xl mb-2"><?php echo $article['name']; ?></div>
         </div>
