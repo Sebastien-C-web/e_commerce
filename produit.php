@@ -72,7 +72,7 @@ if (isset($_POST['addAvis'])) {
                 <?php foreach ($all_prod as $all_prods) {
                     if ($all_prods['id'] == $id) { ?>
                         <div class=" flex justify-center py-6">
-                            <img src="<?php print $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-fit h-96">
+                            <img src="ressources/uploads/<?php print $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-fit h-96">
 
                             <div class="flex flex-col items-center justify-around mx-6 ">
                                 <div class="">
