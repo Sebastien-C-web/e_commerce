@@ -89,14 +89,14 @@ $total = 0;
             </table>
 
             <div class="flex justify-center">
-                <button class="border border-orange-400 bg-orange-400 w-[10%] flex justify-center items-center font-bold" type="submit" name="acheter">Acheter</button>
+                <button class="border border-black bg-orange-400 w-[10%] flex justify-center items-center font-bold" type="submit" name="acheter">Acheter</button>
             </div>
 
         </div>
 
     </section>
 
-    <footer>
+    <footer class="pt-[10%]">
         <?php include('compo/footer.php'); ?>
 
     </footer>
