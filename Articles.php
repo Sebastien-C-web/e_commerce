@@ -52,7 +52,7 @@ if (isset($_POST['panier'])) {
     <?php include('compo/header.php'); ?>
   </nav>
 
-  <a class="border border-2 border-black bg-[#EDAC70]" href="panier.php">Panier<span><?= ($_SESSION['panier']) ?></span></a>
+  <a class="border border-2 border-black bg-[#EDAC70]" href="panier.php">Panier<span><?=($_SESSION['panier']) ?></span></a>
 
   <div class="flex flex-row gap-6 bg-[#EDAC70] pt-[3%] pb-[3%]">
     <?php foreach ($articles as $article) { ?>

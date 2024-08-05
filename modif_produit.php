@@ -82,21 +82,29 @@ if (isset($_POST["modif_article"])) {
                 <div class="flex justify-around items-center">
                     <div class="flex flex-col items-center">
                         <label for="name">Nom de l'article :</label>
-                        <textarea class="border-2 border-black" name="name" rows="5" cols="70" value="<?php foreach ($all_prod as $all_prods) {
+                        <textarea class="border-2 border-black" name="name" rows="5" cols="70"><?php foreach ($all_prod as $all_prods) {
                                                                                                             if ($all_prods['id'] == $id) {
                                                                                                                 print $all_prods["name"];
                                                                                                             }
-                                                                                                        } ?>"></textarea>
+                                                                                                        } ?></textarea>
                     </div>
                     <div class="flex flex-col items-center">
                         <label for="description">Description de l'aricle :</label>
-                        <textarea class="border-2 border-black" name="description" rows="5" cols="70"></textarea>
+                        <textarea class="border-2 border-black" name="description" rows="5" cols="70"><?php foreach ($all_prod as $all_prods) {
+                                                                                                            if ($all_prods['id'] == $id) {
+                                                                                                                print $all_prods["description"];
+                                                                                                            }
+                                                                                                        } ?></textarea>
                     </div>
                 </div>
                 <div class="flex justify-around items-center pt-5">
                     <div class="flex flex-col items-center">
                         <label for="prix">Prix de l'article :</label>
-                        <input type="text" class="border-2 border-black" name="prix"></input>
+                        <input type="text" class="border-2 border-black" name="prix" value=<?php foreach ($all_prod as $all_prods) {
+                                                                                                            if ($all_prods['id'] == $id) {
+                                                                                                                print $all_prods["prix"];
+                                                                                                            }
+                                                                                                        } ?>></input>
                     </div>
                     <div class="flex flex-col items-center">
                         <label for="image">Image de l'article :</label><br>
