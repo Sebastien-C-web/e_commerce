@@ -1,6 +1,8 @@
 <?php require_once('./config/db.php');
 require_once('ressources/avis.php');
 require_once('ressources/produits.php');
+require_once('ressources/produits_quantite.php');
+require_once('ressources/taille.php');
 session_start();
 $sql = new db();
 $sql->connecte();
@@ -8,7 +10,11 @@ $sql->connecte();
 $newProd = new Produits();
 $all_prod = $newProd->getAllProduits();
 $newAvis = new Avis();
+$newTaille = new Taille();
+$taille = $newTaille->getAllTaille();
 $id = $_GET['id'];
+$newQty = new ProduitsQuantites();
+$qty = $newQty->getAllQuantite();
 $message_avis = null;
 if (isset($_SESSION['user'])) {
     $all_avis_users = $newAvis->getAvisUser($_SESSION['user']['id'], $id);
@@ -19,7 +25,7 @@ $all_note = $newAvis->getAllNotes($id);
 
 $newUser = new Users();
 $all_users = $newUser->getAllUsers();
-
+var_dump($_SESSION['panier']);
 $n = 2;
 
 if (isset($_POST['addAvis'])) {
@@ -41,6 +47,8 @@ if (isset($_POST['addAvis'])) {
         header('location: produit.php?id=' . $id);
     }
 }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -81,7 +89,52 @@ if (isset($_POST['addAvis'])) {
 
                                 <p><?php print $all_prods['description']; ?></p>
                                 <h2 class="text-4xl font-semibold text-red-500"><?php print $all_prods['prix']; ?>&euro; TTC</h2>
-                                <form action="" method="post">
+
+
+                                <form method="post" id="formTaille">
+
+
+                                    <label for="taille"> Tailles disponible</label>
+                                    <select name="taille" id="taille">
+                                        
+                                        <option selected disabled>Selectionnez votre taille</option>
+
+                                        <?php foreach ($taille as $tailles) {
+                                            foreach ($qty as $qtys) {
+                                                if ($qtys['produits_id'] == $id && $tailles['id'] == $qtys['taille_id']) { ?>
+                                                    <option value="<?php print $tailles['id'] ?>"><?php print $tailles['taille'] ?></option>
+                                        <?php }
+                                            }
+                                        } ?>
+                                    </select>
+                                    <?php if (isset($_POST["taille"])) {
+                                        foreach ($taille as $tailles) {
+                                            if ($_POST["taille"] == $tailles['id']) { ?>
+                                                <p class="text-center">Taille <span class="font-semibold text-sky-500"><?php print $tailles['taille'] ?></span> séléctionnée</p>
+                                    <?php }
+                                        }
+                                    } ?>
+                                </form>
+
+                                <form action="addPanier.php?id=<?php print $id; ?>" method="post">
+                                    <label for="qty"> Quantités </label>
+                                    <select name="qty" id="">
+                                        <?php foreach ($qty as $qtys) {
+                                            if ($qtys['produits_id'] == $id) {
+                                                if ($_POST['taille'] == $qtys['taille_id']) {
+
+                                        ?>
+
+                                                    <!-- boucle for pour afficher les quantités -->
+                                                    <?php for ($i = 1; $i < ($qtys['quantites'] + 1); $i++) { ?>
+
+                                                        <option value="<?php print $i ?>"><?php print $i ?></option>
+                                        <?php }
+                                                }
+                                            }
+                                        } ?>
+                                    </select>
+
                                     <button type="submit" value="<?php print $all_prods['id']; ?>" class="p-2 border border-black bg-white">Ajouter au panier</button>
                                 </form>
                             </div>
@@ -178,12 +231,12 @@ if (isset($_POST['addAvis'])) {
 
         </section>
 
+
+
     </main>
     <footer>
-        <?php include('compo/footer.php'); ?>
-
+        <?php include_once('compo/footer.php'); ?>
     </footer>
-
     <script src="ressources/script_etoile.js"></script>
 </body>
 

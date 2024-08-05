@@ -18,3 +18,6 @@ form span.gold {
   cursor: initial;
 }
 
+p span {
+  font-size: 1.5em;
+}

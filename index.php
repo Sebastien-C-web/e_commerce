@@ -8,12 +8,14 @@ $bdd->connecte();
 
 $newProd = new Produits();
 $produits = $newProd->getAllProduits();
+$_SESSION["rowguid"]=uniqid();
 
 $lastProds = $newProd->lastProduits();
 
 if (count($produits) > 2) {
     $randomProd = array_rand($produits, 3);
 }
+
 
 
 ?>
