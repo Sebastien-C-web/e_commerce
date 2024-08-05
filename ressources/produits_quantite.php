@@ -56,5 +56,6 @@ class ProduitsQuantites extends db
         $sql->execute();
     }
 
+  
 }
 

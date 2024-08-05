@@ -25,7 +25,7 @@ $all_note = $newAvis->getAllNotes($id);
 
 $newUser = new Users();
 $all_users = $newUser->getAllUsers();
-
+var_dump($_SESSION['panier']);
 $n = 2;
 
 if (isset($_POST['addAvis'])) {
@@ -47,6 +47,8 @@ if (isset($_POST['addAvis'])) {
         header('location: produit.php?id=' . $id);
     }
 }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -87,25 +89,52 @@ if (isset($_POST['addAvis'])) {
 
                                 <p><?php print $all_prods['description']; ?></p>
                                 <h2 class="text-4xl font-semibold text-red-500"><?php print $all_prods['prix']; ?>&euro; TTC</h2>
-                               
-                                <form action="" method="post"> 
-                                   
-                                    <select name="taille" id="">
-                                        <?php  foreach($taille as $tailles){
-                                     if($tailles['produits_id'] == $id){ ?>
-                                        <?php print $tailles['taille'] ?>"><?php print $tailles['taille'] ?></option>  
-                                        <?php }} ?>
-                                    </select>
-                                    <select name="qty" id=""> 
-                                    <?php foreach($qty as $qtys){
-                                    if($qtys['produits_id'] == $id){ 
-                                        // boucle for pour afficher les quantités
-                                        for($i=1; $i< ($qtys['quantites'] +1); $i++){?> 
+
+
+                                <form method="post" id="formTaille">
+
+
+                                    <label for="taille"> Tailles disponible</label>
+                                    <select name="taille" id="taille">
                                         
-                                        <option value="<?php print $i ?>"><?php print $i ?></option>
-                                        <?php }}} ?>
+                                        <option selected disabled>Selectionnez votre taille</option>
+
+                                        <?php foreach ($taille as $tailles) {
+                                            foreach ($qty as $qtys) {
+                                                if ($qtys['produits_id'] == $id && $tailles['id'] == $qtys['taille_id']) { ?>
+                                                    <option value="<?php print $tailles['id'] ?>"><?php print $tailles['taille'] ?></option>
+                                        <?php }
+                                            }
+                                        } ?>
                                     </select>
-                                      
+                                    <?php if (isset($_POST["taille"])) {
+                                        foreach ($taille as $tailles) {
+                                            if ($_POST["taille"] == $tailles['id']) { ?>
+                                                <p class="text-center">Taille <span class="font-semibold text-sky-500"><?php print $tailles['taille'] ?></span> séléctionnée</p>
+                                    <?php }
+                                        }
+                                    } ?>
+                                </form>
+
+                                <form action="addPanier.php?id=<?php print $id; ?>" method="post">
+                                    <label for="qty"> Quantités </label>
+                                    <select name="qty" id="">
+                                        <?php foreach ($qty as $qtys) {
+                                            if ($qtys['produits_id'] == $id) {
+                                                if ($_POST['taille'] == $qtys['taille_id']) {
+
+                                        ?>
+
+                                                    <!-- boucle for pour afficher les quantités -->
+                                                    <?php for ($i = 1; $i < ($qtys['quantites'] + 1); $i++) { ?>
+
+                                                        <option value="<?php print $i ?>"><?php print $i ?></option>
+                                        <?php }
+                                                }
+                                            }
+                                        } ?>
+                                    </select>
+
                                     <button type="submit" value="<?php print $all_prods['id']; ?>" class="p-2 border border-black bg-white">Ajouter au panier</button>
                                 </form>
                             </div>
@@ -178,19 +207,19 @@ if (isset($_POST['addAvis'])) {
                                     <?php print $avis_prods['contenu']; ?>
                                     <div class="flex justify-center ">
                                         <form action="" method="post" id="etoileNote<?php print $n ?>">
-                                        <input type="hidden" class="etoiles" id="<?php print $n ?>" name="note2" value="<?php print $avis_prods['note']; ?>" />
-                                        <span class="etoile<?php print $n ?> cool">★</span>
-                                        <span class="etoile<?php print $n ?> cool">★</span>
-                                        <span class="etoile<?php print $n ?> cool">★</span>
-                                        <span class="etoile<?php print $n ?> cool">★</span>
-                                        <span class="etoile<?php print $n ?> cool">★</span>
-                                    </form>
+                                            <input type="hidden" class="etoiles" id="<?php print $n ?>" name="note2" value="<?php print $avis_prods['note']; ?>" />
+                                            <span class="etoile<?php print $n ?> cool">★</span>
+                                            <span class="etoile<?php print $n ?> cool">★</span>
+                                            <span class="etoile<?php print $n ?> cool">★</span>
+                                            <span class="etoile<?php print $n ?> cool">★</span>
+                                            <span class="etoile<?php print $n ?> cool">★</span>
+                                        </form>
                                     </div>
-                                    
-                                </article> 
-                                
+
+                                </article>
+
                             </div>
-                           <hr />
+                            <hr />
 
                 <?php $n++;
                         }
