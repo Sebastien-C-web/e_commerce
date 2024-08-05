@@ -65,7 +65,7 @@ if (count($produits) > 2) {
                                 if ($key == $randomProd[1]) { ?>
                                     <li class="splide__slide flex flex-row justify-center items-center gap-36 my-5">
                                         <div>
-                                            <img class="w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>">
+                                        <a href="produit.php?id=<?php print $produit["id"]; ?>"><img class="w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>"></a>
                                         </div>
                                         <div class="flex flex-col gap-36">
                                             <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
@@ -77,7 +77,7 @@ if (count($produits) > 2) {
                                 if ($key == $randomProd[2]) { ?>
                                     <li class="splide__slide flex flex-row justify-center items-center gap-36 my-5">
                                         <div>
-                                            <img class="w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>">
+                                        <a href="produit.php?id=<?php print $produit["id"]; ?>"><img class="w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>"></a>
                                         </div>
                                         <div class="flex flex-col gap-36">
                                             <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
@@ -99,9 +99,7 @@ if (count($produits) > 2) {
                 foreach ($lastProds as $lastProd) { ?>
                     <article>
                         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <a href="#">
                                 <img class="rounded-t-lg w-96 h-96" src="ressources/uploads/<?php echo $lastProd["image"]; ?>" alt="produit 1" />
-                            </a>
                             <div class="p-5">
                                 <a href="#">
                                     <h5 class="mb-2 text-2xl font-bold truncate tracking-tight text-gray-900 dark:text-white"><?php print $lastProd["name"]; ?></h5>
