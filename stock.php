@@ -3,6 +3,7 @@ session_start();
 require_once("config/db.php");
 require_once('ressources/produits.php');
 require_once('ressources/produits_quantite.php');
+require_once('ressources/taille.php');
 
 $db = new db();
 $db->connecte();
@@ -12,6 +13,9 @@ $produits = $newProd->getAllProduits();
 
 $newQuant = new ProduitsQuantites();
 $produitsQuants = $newQuant->getAllQuantite();
+
+$newTaille = new Taille();
+$produitsTailles = $newTaille->getAllTaille();
 
 if (!isset($_SESSION["user"]["statut"]) == "admin") {
     header("Location: index.php");
@@ -26,7 +30,6 @@ if (isset($_POST['envoi_article'])) {
     $description = $_POST["description"];
     $image = $imgInfos. "_". time();
     $prix = $_POST["prix"];
-
 
     $newProd->setName($name);
     $newProd->setDescription($description);
@@ -47,6 +50,16 @@ if (isset($_POST["qtte"])) {
     $newQuant->setQuantite($quantite);
     $newQuant->addQuantite();
     header("Location: stock.php");
+}
+
+if(isset($_POST["taille"])) {
+    $tailleId = $_POST["taille"];
+    $taille = $_POST["taille-T"];
+    $newTaille ->setQuantiteID($tailleId);
+    $newTaille ->setTaille($taille);
+    $newTaille ->addTaille();
+    header("Location: stock.php");
+
 }
  
 if (isset($_POST["delete"])) {
@@ -92,6 +105,7 @@ if (isset($_POST["delete"])) {
                         <th class=" px-5 py-2 border-2 border-black bg-white">Stock</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Nouveau stock</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Modif</th>
+                        <th class=" px-5 py-2 border-2 border-black bg-white">Tailles disp.</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">DELETE</th>
                     </tr>
                 </thead>
@@ -119,11 +133,25 @@ if (isset($_POST["delete"])) {
                         <th class="px-5 py-2 border-2 border-black bg-white">
                             <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"]; ?>">Modif</button></form>
                         </th>
+                        <th class="px-5 py-2 border-2 border-black bg-white"><?php if (isset($produitsQuants)) {
+                                                                                        foreach ($produitsQuants as $produitsQuant) {
+                                                                                            if ($produitsQuant["produits_id"] == $produit["id"]) {
+                                                                                                foreach($produitsTailles as $produitsTaille) {
+                                                                                                    if($produitsQuant["taille_id"] == $produitsTaille["id"]){
+                                                                                                        echo $produitsTaille["taille"];
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }    
+                                                                                    ?></th>
+                        <?php  } ?>
                         <th class="px-5 py-2 border-2 border-black bg-white">
                         <form action="" method="post">
                         <button class="border-2 border-black bg-red-500 h-fit text-white" type="submit" name="delete"
                             value="<?php print $produit["id"]; ?>">DELETE</button></th></form>
-                    <?php  } ?>
+                    <?php  
+                    } 
+                    ?>
                         </tr>
                 </tbody>
             </table>
@@ -146,16 +174,14 @@ if (isset($_POST["delete"])) {
                         <label for="prix">Prix de l'article :</label>
                         <input type="text" class="border-2 border-black" name="prix"></input>
                     </div>
-                    <!-- <div class="flex flex-col items-center pl-24">
-                        <label for="stock">Entrées en stock :</label>
-                        <input type="text" class="border-2 border-black" name="stock"></input>
-                    </div> -->
                     <div class="flex flex-col items-center">
                         <label for="image">Image de l'article :</label><br>
                         <input type="file" name="image" ><br>
                     </div>
-                    <button class="border-2 border-black bg-gray-300 w-[10%] text-center" type="submit" name="envoi_article">Envoyer</button>
                 </div>
+                <div class="flex flex-col items-center mt-2 mb-5">
+                    <button class="border-2 border-black bg-gray-300 w-[10%] text-center" type="submit" name="envoi_article">Envoyer</button>
+                    </div>
             </form>
         </section>
     </main>
