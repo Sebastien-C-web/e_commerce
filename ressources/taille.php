@@ -5,7 +5,7 @@ class Taille extends db {
 
     private $taille;
     
-    private $produitID;
+    private $quantiteId;
 
     public function setTaille($taille){
         $this->taille = $taille;
@@ -16,13 +16,13 @@ class Taille extends db {
         return $this->taille;
     }
 
-    public function setProduitID($produitID){
-        $this->produitID = $produitID;
+    public function setQuantiteID($quantiteId){
+        $this->quantiteId = $quantiteId;
     }
 
-    public function getProduitID(): int 
+    public function getQuantiteID(): int 
     {
-        return $this->produitID;
+        return $this->quantiteId;
     }
 
     public function getAllTaille()
