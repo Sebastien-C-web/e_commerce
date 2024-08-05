@@ -8,7 +8,7 @@ $newArticles = new Produits();
 $newPanier = new panier();
 $articles = $_SESSION['panier'];
 
-var_dump($articles);
+// var_dump($articles);
 
 
 $total = 0;
@@ -88,11 +88,17 @@ $total = 0;
             <table>
             </table>
 
-            <div class="flex justify-center">
-                <button class="border border-black bg-orange-400 w-[10%] flex justify-center items-center font-bold" type="submit" name="acheter">Acheter</button>
-            </div>
+            <form method="post" action="checkout.php" class="flex justify-center">
+                <button type="submit" class="border border-orange-400 bg-orange-400 w-[10%] flex justify-center items-center font-bold">Acheter</button>
+            </form>
 
         </div>
+
+        
+
+
+
+
 
     </section>
 
