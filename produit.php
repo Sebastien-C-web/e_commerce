@@ -2,6 +2,7 @@
 require_once('ressources/avis.php');
 require_once('ressources/produits.php');
 require_once('ressources/produits_quantite.php');
+require_once('ressources/taille.php');
 session_start();
 $sql = new db();
 $sql->connecte();
@@ -9,6 +10,8 @@ $sql->connecte();
 $newProd = new Produits();
 $all_prod = $newProd->getAllProduits();
 $newAvis = new Avis();
+$newTaille = new Taille();
+$taille = $newTaille->getAllTaille();
 $id = $_GET['id'];
 $newQty = new ProduitsQuantites();
 $qty = $newQty->getAllQuantite();
@@ -88,16 +91,19 @@ if (isset($_POST['addAvis'])) {
                                 <form action="" method="post"> 
                                    
                                     <select name="taille" id="">
-                                        <?php foreach($qty as $qtys){
-                                    if($qtys['produits_id'] == $id){ ?>
-                                        <option value="<?php print $qtys['taille'] ?>"><?php print $qtys['taille'] ?></option>  
+                                        <?php  foreach($taille as $tailles){
+                                     if($tailles['produits_id'] == $id){ ?>
+                                        <?php print $tailles['taille'] ?>"><?php print $tailles['taille'] ?></option>  
                                         <?php }} ?>
                                     </select>
                                     <select name="qty" id=""> 
                                     <?php foreach($qty as $qtys){
-                                    if($qtys['produits_id'] == $id){ ?>
-                                        <option value="<?php print $qtys['quantites'] ?>"><?php print $qtys['quantites'] ?></option>
-                                        <?php }} ?>
+                                    if($qtys['produits_id'] == $id){ 
+                                        // boucle for pour afficher les quantités
+                                        for($i=1; $i< ($qtys['quantites'] +1); $i++){?> 
+                                        
+                                        <option value="<?php print $i ?>"><?php print $i ?></option>
+                                        <?php }}} ?>
                                     </select>
                                       
                                     <button type="submit" value="<?php print $all_prods['id']; ?>" class="p-2 border border-black bg-white">Ajouter au panier</button>
