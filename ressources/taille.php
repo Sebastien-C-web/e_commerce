@@ -25,4 +25,11 @@ class Taille extends db {
         return $this->produitID;
     }
 
+    public function getAllTaille()
+    {
+        $sql = "SELECT * FROM taille";
+        $done = $this->connecte()->query($sql);
+        return $done->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
