@@ -8,8 +8,10 @@ $bdd->connecte();
 
 $newProd = new Produits();
 $produits = $newProd->getAllProduits();
+$_SESSION["rowguid"]=uniqid();
 
 $randomProd = array_rand($produits, 2);
+
 
 ?>
 
