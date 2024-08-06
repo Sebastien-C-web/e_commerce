@@ -13,8 +13,6 @@ $articles = $_SESSION['panier'];
 
 $total = 0;
 
-$id_panier = $newPanier->getIDpanier();
-
 
 
 
