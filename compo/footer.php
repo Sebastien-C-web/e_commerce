@@ -1,22 +1,21 @@
 <footer class="bg-black text-white py-8">
   <div class=" flex flex-col md:flex-row justify-between items-center">
     <div class="flex space-x-4">
-      <img src="https://m.media-amazon.com/images/I/21-h5SxzHBL.jpg" class="h-16 w-16 object-contain">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd9NBnD7PnD6TlJxOBEElCrSH-o4d25bsevA&s" class="h-16 w-16 object-contain">
-      <img src="https://cdn.worldvectorlogo.com/logos/kalos-1.svg" class="h-16 w-16 object-contain">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4aAwpvzr_cePyfH9zYRRoOuwIZV8VwUxcVQ&s" class="h-16 w-16 object-contain">
-      <img src="https://logonews.fr/wp-content/uploads/2019/06/fenty_logo_monogram.png" class="h-16 w-16 object-contain">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Logo_Moon_Boot_B-N.jpg" class="h-16 w-18 object-contain">
-      <img src="https://thumbs.dreamstime.com/b/conception-de-vecteur-logo-nike-noir-noire-sport-pr%C3%AAte-%C3%A0-imprimer-l-illustration-183282273.jpg" class="h-16 w-16 object-contain">
+      <img src="https://m.media-amazon.com/images/I/21-h5SxzHBL.jpg" class="h-14 w-14 object-contain">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd9NBnD7PnD6TlJxOBEElCrSH-o4d25bsevA&s" class="h-14 w-14 object-contain">
+      <img src="https://cdn.worldvectorlogo.com/logos/kalos-1.svg" class="h-14 w-14 object-contain">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4aAwpvzr_cePyfH9zYRRoOuwIZV8VwUxcVQ&s" class="h-14 w-14 object-contain">
+      <img src="https://logonews.fr/wp-content/uploads/2019/06/fenty_logo_monogram.png" class="h-14 w-14 object-contain">
+      <img src="https://thumbs.dreamstime.com/b/conception-de-vecteur-logo-nike-noir-noire-sport-pr%C3%AAte-%C3%A0-imprimer-l-illustration-183282273.jpg" class="h-14 w-14 object-contain">
     </div>
-    <div class="h-fit w-32 object-contain">
+    <div class="h-fit w-32 object-contain me-[5%]">
      <a href="index.php"> <img src="imagelog/logo1.png" alt="logo"></a>
     </div>
     <div class="mt-4  md:mt-0 flex mx-4">
       <a href="cgu.php" class="text-white-400 hover:text-orange-500 mx-4  ">CGU</a>
       <a href="cgv.php" class="text-white-400 hover:text-orange-500 mx-4 ">CGV</a>
-      <div class="w-full sm:w-1/2 md:w-1/4 lg:w-1/6 px-4 mb-4 mx-4">
-            <ul>
+      <div class="w-full flex sm:w-1/2 md:w-1/4 lg:w-1/6 px-4 mb-4 mx-4 ">
+            <ul >
           <li class="flex align-items"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook mt-1" viewBox="0 0 16 16">
               <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
             </svg><a href="#" class="block hover:text-orange-500 ml-2">Facebook</a></li>
