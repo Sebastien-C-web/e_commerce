@@ -8,12 +8,14 @@ class ProduitsQuantites extends db
 
     private $quantite;
 
+    private $tailleId;
+
     public function setId($id)
     {
         $this->id = $id;
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -26,6 +28,16 @@ class ProduitsQuantites extends db
     public function getQuantite(): int
     {
         return $this->quantite;
+    }
+
+    public function setTailleId($tailleId)
+    {
+        $this->tailleId = $tailleId;
+    }
+
+    public function getTailleId(): int
+    {
+        return $this->tailleId;
     }
 
     public function getAllQuantite()
@@ -56,6 +68,16 @@ class ProduitsQuantites extends db
         $sql->execute();
     }
 
-  
+    public function addTaille()
+    {
+        $tailleId = $this->getTailleId();
+        $taille_ID = $this->getId();
+
+        $sql = $this->connecte()->prepare("UPDATE  produits_quantite SET taille_id = :taille_id WHERE id = :id");
+        $sql -> bindParam(":taille_id", $tailleId);
+        $sql ->bindParam(":id", $taille_ID);
+        $sql -> execute();
+    }
+
 }
 

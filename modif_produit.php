@@ -4,7 +4,9 @@ require_once('config/db.php');
 require_once('ressources/avis.php');
 require_once('ressources/produits.php');
 require_once('ressources/produits_quantite.php');
+require_once('ressources/taille.php');
 session_start();
+
 
 $db = new db();
 $db->connecte();
@@ -17,7 +19,29 @@ $id = $_GET['modif'];
 $newQuant = new ProduitsQuantites();
 $produitsQuants = $newQuant->getAllQuantite();
 
+$newTaille = new Taille();
+$produitsTailles = $newTaille->getAllTaille();
 
+if(isset($_POST["tailleBtn"])){
+
+    $taille = $_POST["taille"];
+
+    foreach($produitsQuants as $produitsQuant){
+        if ($produitsQuant["produits_id"] == $id) {
+            $ID = $produitsQuant["id"];
+            $newQuant->setId($ID);
+        }
+    }
+
+    
+    $tailleID = $taille;
+
+    
+    $newQuant->setTailleId($tailleID); 
+    $newQuant->addTaille();
+    header("Location:stock.php");
+
+}
 
 if (isset($_POST["modif_article"])) {
     $name = $_POST["name"];
@@ -25,8 +49,6 @@ if (isset($_POST["modif_article"])) {
     $image = $_FILES["image"]["name"];
     $prix = $_POST["prix"];
     $ID = $id;
-
-
 
     $newProd->modifProduit(["name" => $name, "description" => $description, "image" => $image, "prix" => $prix, "id" => $ID]);
     if (isset($image["name"])) {
@@ -58,24 +80,54 @@ if (isset($_POST["modif_article"])) {
     </header>
     <main>
         <section class="bg-[#EDAC70] flex flex-row justify-center items-center gap-5 px-5 py-5">
-            <?php foreach ($all_prod as $all_prods) {
-                if ($all_prods['id'] == $id) { ?>
-                    <div class="flex flex-col justify-center pr-10 items-center">
-                        <img src="ressources/uploads/<?php echo $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-40 h-fit">
-                    </div>
-                    <div class="flex flex-col justify-center items-center">
-                        <h2>Nom de l'article : <?php print $all_prods['name']; ?></h2>
-                        <p> Description de l'article : <?php print $all_prods['description']; ?></p>
-                        <h2>Prix : <?php print $all_prods['prix']; ?> € </h2>
-                        <?php foreach ($produitsQuants as $produitsQuant) {
-                            if ($produitsQuant["produits_id"] == $id) { ?>
-                                <h2>Quantitée en stock : <?php print $produitsQuant["quantites"]; ?></h2>
-                        <?php  }
-                        }
-                        ?>
-                    </div>
-            <?php }
-            } ?>
+            <article>
+                <?php foreach ($all_prod as $all_prods) {
+                    if ($all_prods['id'] == $id) { ?>
+                        <div class="flex flex-col justify-center pr-10 items-center">
+                            <img src="ressources/uploads/<?php echo $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-40 h-fit">
+                        </div>
+                        <div class="flex flex-col justify-center items-center">
+                            <h2>Nom de l'article : <?php print $all_prods['name']; ?></h2>
+                            <p> Description de l'article : <?php print $all_prods['description']; ?></p>
+                            <h2>Prix : <?php print $all_prods['prix']; ?> € </h2>
+                            <?php foreach ($produitsQuants as $produitsQuant) {
+                                if ($produitsQuant["produits_id"] == $id) { ?>
+                                    <h2>Quantitée en stock : <?php print $produitsQuant["quantites"]; ?></h2>
+                            <?php  }
+                            }
+                            ?>
+                            <h2>Tailles disponibles :<?php if(isset($produitsQuants)) {
+                                                                                        foreach ($produitsQuants as $produitsQuant) {
+                                                                                            if ($produitsQuant["produits_id"] == $id) {
+                                                                                                foreach($produitsTailles as $produitsTaille) {
+                                                                                                    if($produitsQuant["taille_id"] == $produitsTaille["id"]){
+                                                                                                        echo $produitsTaille["taille"];
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }      ?>
+                        </div>
+                <?php }
+                }
+             } ?>
+            </article>
+            <article>
+                <form action="" method="post">
+                <div class="flex flex-col items-center">
+                    <label for="taille">Taille l'article :</label><br>
+                    <select name="taille">
+                        <option value="">Veuillez choisir la taille souhaitée</option>
+                        <?php foreach($produitsTailles as $produitsTaille){ ?>
+                        <option value="<?php
+                            echo $produitsTaille["id"];?>"
+                         > <?php echo $produitsTaille["taille"]; } ?> </option>
+                    </select>
+                </div>
+                <div class="flex flex col items-center justify-center">
+                <button class="border-2 border-black bg-gray-300 text-center" type="submit" name="tailleBtn" value="<?php echo $produitsTaille["id"] ?>">Envoyer</button>
+                </div>
+                </form>
+            </article>
         </section>
         <section>
             <form action="" method="post" class="flex flex-col justify-between" enctype="multipart/form-data">
@@ -83,10 +135,10 @@ if (isset($_POST["modif_article"])) {
                     <div class="flex flex-col items-center">
                         <label for="name">Nom de l'article :</label>
                         <textarea class="border-2 border-black" name="name" rows="5" cols="70"><?php foreach ($all_prod as $all_prods) {
-                                                                                                            if ($all_prods['id'] == $id) {
-                                                                                                                print $all_prods["name"];
-                                                                                                            }
-                                                                                                        } ?></textarea>
+                                                                                                    if ($all_prods['id'] == $id) {
+                                                                                                        print $all_prods["name"];
+                                                                                                    }
+                                                                                                } ?></textarea>
                     </div>
                     <div class="flex flex-col items-center">
                         <label for="description">Description de l'aricle :</label>
@@ -101,10 +153,10 @@ if (isset($_POST["modif_article"])) {
                     <div class="flex flex-col items-center">
                         <label for="prix">Prix de l'article :</label>
                         <input type="text" class="border-2 border-black" name="prix" value=<?php foreach ($all_prod as $all_prods) {
-                                                                                                            if ($all_prods['id'] == $id) {
-                                                                                                                print $all_prods["prix"];
-                                                                                                            }
-                                                                                                        } ?>></input>
+                                                                                                if ($all_prods['id'] == $id) {
+                                                                                                    print $all_prods["prix"];
+                                                                                                }
+                                                                                            } ?>></input>
                     </div>
                     <div class="flex flex-col items-center">
                         <label for="image">Image de l'article :</label><br>

@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\ecommercenew\config\db.php:13
 Stack trace:
 #0 C:\xampp\htdocs\ecommercenew\config\db.php(13): PDO->__construct('mysql:host=loca...', 'root', Object(SensitiveParameterValue))
 #1 C:\xampp\htdocs\ecommercenew\index.php(7): db->connecte()
+=======
+PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\Ecommerce\config\db.php:13
+Stack trace:
+#0 C:\xampp\htdocs\Ecommerce\config\db.php(13): PDO->__construct('mysql:host=loca...', 'root', Object(SensitiveParameterValue))
+#1 C:\xampp\htdocs\Ecommerce\index.php(7): db->connecte()
+>>>>>>> 6ed64a7a5fd46b4ed4c3c7fbcb770fe079c62621
 #2 {main}
