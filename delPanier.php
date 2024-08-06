@@ -1,6 +1,14 @@
 <?php
 session_start();
+require('classe/panierclass.php');
 
-$del= $_GET['id'];
+$newpanier = new panier();
+$del = $_GET['id'];
 unset($_SESSION["panier"][$del]);
+
+$newpanier->deletePanier($del);
+
+
+
+
 header("Location: panier.php");
