@@ -32,7 +32,7 @@ if (isset($_SESSION['panier'][$produits_id]) && $produit_qty == null) {
     $_SESSION['panier'][$produits_id] = 1;
     echo "le produit a bien été ajouté au panier";
 }
-
+var_dump($_SESSION["panier"]);
 foreach ($_SESSION["panier"] as $id => $quantity) {
     $panier->setProduitsid($id);
     $panier->setRowguid($_SESSION["rowguid"]);
@@ -42,4 +42,4 @@ foreach ($_SESSION["panier"] as $id => $quantity) {
 }
 
 
-header("Location: articles.php");
+ header("Location: articles.php");
