@@ -17,6 +17,12 @@ if (isset($_POST['qty'])) {
     $produit_qty = null;
 }
 
+if (isset($_POST['posTaille'])){
+    $taille = $_POST['posTaille'];
+}else{
+    $taille = null;
+}
+
 
 if (isset($_SESSION['panier'][$produits_id]) && $produit_qty == null) {
     $_SESSION['panier'][$produits_id]++;
@@ -31,6 +37,7 @@ foreach ($_SESSION["panier"] as $id => $quantity) {
     $panier->setProduitsid($id);
     $panier->setRowguid($_SESSION["rowguid"]);
     $panier->setTotal($quantity);
+    $panier->setTaille($taille);
     $panier->addPanier();
 }
 
