@@ -73,19 +73,12 @@ $id_panier = $newPanier->getIDpanier();
                             <td class="border border-2 border-black"><?php echo $produit['prix'] ?></td>
                             <td class="border border-2 border-black"><?= $article ?></td>
                             <td class="border border-2 border-black">
-                                <?php foreach ($id_panier as $id_panie) { ?>
-                                    <form action="delPanier.php?id=<?php print $produit["id"] ?>" method="post">
+                                <form action="delPanier.php?id=<?php print $produit["id"] ?>" method="post">
 
-                                        <button type="submit" name="supprimer" value="<?php print $id_panie['id']; ?>"><img class="w-[7%] h-[7%]" src="iconepoubelle.webp" alt="icone poubelle"></button>
+                                    <button type="submit" name="supprimer"><img class="w-[7%] h-[7%]" src="iconepoubelle.webp" alt="icone poubelle"></button>
 
-                                    </form>
-                                <?php if (isset($_POST['supprimer'])) {
-                                        $id = $id_panie['id'];
-                                        $newPanier->deletePanier($id);
-                                    }
-                                } ?>
+                                </form>
                             </td>
-
                         </tr>
                     <?php
                     } ?>
