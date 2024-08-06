@@ -6,7 +6,6 @@ require_once('ressources/taille.php');
 session_start();
 $sql = new db();
 $sql->connecte();
-
 $newProd = new Produits();
 $all_prod = $newProd->getAllProduits();
 $newAvis = new Avis();
@@ -16,6 +15,9 @@ $id = $_GET['id'];
 $newQty = new ProduitsQuantites();
 $qty = $newQty->getAllQuantite();
 $message_avis = null;
+
+// var_dump($_SESSION["panier"]);
+
 if (isset($_SESSION['user'])) {
     $all_avis_users = $newAvis->getAvisUser($_SESSION['user']['id'], $id);
 }
@@ -25,7 +27,7 @@ $all_note = $newAvis->getAllNotes($id);
 
 $newUser = new Users();
 $all_users = $newUser->getAllUsers();
-var_dump($_SESSION['panier']);
+
 $n = 2;
 
 if (isset($_POST['addAvis'])) {
@@ -96,7 +98,7 @@ if (isset($_POST['addAvis'])) {
 
                                     <label for="taille"> Tailles disponible</label>
                                     <select name="taille" id="taille">
-                                        
+
                                         <option selected disabled>Selectionnez votre taille</option>
 
                                         <?php foreach ($taille as $tailles) {
