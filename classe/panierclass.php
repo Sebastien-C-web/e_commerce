@@ -153,6 +153,7 @@ class panier extends db
                                                         WHERE produits_quantite.produits_id = :id');
         $sql->bindParam(':id', $id);
         $sql->execute();
-        
+        return $sql->fetchAll();
     }
+
 }
