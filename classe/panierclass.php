@@ -105,7 +105,7 @@ class panier extends db
         $sql2->bindParam(':rowguid', $rowguid);
         $sql2->execute();
         $exist = $sql2->fetch(PDO::FETCH_ASSOC);
-        var_dump($exist);
+
         if ($exist) {
             $sql = $this->db->prepare("UPDATE panier SET total = :total WHERE rowguid = :rowguid AND produits_id = :produits_id");
             $sql->bindParam(':produits_id', $exist["produits_id"]);
@@ -125,20 +125,9 @@ class panier extends db
 
     public function deletePanier($id)
     {
-        $sql = $this->db->prepare("DELETE FROM panier WHERE id = :id");
+        $sql = $this->db->prepare("DELETE FROM panier WHERE produits_id = :id");
         $sql->bindParam(':id', $id);
         $sql->execute();
-    }
-
-    public function getIDpanier()
-
-    {
-
-    $sql = $this->db->prepare("SELECT id FROM panier");
-    $sql->execute();
-    return $sql->fetch(PDO::FETCH_ASSOC);
-
-
     }
 
 }

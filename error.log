@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in C:\xampp\htdocs\ecommercenew\config\db.php:13
 Stack trace:
 #0 C:\xampp\htdocs\ecommercenew\config\db.php(13): PDO->__construct('mysql:host=loca...', 'root', Object(SensitiveParameterValue))
@@ -10,3 +11,11 @@ Stack trace:
 #1 C:\xampp\htdocs\Ecommerce\index.php(7): db->connecte()
 >>>>>>> 6ed64a7a5fd46b4ed4c3c7fbcb770fe079c62621
 #2 {main}
+=======
+PDOException: SQLSTATE[HY000] [2054] The server requested authentication method unknown to the client [auth_gssapi_client] in C:\xampp\htdocs\e_commerce\config\db.php:13
+Stack trace:
+#0 C:\xampp\htdocs\e_commerce\config\db.php(13): PDO->__construct('mysql:host=loca...', 'root', Object(SensitiveParameterValue))
+#1 C:\xampp\htdocs\e_commerce\classe\panierclass.php(23): db->connecte()
+#2 C:\xampp\htdocs\e_commerce\panier.php(8): panier->__construct()
+#3 {main}
+>>>>>>> 98200d96e239d91bf937db93cc11fbd9d5e125d2
