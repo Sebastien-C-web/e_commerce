@@ -86,7 +86,7 @@ if (isset($_POST["delete"])) {
                             <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $produitTaille["taille"]; ?></th>
                             <th class="px-5 py-2 border-2 border-black bg-white">
                                 <form action="" method="post">
-                                    <button class="border-2 border-black bg-red-500 h-fit text-white" type="submit" name="delete" value="<?php print $produitTaille["id"]; ?>">DELETE</button>
+                                    <button class="border-2 border-black bg-[#f97316] rounded-full w-[40%] h-fit text-white" type="submit" name="delete" value="<?php print $produitTaille["id"]; ?>">DELETE</button>
                             </th>
                             </form>
                         <?php } ?>
@@ -96,7 +96,7 @@ if (isset($_POST["delete"])) {
         </section>
         <section class="pt-5 flex flex-col">
             <h2 class="text-center font-semibold font-heading">AJOUT :</h2>
-            <form action="" method="POST" class="flex flex-col justify-between">
+            <form action="" method="POST" class="flex flex-col justify-between border-2 border-gray-500 rounded-lg m-5">
                 <div class="flex justify-around items-center pt-5">
                     <div class="flex flex-col items-center">
                         <label for="taille">Nouvelle Taille :</label>
@@ -104,7 +104,7 @@ if (isset($_POST["delete"])) {
                     </div>
                 </div>
                 <div class="flex flex-col items-center mt-2 mb-5">
-                    <button class="border-2 border-black bg-gray-300 w-[10%] text-center" type="submit" name="envoi_taille">Envoyer</button>
+                    <button class="border-2 border-black bg-[#f97316] w-[10%] rounded-full text-white text-center" type="submit" name="envoi_taille">Envoyer</button>
                 </div>
             </form>
         </section>
