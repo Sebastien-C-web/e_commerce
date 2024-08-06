@@ -82,6 +82,16 @@ class Promo extends db
         $sql->execute();
     }
 
+    public function modifPromo($param = [])
+    {
+       $sql =$this->connecte()->prepare("UPDATE reduction SET code = :code, remise = :remise, quantite = :quantite WHERE id = :id");
+       $sql->bindParam(":code", $param["code"]);
+       $sql->bindParam(":remise", $param["remise"]);
+       $sql->bindParam(":quantite", $param["quantite"]);
+       $sql->bindParam(":id", $param["id"]);
+       $sql->execute();
+    }
+
     public function deletePromo($id)
     {
             $sql = $this->connecte()->prepare("DELETE FROM reduction WHERE id = :id");
