@@ -1,7 +1,7 @@
 <?php
 require_once("./config/db.php");
 
-class Addresse extends db {
+class Adresse extends db {
 
     private $adresse_1;
 
@@ -78,7 +78,7 @@ public function addAdresse()
     $codepostal = $this->getCodepostale();
     $ville = $this->getVille();
 
-    $sql = $this->connecte()->prepare("INSERT INTO adresse (addresse_1,adresse_suite,codepostal,ville) VALUES (:adresse_1,:adresse_suite,:codepostal,:ville ) ");
+    $sql = $this->connecte()->prepare("INSERT INTO adresse (adresse_1,adresse_suite,codepostal,ville) VALUES (:adresse_1,:adresse_suite,:codepostal,:ville ) ");
     $sql->bindParam(":adresse_1", $adresse_1);
     $sql->bindParam(":adresse_suite", $adresse_suite);
     $sql->bindParam(":codepostal", $codepostal);
