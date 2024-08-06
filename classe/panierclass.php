@@ -105,7 +105,7 @@ class panier extends db
         $sql2->bindParam(':rowguid', $rowguid);
         $sql2->execute();
         $exist = $sql2->fetch(PDO::FETCH_ASSOC);
-        var_dump($exist);
+
         if ($exist) {
             $sql = $this->db->prepare("UPDATE panier SET total = :total WHERE rowguid = :rowguid AND produits_id = :produits_id");
             $sql->bindParam(':produits_id', $exist["produits_id"]);
