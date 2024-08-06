@@ -129,9 +129,9 @@ if (isset($_POST["modif_article"])) {
                 
               ?>
             </article>
-            <article>
-                <form action="" method="post">
-                <div class="flex flex-col items-center">
+            <article class="ml-24 flex flex-col items-center justify-center">
+                <form action="" method="post" class="flex flex-col items-center justify-center gap-2">
+                <div class="flex flex-col items-center justify-center">
                     <label for="taille">Taille l'article :</label><br>
                     <select name="taille">
                         <option value="">Veuillez choisir la taille souhaitée</option>
@@ -141,7 +141,10 @@ if (isset($_POST["modif_article"])) {
                          > <?php echo $produitsTaille["taille"]; } ?> </option>
                     </select>
                 </div>
+                <div class="flex flex-row gap-2">
+                <label for="num">Nouveau stock : </label>
                 <input type="text" class="border-2 border-black w-[50%] mr-5" name="num" required>
+                </div>
                 <div class="flex flex col items-center justify-center">
                 <button class="border-2 border-black bg-gray-300 text-center" type="submit" name="change" value="<?php echo $all_prods["id"] ?>">Envoyer</button>
                 </div>
@@ -150,7 +153,7 @@ if (isset($_POST["modif_article"])) {
             <?php } } ?>
         </section>
         <section>
-            <form action="" method="post" class="flex flex-col justify-between" enctype="multipart/form-data">
+            <form action="" method="post" class="flex flex-col justify-between border-2 border-gray-500 rounded-lg p-5 m-5" enctype="multipart/form-data">
                 <div class="flex justify-around items-center">
                     <div class="flex flex-col items-center">
                         <label for="name">Nom de l'article :</label>
@@ -182,7 +185,7 @@ if (isset($_POST["modif_article"])) {
                         <label for="image">Image de l'article :</label><br>
                         <input type="file" name="image" id="image"><br>
                     </div>
-                    <button class="border-2 border-black bg-gray-300 w-[10%] text-center" type="submit" name="modif_article">Modifier</button>
+                    <button class="border-2 border-black bg-[#f97316] w-[10%] rounded-full text-white text-center" type="submit" name="modif_article">Modifier</button>
                 </div>
             </form>
         </section>
