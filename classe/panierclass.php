@@ -86,9 +86,8 @@ class panier extends db
         $sql->bindParam(":id", $id);
         $sql->execute();
         return $sql->fetch(PDO::FETCH_ASSOC);
+
     }
-
-
 
 
     public function addPanier()
@@ -130,4 +129,10 @@ class panier extends db
         $sql->execute();
     }
 
+    public function addPanierwindow()
+    {
+        $sql = $this->db->prepare("SELECT * FROM produits INNER JOIN panier ON produits.id = panier.id");
+        $sql->execute();
+    }
 }
+
