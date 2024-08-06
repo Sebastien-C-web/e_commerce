@@ -125,7 +125,7 @@ class panier extends db
 
     public function deletePanier($id)
     {
-        $sql = $this->db->prepare("DELETE FROM panier WHERE id = :id");
+        $sql = $this->db->prepare("DELETE FROM panier WHERE produits_id = :id");
         $sql->bindParam(':id', $id);
         $sql->execute();
     }
