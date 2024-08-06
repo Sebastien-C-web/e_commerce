@@ -51,33 +51,25 @@ class ProduitsQuantites extends db
     {
         $id = $this->getId();
         $quantite = $this->getQuantite();
+        $tailleId = $this->getTailleId();
 
         $sql3 = $this->connecte()->prepare("SELECT * FROM produits_quantite WHERE produits_id = :produits_id");
         $sql3->bindParam(":produits_id", $id);
         $sql3->execute();
         $data = $sql3->fetch();
 
-        if (!$data) {
-            $sql = $this->connecte()->prepare("INSERT INTO produits_quantite (produits_id, quantites) VALUES (:produits_id, :quantites)");
-        } else {
-            $sql = $this->connecte()->prepare("UPDATE produits_quantite SET quantites = :quantites WHERE produits_id = :produits_id");
-        }
+        // if (!$data) {
+            $sql = $this->connecte()->prepare("INSERT INTO produits_quantite (produits_id, quantites, taille_id) VALUES (:produits_id, :quantites, :taille_id)");
+        // } else {
+        //     $sql = $this->connecte()->prepare("UPDATE produits_quantite SET quantites = :quantites WHERE produits_id = :produits_id");
+        // }
 
         $sql->bindParam(":produits_id", $id);
         $sql->bindParam(":quantites", $quantite);
+        $sql->bindParam(":taille_id", $tailleId);
         $sql->execute();
     }
 
-    public function addTaille()
-    {
-        $tailleId = $this->getTailleId();
-        $taille_ID = $this->getId();
-
-        $sql = $this->connecte()->prepare("UPDATE  produits_quantite SET taille_id = :taille_id WHERE id = :id");
-        $sql -> bindParam(":taille_id", $tailleId);
-        $sql ->bindParam(":id", $taille_ID);
-        $sql -> execute();
-    }
 
 }
 
