@@ -135,6 +135,7 @@ if (isset($_POST['addAvis'])) {
                                                 }
                                             }
                                         } ?>
+                                        <input type="hidden" name="posTaille" value="<?php print $_POST['taille']; ?>">
                                     </select>
 
                                     <button type="submit" value="<?php print $all_prods['id']; ?>" class="p-2 border border-black bg-white">Ajouter au panier</button>
