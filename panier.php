@@ -10,6 +10,7 @@ $newArticles = new Produits();
 $newPanier = new panier();
 $newAdresse = new Adresse();
 
+
 $articles = $_SESSION['panier'];
 
 // var_dump($articles);
@@ -57,12 +58,15 @@ $total = 0;
                 $idproduit = $_POST['plus'];
                 if ($_SESSION['panier'][$idproduit]) {
                     $_SESSION['panier'][$idproduit]++;
+                    $newPanier->incremepanier($idproduit);
+
                 }
             }
             if (isset($_POST['moins'])) {
                 $idproduit = $_POST['moins'];
                 if ($_SESSION['panier'][$idproduit]) {
                     $_SESSION['panier'][$idproduit]--;
+                    $newPanier->decremepanier($idproduit);
                     header("Location:panier.php", true, 303);
                     ob_clean();
                     if ($_SESSION['panier'][$idproduit] == 0) {
