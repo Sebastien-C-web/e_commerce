@@ -13,6 +13,11 @@ $articles = $_SESSION['panier'];
 
 $total = 0;
 
+$id_panier = $newPanier->getIDpanier();
+
+
+
+
 
 ?>
 
@@ -67,8 +72,13 @@ $total = 0;
                             <td class="border border-2 border-black"><?php echo $produit['name'] ?></td>
                             <td class="border border-2 border-black"><?php echo $produit['prix'] ?></td>
                             <td class="border border-2 border-black"><?= $article ?></td>
-                            <td class="border border-2 border-black"><a href="delPanier.php?id=<?php print $produit["id"] ?>"><img class="w-[7%] h-[7%]" src="iconepoubelle.webp" alt="icone poubelle"></a></td>
+                            <td class="border border-2 border-black">
+                                <form action="delPanier.php?id=<?php print $produit["id"] ?>" method="post">
 
+                                    <button type="submit" name="supprimer"><img class="w-[7%] h-[7%]" src="iconepoubelle.webp" alt="icone poubelle"></button>
+
+                                </form>
+                            </td>
                         </tr>
                     <?php
                     } ?>
@@ -94,7 +104,7 @@ $total = 0;
 
         </div>
 
-        
+
 
 
 

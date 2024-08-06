@@ -32,4 +32,15 @@ class Taille extends db {
         return $done->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function addTaille()
+    {
+        $id = $this ->getQuantiteID();
+        $taille = $this ->getTaille();
+
+        $sql = $this->connecte()->prepare("INSERT INTO taille (taille, quantite_id) VALUES (:taille, :quantite_id)");
+        $sql -> bindParam(":taille", $taille);
+        $sql -> bindParam(":quantite_id", $id);
+        $sql -> execute();
+    }
+
 }
