@@ -92,4 +92,17 @@ class Commande extends db
         $sql->execute();
 
     }
+    public function getAllCommande($id) 
+    {
+        $sql = $this->connecte()->prepare('SELECT * FROM commande WHERE users_id = :users_id');
+        $sql->bindParam(':users_id', $id);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getAllCommandeArticle()
+    {
+        $sql = $this->connecte()->prepare('SELECT * FROM produits_commande');
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

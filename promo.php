@@ -76,10 +76,10 @@ if (isset($_POST["delete"])) {
                 <thead>
                     <tr>
                         <th class="px-5 py-2 border-2 border-black bg-white w-[5%]">Id promo</th>
-                        <th class=" px-5 py-2 border-2 border-black bg-white w-[10%]">Code promo</th>
+                        <th class=" px-5 py-2 border-2 border-black bg-white w-[10%] max-md:hidden">Code promo</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white ">Réduction</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Quantitée</th>
-                        <th class=" px-5 py-2 border-2 border-black bg-white w-[35%]">Produit concerné</th>
+                        <th class=" px-5 py-2 border-2 border-black bg-white w-[35%] max-md:hidden">Produit concerné</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Modif</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">DELETE</th>
                     </tr>
@@ -89,10 +89,10 @@ if (isset($_POST["delete"])) {
                     <tr>
 
                     <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["id"];  ?></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["code"];  ?></th>
+                    <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $promo["code"];  ?></th>
                     <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["remise"]; ?></th>
                     <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["quantite"]; ?></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white"><?php foreach($produits as $produit) {
+                    <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php foreach($produits as $produit) {
                         if($promo["produits_id"] == $produit["id"]) {
                             echo $produit["name"];
                         }
@@ -114,7 +114,7 @@ if (isset($_POST["delete"])) {
         <section class="pt-5">
             <h2 class="text-center font-semibold font-heading">AJOUT :</h2>
             <form action="" method="POST" class="flex flex-col justify-between border-2 border-gray-500 rounded-lg m-5">
-                <div class="flex justify-around items-center">
+                <div class="flex max-md:flex-col justify-around items-center">
                     <div class="flex flex-col items-center">
                         <label for="code">Code promo :</label>
                         <input  type="text" class="border-2 border-black" name="code">

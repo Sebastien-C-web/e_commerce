@@ -244,6 +244,20 @@ if (isset($_POST['addAvis'])) {
         <?php include_once('compo/footer.php'); ?>
     </footer>
     <script src="ressources/script_etoile.js"></script>
+
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const menuButton = document.getElementById('menu-button');
+  const navigation = document.getElementById('navigation');
+
+  menuButton.addEventListener('click', function() {
+      navigation.classList.toggle('hidden');
+  });
+});
+    </script>     
+
+
 </body>
 
 </html>

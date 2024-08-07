@@ -41,9 +41,9 @@
         $total += ($produit['prix'] * $article);
         $total = number_format($total, 2, ".", "");
         $newCommande->setTotal($total); 
-        $newCommande->addCommande();
+        
     }
-
+$newCommande->addCommande();
 
     
     
@@ -95,6 +95,7 @@
         }
         unset($_SESSION["rowguid"]);
         $_SESSION["rowguid"] = uniqid();
+        $_SESSION['panier'] = [];
         /*
          * Send the customer off to complete the payment.
          * This request should always be a GET, thus we enforce 303 http response code
