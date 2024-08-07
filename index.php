@@ -1,12 +1,14 @@
 <?php
 require_once('ressources/produits.php');
 require_once('config/db.php');
+require_once('classe/panierclass.php');
 session_start();
 
 $bdd = new db();
 $bdd->connecte();
-
+$newPanier = new panier();
 $newProd = new Produits();
+$total = 0;
 $produits = $newProd->getAllProduits();
 if (!isset($_SESSION["rowguid"])) {
     $_SESSION["rowguid"] = uniqid();
@@ -36,10 +38,11 @@ if (!isset($_SESSION['panier'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>home</title>
+    <link rel="stylesheet" href="CSS/style_panier.css">
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="url-to-cdn/splide.min.css">
-    <link rel="stylesheet" href="CSS/logo.css">
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 </head>
 <body>
 

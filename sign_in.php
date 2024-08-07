@@ -1,7 +1,14 @@
 <?php
 session_start();
-require_once("config/db.php");
 require_once("classe/users.php");
+require_once('config/db.php');
+require_once('ressources/produits.php');
+require_once('classe/panierclass.php');
+
+$newPanier = new panier();
+$newArticles = new Produits();
+$total = 0;
+
 
 $db = new db();
 $db->connecte();
@@ -29,6 +36,8 @@ if (isset($_POST['envoyer'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="CSS/style_panier.css">
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <title>inscription</title>
 </head>
 
@@ -80,7 +89,7 @@ if (isset($_POST['envoyer'])) {
         <?php include('compo/footer.php'); ?>
 
     </footer>
-
+    <script src="JS/son.js"></script> 
 </body>
 
 

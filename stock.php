@@ -4,7 +4,12 @@ require_once("config/db.php");
 require_once('ressources/produits.php');
 require_once('ressources/produits_quantite.php');
 require_once('ressources/taille.php');
+require_once("classe/users.php");
+require_once('classe/panierclass.php');
 
+$newPanier = new panier();
+$newArticles = new Produits();
+$total = 0;
 $db = new db();
 $db->connecte();
 
@@ -176,9 +181,12 @@ if (isset($_POST["delete"])) {
             </form>
         </section>
     </main>
+    
     <footer>
+        <?php include('compo/footer.php'); ?>
 
     </footer>
+    <script src="JS/son.js"></script>  
 </body>
 
 </html>

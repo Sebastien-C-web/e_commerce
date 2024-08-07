@@ -4,7 +4,12 @@ require_once('./config/db.php');
 require_once('classe/users.php');
 require_once('classe/commande.php');
 require_once('ressources/produits.php');
+require_once('classe/panierclass.php');
+
 session_start();
+$newPanier = new panier();
+$newArticles = new Produits();
+$total = 0;
 $sql = new db();
 $sql->connecte();
 
@@ -30,6 +35,8 @@ $all_prod = $newProd->getAllProduits();
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="ressources/style_etoile.css">
     <link rel="stylesheet" href="css/prix.css">
+    <link rel="stylesheet" href="CSS/style_panier.css">
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 </head>
 
 <body>
@@ -85,6 +92,7 @@ $all_prod = $newProd->getAllProduits();
         </div>
 
     </main>
+    <script src="JS/son.js"></script>  
 </body>
 
 </html>
