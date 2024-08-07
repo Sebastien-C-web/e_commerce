@@ -29,10 +29,10 @@ $total = 0;
 if (isset($_POST["envoiCode"])) {
     foreach ($promos as $promo) {
         if ($_POST["code"] != $promo["code"]) {
-            print "Le code saisi n'est pas valide";
+            // print "Le code saisi n'est pas valide";
         } else {
             if ($promo["quantite"] < 1) {
-                print "Le code saisi n'est plus valide";
+                // print "Le code saisi n'est plus valide";
                 break;
             } else {
                 foreach ($articles as $key => $article) {
@@ -40,8 +40,8 @@ if (isset($_POST["envoiCode"])) {
                     if($produit["id"] == $promo["produits_id"]){
                     $reduction = $produit["prix"] * ($promo["remise"] / 100);
                     $total = $total - $reduction;
-                    print "C'est bon ma gueule!";
-                    var_dump($total);
+                    // print "C'est bon ma gueule!";
+                    // var_dump($total);
                     break;
                     }
                 }
@@ -112,7 +112,7 @@ if (isset($_POST["envoiCode"])) {
                 $produit = $newPanier->getArticle($key);
                 /* var_dump($produit); */
                 $taille = $newPanier->tailleAffiche($key);
-                var_dump($taille);
+                // var_dump($taille);
                 $total += ($produit['prix'] * $article);
             ?>
 
