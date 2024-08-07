@@ -87,12 +87,15 @@ if (isset($_POST["envoiCode"])) {
                 $idproduit = $_POST['plus'];
                 if ($_SESSION['panier'][$idproduit]) {
                     $_SESSION['panier'][$idproduit]++;
+                    $newPanier->incremepanier($idproduit);
+
                 }
             }
             if (isset($_POST['moins'])) {
                 $idproduit = $_POST['moins'];
                 if ($_SESSION['panier'][$idproduit]) {
                     $_SESSION['panier'][$idproduit]--;
+                    $newPanier->decremepanier($idproduit);
                     header("Location:panier.php", true, 303);
                     ob_clean();
                     if ($_SESSION['panier'][$idproduit] == 0) {
@@ -108,6 +111,8 @@ if (isset($_POST["envoiCode"])) {
                 /* var_dump($article); */
                 $produit = $newPanier->getArticle($key);
                 /* var_dump($produit); */
+                $taille = $newPanier->tailleAffiche($key);
+                var_dump($taille);
                 $total += ($produit['prix'] * $article);
             ?>
 
@@ -129,9 +134,18 @@ if (isset($_POST["envoiCode"])) {
                         </div>
                         <p class="font-normal text-base leading-7 text-gray-500 mb-6"><?php echo $produit['description'] ?> <a href="javascript:;" class="text-indigo-600"></a>
                         </p>
+                        <p class="font-normal text-base leading-7 text-gray-500 mb-6">
+                            <?php foreach ($taille as $tailles) {
+                            if ($produit["id"] == $tailles['produits_id']){
+                               $new_taille = $tailles['taille'] ;
+                               print "$new_taille\n";
+                            }} ?>
+                             
+                        </p>
                         <div class="flex justify-between items-center">
                             <div class="flex items-center gap-4">
                                 <form action="" method="post">
+                                  
                                     <button type="submit" name="moins" value="<?php print $produit["id"] ?>" class="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
                                         <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black" width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.5 9.5H13.5" stroke="" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />

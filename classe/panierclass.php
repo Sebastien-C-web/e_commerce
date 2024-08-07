@@ -125,7 +125,6 @@ class panier extends db
             $sql->bindParam(':produits_id', $exist["produits_id"]);
             $sql->bindParam(':rowguid', $rowguid);
             $sql->bindParam(':total', $total);
-
         } else {
             $sql = $this->db->prepare("INSERT INTO panier (produits_id, total, reduction_id, rowguid, taille_id) VALUES (:produits_id, :total, :reduction_id, :rowguid, :taille_id)");
             $sql->bindParam(':produits_id', $produits_id);
@@ -148,7 +147,7 @@ class panier extends db
 
     public function tailleAffiche($id)
     {
-        $sql= $this->db->prepare('SELECT taille.taille, produits_quantite.produits_id FROM taille 
+        $sql = $this->db->prepare('SELECT taille.taille, produits_quantite.produits_id FROM taille 
                                                         JOIN produits_quantite ON taille.id = produits_quantite.taille_id
                                                         WHERE produits_quantite.produits_id = :id');
         $sql->bindParam(':id', $id);
@@ -156,4 +155,28 @@ class panier extends db
         return $sql->fetchAll();
     }
 
+
+    public function incremepanier($id)
+    {
+        $sql = $this->db->prepare("UPDATE panier SET total = total +1 WHERE produits_id = :id");
+        $sql->bindParam(':id', $id);
+        $sql->execute();
+    }
+
+    public function decremepanier($id)
+    {
+        $sql = $this->db->prepare("UPDATE panier SET total = total -1 WHERE produits_id = :id");
+        $sql->bindParam(':id', $id);
+        $sql->execute();
+    }
+
+
+
+    public function getAllpanier($id)
+    {
+        $sql = $this->db->prepare("SELECT * FROM panier WHERE id = :id");
+        $sql->bindParam(":id", $id);
+        $sql->execute();
+        return $sql->fetch(PDO::FETCH_ASSOC);
+    }
 }

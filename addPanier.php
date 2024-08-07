@@ -6,11 +6,13 @@ $panier = new panier();
 if (!isset($_SESSION['panier'])) {
     $_SESSION['panier'] = array();
 }
-var_dump($_SESSION['panier']);
+
 if (isset($_GET['id'])) {
     $produits_id = $_GET['id'];
 }
-
+print"<pre>";
+var_dump($_SESSION['panier']);
+print"</pre>";
 if (isset($_POST['qty'])) {
     $produit_qty = $_POST['qty'];
 }else{
@@ -32,7 +34,7 @@ if (isset($_SESSION['panier'][$produits_id]) && $produit_qty == null) {
     $_SESSION['panier'][$produits_id] = 1;
     echo "le produit a bien été ajouté au panier";
 }
-
+var_dump($_SESSION["panier"]);
 foreach ($_SESSION["panier"] as $id => $quantity) {
     $panier->setProduitsid($id);
     $panier->setRowguid($_SESSION["rowguid"]);
@@ -42,4 +44,4 @@ foreach ($_SESSION["panier"] as $id => $quantity) {
 }
 
 
-header("Location: articles.php");
+ header("Location: articles.php");
