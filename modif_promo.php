@@ -75,7 +75,7 @@ if (isset($_POST["modif_promo"])) {
     </section>
     <section>
     <form action="" method="post" class="flex flex-col justify-between border-2 border-gray-500 rounded-lg p-5 m-5">
-                <div class="flex justify-around items-center">
+                <div class="flex max-md:flex-col justify-around items-center">
                     <div class="flex flex-col items-center">
                         <label for="code">Code Promo :</label>
                         <input type="text" class="border-2 border-black" name="code" value=<?php foreach ($promos as $promo) {
