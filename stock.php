@@ -93,10 +93,10 @@ if (isset($_POST["delete"])) {
             <table id="tab" class="mb-5">
                 <thead>
                     <tr>
-                        <th class="px-5 py-2 border-2 border-black bg-white w-[5%]">Id produit</th>
+                        <th class="px-5 py-2 border-2 border-black bg-white w-[5%] max-md:hidden">Id produit</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Nom</th>
-                        <th class=" px-5 py-2 border-2 border-black bg-white w-[35%]">Description</th>
-                        <th class=" px-5 py-2 border-2 border-black bg-white">Prix</th>
+                        <th class=" px-5 py-2 border-2 border-black bg-white w-[35%] max-md:hidden">Description</th>
+                        <th class=" px-5 py-2 border-2 border-black bg-white max-md:hidden">Prix</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Stock</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Modif</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Tailles disp.</th>
@@ -106,11 +106,11 @@ if (isset($_POST["delete"])) {
                 <tbody>
                     <?php foreach ($produits as $produit) { ?>
                         <tr>
-                            <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $produit["id"]; ?></th>
+                            <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $produit["id"]; ?></th>
                             <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $produit["name"]; ?></th>
-                            <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $produit["description"]; ?>
+                            <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $produit["description"]; ?>
                             </th>
-                            <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $produit["prix"]; ?> € </th>
+                            <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $produit["prix"]; ?> € </th>
                             <th class="px-5 py-2 border-2 border-black bg-white"><?php if (isset($produitsQuants)) {
                                                                                         foreach ($produitsQuants as $produitsQuant) {
                                                                                             if ($produitsQuant["produits_id"] == $produit["id"]) {
@@ -150,17 +150,17 @@ if (isset($_POST["delete"])) {
         <section class="pt-5">
             <h2 class="text-center font-semibold font-heading">AJOUT :</h2>
             <form action="" method="POST" class="flex flex-col justify-between border-2 border-gray-500 rounded-lg m-5" enctype="multipart/form-data">
-                <div class="flex justify-around items-center">
+                <div class="flex max-md:flex-col justify-around items-center">
                     <div class="flex flex-col items-center">
                         <label for="name">Nom de l'article :</label>
-                        <textarea class="border-2 border-black" name="name" rows="5" cols="70"></textarea>
+                        <textarea class="border-2 border-black max-md:w-[70%]" name="name" rows="5" cols="70"></textarea>
                     </div>
                     <div class="flex flex-col items-center">
                         <label for="description">Description de l'aricle :</label>
-                        <textarea class="border-2 border-black" name="description" rows="5" cols="70"></textarea>
+                        <textarea class="border-2 border-black max-md:w-[70%]" name="description" rows="5" cols="70"></textarea>
                     </div>
                 </div>
-                <div class="flex justify-around items-center pt-5">
+                <div class="flex max-md:flex-col justify-around items-center pt-5">
                     <div class="flex flex-col items-center">
                         <label for="prix">Prix de l'article :</label>
                         <input type="text" class="border-2 border-black" name="prix"></input>
