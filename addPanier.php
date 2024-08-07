@@ -6,11 +6,13 @@ $panier = new panier();
 if (!isset($_SESSION['panier'])) {
     $_SESSION['panier'] = array();
 }
-var_dump($_SESSION['panier']);
+
 if (isset($_GET['id'])) {
     $produits_id = $_GET['id'];
 }
-
+print"<pre>";
+var_dump($_SESSION['panier']);
+print"</pre>";
 if (isset($_POST['qty'])) {
     $produit_qty = $_POST['qty'];
 }else{
