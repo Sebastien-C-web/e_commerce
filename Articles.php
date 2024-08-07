@@ -10,7 +10,9 @@ $newArticles = new Produits();
 $articles = $newArticles->getAllProduits();
 $newpanier = new panier();
 
-var_dump($_SESSION['panier']);
+/* var_dump($_SESSION['panier']);  */
+
+$total = 0;
 
 
 ?>
@@ -81,27 +83,40 @@ var_dump($_SESSION['panier']);
           </button>
 
           <div class="cart-item">
-            <?php foreach ($_SESSION['panier'] as $key => $article) {
-              $produit = $newpanier->getArticle($key); ?>
+            <?php if (!empty($_SESSION['panier'])) { ?>
+              <?php foreach ($_SESSION['panier'] as $key => $article) {
+                $produit = $newpanier->getArticle($key);
+                $total += ($produit['prix'] * $article);
 
-              <a href="produit.php?id=<?php echo $produit['id'] ?>"><img class="w-[20%] h-[20%]" src="ressources/uploads/<?php echo $produit['image']; ?>" alt="photo de l'article"></a>
-              <div class="details">
-                <h3 class="font-semibold"><?php echo $produit['name']; ?></h3>
-                <p>
-                  <span class="quantity">Quantité: 1</span>
-                  <span class="price"><?php echo $produit['prix'] ?>€</span>
-                </p>
-              </div>
-              <div class="cancel"><i class="fas fa-window-close"></i></div>
-            <?php } ?>
+              ?>
+
+                <a href="produit.php?id=<?php echo $produit['id'] ?>"><img class="w-[20%] h-[20%]" src="ressources/uploads/<?php echo $produit['image']; ?>" alt="photo de l'article"></a>
+                <div class="details">
+                  <h3 class="font-semibold"><?php echo $produit['name']; ?></h3>
+                  <p>
+                    <span class="quantity">Quantité : <?= $article ?></span>
+                    <span class="price"><?php echo $produit['prix'] ?>€</span>
+                  </p>
+                </div>
+                <div class="cancel"><i class="fas fa-window-close"></i></div>
+              <?php } ?>
           </div>
-          <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">Supercharge your hiring by taking advantage of our <a href="#" class="text-blue-600 underline dark:text-blue-500 hover:no-underline">limited-time sale</a> for Flowbite Docs + Job Board. Unlimited access to over 190K top-ranked candidates and the #1 design job board.</p>
-          <div class="grid grid-cols-2 gap-4">
-            <a href="panier.php" class="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-orange-500 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Voir le panier</a>
-            <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#EDAC70] rounded-lg hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Procéder au paiement<svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+          <p>Total : <?php print $total ?></p>
+        <?php } else { ?>
+          <p class="mb-6 text-sm text-gray-500 dark:text-gray-400"><?php print "Votre panier est tristement vide !" ?><br></p>
+        <?php } ?>
+        <div class="grid grid-cols-2 gap-4">
+          <?php if (!empty($_SESSION['panier'])) { ?>
+            <a href="panier.php" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#EDAC70] rounded-lg hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Procéder au paiement<svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
               </svg></a>
-          </div>
+          <?php } else { ?>
+            <a href="Articles.php" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#EDAC70] rounded-lg hover:bg-gray-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Retour aux achats<svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+              </svg></a>
+        </div>
+        <img src="sadfaceicon.png" alt="icone triste">
+        <?php } ?>
         </div>
 
         <a class="xl:hidden flex mr-6 items-center" href="#">
