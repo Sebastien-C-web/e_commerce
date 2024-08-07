@@ -101,6 +101,7 @@ $total = 0;
                 <div class="cancel"><i class="fas fa-window-close"></i></div>
               <?php } ?>
           </div>
+
           <p>Total : <?php print $total ?></p>
         <?php } else { ?>
           <p class="mb-6 text-sm text-gray-500 dark:text-gray-400"><?php print "Votre panier est tristement vide !" ?><br></p>
@@ -116,7 +117,7 @@ $total = 0;
               </svg></a>
         </div>
         <img src="sadfaceicon.png" alt="icone triste">
-        <?php } ?>
+      <?php } ?>
         </div>
 
         <a class="xl:hidden flex mr-6 items-center" href="#">
@@ -135,19 +136,34 @@ $total = 0;
     </section>
   </div>
 
-  <div class="flex flex-row gap-6 bg-[#EDAC70] pt-[3%] pb-[3%]">
-    <?php foreach ($articles as $article) { ?>
-      <div class="w-[15%] rounded overflow-hidden shadow-lg">
-        <a href="produit.php?id=<?php echo $article['id'] ?>"><img class="w-full" src="ressources/uploads/<?php echo $article['image']; ?>" alt="photo de l'article"></a>
-        <div class="px-6 py-4">
-          <div class="font-bold text-xl mb-2"><?php echo $article['name']; ?></div>
+<div class="p-1 flex flex-wrap justify-center">
+<?php foreach ($articles as $article) { ?>
+<div class="flex-shrink-0 m-6 relative overflow-hidden bg-[#f3af77] rounded-lg w-96 shadow-lg group">
+    <svg class="absolute bottom-0 left-0 mb-8 scale-150 group-hover:scale-[1.65] transition-transform"
+        viewBox="0 0 375 283" fill="none" style="opacity: 0.1;">
+        <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)" fill="white" />
+        <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
+    </svg>
+    <div class="relative pt-10 px-10 flex items-center justify-center group-hover:scale-110 transition-transform">
+        <div class="block absolute w-48 h-48 bottom-0 left-0 -mb-24 ml-3"
+            style="background: radial-gradient(black, transparent 60%); transform: rotate3d(0, 0, 1, 20deg) scale3d(1, 0.6, 1); opacity: 0.2;">
         </div>
-        <div class="px-6 pt-4 pb-2">
-          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"><?php echo $article['prix'] ?>€</span>
-        </div>
-      </div>
-    <?php } ?>
-  </div>
+        <a href="produit.php?id=<?php echo $article['id'] ?>"><img class="relative w-40 h-40 object-cover" src="ressources/uploads/<?php echo $article['image']; ?>" alt="photo de l'article">
+    </div>
+    <div class="relative text-white px-6 pb-6 mt-6">
+        <div class="flex justify-between">
+            <span class="block font-semibold text-xl truncate"><?php echo $article['name']; ?></span>
+            </div>
+            <div class="flex justify-center mt-2 ">
+            <span class=" px-2 block bg-white rounded-full text-orange-500 text-xs font-bold w-fit py-2 leading-none flex items-center"><?php echo $article['prix'] ?> €</span>
+            </div>
+</a>
+    </div>
+</div>
+<?php } ?>
+</div>
+
+
   <footer>
     <?php include('compo/footer.php'); ?>
 
@@ -155,6 +171,6 @@ $total = 0;
 
   <script src="script_panier.js"></script>
 </body>
-f
+
 
 </html>
