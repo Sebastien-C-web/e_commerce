@@ -3,23 +3,52 @@ require_once('config/db.php');
 require_once('classe/panierclass.php');
 require_once('ressources/produits.php');
 require_once('classe/address.php');
+require_once('ressources/promo.php');
 ob_start();
 session_start();
 
 $newArticles = new Produits();
+
 $newPanier = new panier();
+
 $newAdresse = new Adresse();
+
+$newPromo = new Promo();
+$promos = $newPromo->getAllPromos();
 
 
 $articles = $_SESSION['panier'];
 
-// var_dump($articles);
+
 
 
 $total = 0;
 
 
 
+if (isset($_POST["envoiCode"])) {
+    foreach ($promos as $promo) {
+        if ($_POST["code"] != $promo["code"]) {
+            // print "Le code saisi n'est pas valide";
+        } else {
+            if ($promo["quantite"] < 1) {
+                // print "Le code saisi n'est plus valide";
+                break;
+            } else {
+                foreach ($articles as $key => $article) {
+                    $produit = $newPanier->getArticle($key);
+                    if($produit["id"] == $promo["produits_id"]){
+                    $reduction = $produit["prix"] * ($promo["remise"] / 100);
+                    $total = $total - $reduction;
+                    // print "C'est bon ma gueule!";
+                    // var_dump($total);
+                    break;
+                    }
+                }
+            }
+        }
+    }
+}
 
 
 
@@ -83,7 +112,7 @@ $total = 0;
                 $produit = $newPanier->getArticle($key);
                 /* var_dump($produit); */
                 $taille = $newPanier->tailleAffiche($key);
-                var_dump($taille);
+                // var_dump($taille);
                 $total += ($produit['prix'] * $article);
             ?>
 
@@ -138,15 +167,35 @@ $total = 0;
                 </div>
             <?php
             } ?>
+
+            <div class="flex flex-row justify-end pr-10">
+                <?php if (isset($reduction)) { ?>
+                    <p> - <?php print $reduction ?> €</p>
+                <?php  } ?>
+            </div>
+
             <div class="flex flex-col md:flex-row items-center md:items-center justify-between lg:px-6 pb-6 border-b border-gray-200 max-lg:max-w-lg max-lg:mx-auto">
                 <h5 class="text-orange-500 font-manrope font-semibold text-2xl leading-9 w-full max-md:text-center max-md:mb-4">Total</h5>
 
                 <div class="flex items-center justify-between gap-5 ">
-                    <button class="rounded-full py-2.5 px-3 bg-indigo-50 text-orange-500 font-semibold text-xs text-center whitespace-nowrap transition-all duration-500 ">Promo
+                    <button class="rounded-full py-2.5 px-3 bg-indigo-50 text-orange-500 font-semibold text-xs text-center whitespace-nowrap transition-all duration-500" id="btnCode">Promo
                         Code?</button>
                     <h6 class="font-manrope font-bold text-3xl lead-10 text-orange-500"><?php print $total ?></h6>
                 </div>
             </div>
+
+            <div id="promo" class="my-5 hidden">
+                <form action="" method="POST" class="flex flex-col justify-center items-center gap-5">
+                    <div>
+                        <label for="code">Entrez ici votre code de réduction : </label>
+                        <input type="text" class="border-2 border-black" name="code"></input>
+                    </div>
+                    <div class="flex flex-row jutify-center">
+                        <button id="btnSub" type="submit" name="envoiCode" class="border-2 border-black bg-[#f97316] w-[130%] rounded-full text-white text-center">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+
             <div class="max-lg:max-w-lg max-lg:mx-auto">
                 <p class="font-normal text-base leading-7 text-orange-500 text-center mb-5 mt-6">Taxes d’expédition et remises calculées à la caisse</p>
 
@@ -198,8 +247,8 @@ $total = 0;
 
     <footer class="pt-[10%]">
         <?php include('compo/footer.php'); ?>
-
     </footer>
+    <script src="JS/script_panier.js"></script>
 </body>
 
 </html>
