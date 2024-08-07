@@ -22,37 +22,54 @@ $produitsQuants = $newQuant->getAllQuantite();
 $newTaille = new Taille();
 $produitsTailles = $newTaille->getAllTaille();
 
-if(isset($_POST["tailleBtn"])){
+if(isset($_POST["change"])){
+
 
     $taille = $_POST["taille"];
-
-    foreach($produitsQuants as $produitsQuant){
-        if ($produitsQuant["produits_id"] == $id) {
-            $ID = $produitsQuant["id"];
-            $newQuant->setId($ID);
-        }
-    }
-
-    
     $tailleID = $taille;
 
-    
-    $newQuant->setTailleId($tailleID); 
-    $newQuant->addTaille();
-    header("Location:stock.php");
+    $produitID = $_POST["change"];
+    $quantite = $_POST["num"];
+    $newQuant->setId($produitID);
+    $newQuant->setQuantite($quantite);
+    $newQuant->setTailleId($tailleID);
+    $newQuant->addQuantite();
 
+
+
+    // $produit_id = $_POST["change"];
+
+    // $taille = $_POST["taille"];
+    // $tailleID = $taille;
+
+    // $newQuant->setId($produitID);
+    // $newQuant->setTailleId($tailleID); 
+    // $newQuant->addTaille();
+    header("Location:stock.php");
 }
 
+// if (isset($_POST["qtte"])) {
+//     $produitID = $_POST["qtte"];
+//     $quantite = $_POST["num"];
+//     $newQuant->setId($produitID);
+//     $newQuant->setQuantite($quantite);
+//     $newQuant->addQuantite();
+    // header("Location: stock.php");
+// }
+
 if (isset($_POST["modif_article"])) {
+
+    $imgInfos = $_FILES["image"]["name"];
+
     $name = $_POST["name"];
     $description = $_POST["description"];
-    $image = $_FILES["image"]["name"];
+    $image = $imgInfos. "_". time();
     $prix = $_POST["prix"];
     $ID = $id;
 
     $newProd->modifProduit(["name" => $name, "description" => $description, "image" => $image, "prix" => $prix, "id" => $ID]);
-    if (isset($image["name"])) {
-        move_uploaded_file($image["tmp_name"], "ressources/uploads/" . $image["name"]);
+    if (isset($image)) {
+        move_uploaded_file($_FILES["image"]["tmp_name"], "ressources/uploads/" .$image);
     };
     header("Location: stock.php");
 }
@@ -80,9 +97,10 @@ if (isset($_POST["modif_article"])) {
     </header>
     <main>
         <section class="bg-[#EDAC70] flex flex-row justify-center items-center gap-5 px-5 py-5">
-            <article>
-                <?php foreach ($all_prod as $all_prods) {
+        <?php foreach ($all_prod as $all_prods) {
                     if ($all_prods['id'] == $id) { ?>
+            <article>
+                
                         <div class="flex flex-col justify-center pr-10 items-center">
                             <img src="ressources/uploads/<?php echo $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-40 h-fit">
                         </div>
@@ -101,19 +119,19 @@ if (isset($_POST["modif_article"])) {
                                                                                             if ($produitsQuant["produits_id"] == $id) {
                                                                                                 foreach($produitsTailles as $produitsTaille) {
                                                                                                     if($produitsQuant["taille_id"] == $produitsTaille["id"]){
-                                                                                                        echo $produitsTaille["taille"];
+                                                                                                        echo $produitsTaille["taille"];?> / <?php
                                                                                                     }
                                                                                                 }
                                                                                             }
                                                                                         }      ?>
                         </div>
                 <?php }
-                }
-             } ?>
+                
+              ?>
             </article>
-            <article>
-                <form action="" method="post">
-                <div class="flex flex-col items-center">
+            <article class="ml-24 flex flex-col items-center justify-center">
+                <form action="" method="post" class="flex flex-col items-center justify-center gap-2">
+                <div class="flex flex-col items-center justify-center">
                     <label for="taille">Taille l'article :</label><br>
                     <select name="taille">
                         <option value="">Veuillez choisir la taille souhaitée</option>
@@ -123,14 +141,19 @@ if (isset($_POST["modif_article"])) {
                          > <?php echo $produitsTaille["taille"]; } ?> </option>
                     </select>
                 </div>
+                <div class="flex flex-row gap-2">
+                <label for="num">Nouveau stock : </label>
+                <input type="text" class="border-2 border-black w-[50%] mr-5" name="num" required>
+                </div>
                 <div class="flex flex col items-center justify-center">
-                <button class="border-2 border-black bg-gray-300 text-center" type="submit" name="tailleBtn" value="<?php echo $produitsTaille["id"] ?>">Envoyer</button>
+                <button class="border-2 border-black bg-gray-300 text-center" type="submit" name="change" value="<?php echo $all_prods["id"] ?>">Envoyer</button>
                 </div>
                 </form>
             </article>
+            <?php } } ?>
         </section>
         <section>
-            <form action="" method="post" class="flex flex-col justify-between" enctype="multipart/form-data">
+            <form action="" method="post" class="flex flex-col justify-between border-2 border-gray-500 rounded-lg p-5 m-5" enctype="multipart/form-data">
                 <div class="flex justify-around items-center">
                     <div class="flex flex-col items-center">
                         <label for="name">Nom de l'article :</label>
@@ -162,7 +185,7 @@ if (isset($_POST["modif_article"])) {
                         <label for="image">Image de l'article :</label><br>
                         <input type="file" name="image" id="image"><br>
                     </div>
-                    <button class="border-2 border-black bg-gray-300 w-[10%] text-center" type="submit" name="modif_article">Modifier</button>
+                    <button class="border-2 border-black bg-[#f97316] w-[10%] rounded-full text-white text-center" type="submit" name="modif_article">Modifier</button>
                 </div>
             </form>
         </section>
@@ -170,7 +193,6 @@ if (isset($_POST["modif_article"])) {
 
     <footer>
         <?php include('compo/footer.php'); ?>
-
     </footer>
 </body>
 

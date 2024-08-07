@@ -52,15 +52,6 @@ if (isset($_POST["qtte"])) {
     header("Location: stock.php");
 }
 
-if(isset($_POST["taille"])) {
-    $tailleId = $_POST["taille"];
-    $taille = $_POST["taille-T"];
-    $newTaille ->setQuantiteID($tailleId);
-    $newTaille ->setTaille($taille);
-    $newTaille ->addTaille();
-    header("Location: stock.php");
-
-}
  
 if (isset($_POST["delete"])) {
     foreach ($produits as $produit) {
@@ -94,7 +85,11 @@ if (isset($_POST["delete"])) {
     </header>
     <main>
         <section class="bg-[#EDAC70] flex flex-col justify-center items-center gap-5 px-5 ">
+            <div class="flex flex-row gap-10 justify-center">
             <h1 class="pt-5">STOCK :</h1>
+            <a href="promo.php" class="pt-5 text-white">REDUCTIONS</h2></a>
+            <a href="tailles.php" class="pt-5 text-white">TAILLES</h2></a>
+            </div>
             <table id="tab" class="mb-5">
                 <thead>
                     <tr>
@@ -103,7 +98,6 @@ if (isset($_POST["delete"])) {
                         <th class=" px-5 py-2 border-2 border-black bg-white w-[35%]">Description</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Prix</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Stock</th>
-                        <th class=" px-5 py-2 border-2 border-black bg-white">Nouveau stock</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Modif</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Tailles disp.</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">DELETE</th>
@@ -120,16 +114,13 @@ if (isset($_POST["delete"])) {
                             <th class="px-5 py-2 border-2 border-black bg-white"><?php if (isset($produitsQuants)) {
                                                                                         foreach ($produitsQuants as $produitsQuant) {
                                                                                             if ($produitsQuant["produits_id"] == $produit["id"]) {
-                                                                                                echo $produitsQuant["quantites"];
+                                                                                                echo $produitsQuant["quantites"];?> / <?php
                                                                                             }
                                                                                         }
                                                                                     ?></th>
                         <?php } else {
                                                                                         print "La quantitée n'a pas encore été définie";
                                                                                     } ?>
-                        <th class="px-5 py-2 border-2 border-black bg-white">
-                            <form method="POST" action=""><input type="text" class="border-2 border-black w-[50%] mr-5" name="num" required><button class="bg-black text-white border-2 border-black p-2" type="submit" name="qtte" value="<?php print $produit["id"]; ?>">QTTE</button></form>
-                        </th>
                         <th class="px-5 py-2 border-2 border-black bg-white">
                             <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"]; ?>">Modif</button></form>
                         </th>
@@ -138,7 +129,7 @@ if (isset($_POST["delete"])) {
                                                                                             if ($produitsQuant["produits_id"] == $produit["id"]) {
                                                                                                 foreach($produitsTailles as $produitsTaille) {
                                                                                                     if($produitsQuant["taille_id"] == $produitsTaille["id"]){
-                                                                                                        echo $produitsTaille["taille"];
+                                                                                                        echo $produitsTaille["taille"];?> / <?php
                                                                                                     }
                                                                                                 }
                                                                                             }
@@ -147,7 +138,7 @@ if (isset($_POST["delete"])) {
                         <?php  } ?>
                         <th class="px-5 py-2 border-2 border-black bg-white">
                         <form action="" method="post">
-                        <button class="border-2 border-black bg-red-500 h-fit text-white" type="submit" name="delete"
+                        <button class="border-2 border-black bg-[#f97316] rounded-full w-[90%] h-fit text-white" type="submit" name="delete"
                             value="<?php print $produit["id"]; ?>">DELETE</button></th></form>
                     <?php  
                     } 
@@ -158,7 +149,7 @@ if (isset($_POST["delete"])) {
         </section>
         <section class="pt-5">
             <h2 class="text-center font-semibold font-heading">AJOUT :</h2>
-            <form action="" method="POST" class="flex flex-col justify-between" enctype="multipart/form-data">
+            <form action="" method="POST" class="flex flex-col justify-between border-2 border-gray-500 rounded-lg m-5" enctype="multipart/form-data">
                 <div class="flex justify-around items-center">
                     <div class="flex flex-col items-center">
                         <label for="name">Nom de l'article :</label>
@@ -180,7 +171,7 @@ if (isset($_POST["delete"])) {
                     </div>
                 </div>
                 <div class="flex flex-col items-center mt-2 mb-5">
-                    <button class="border-2 border-black bg-gray-300 w-[10%] text-center" type="submit" name="envoi_article">Envoyer</button>
+                    <button class="border-2 border-black bg-[#f97316] w-[10%] rounded-full text-white text-center" type="submit" name="envoi_article">Envoyer</button>
                     </div>
             </form>
         </section>

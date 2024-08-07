@@ -97,7 +97,7 @@ if (isset($_POST['addAvis'])) {
 
 
                                     <label for="taille"> Tailles disponible</label>
-                                    <select name="taille" id="taille">
+                                    <select name="taille" id="taille" required>
 
                                         <option selected disabled>Selectionnez votre taille</option>
 
@@ -120,7 +120,10 @@ if (isset($_POST['addAvis'])) {
 
                                 <form action="addPanier.php?id=<?php print $id; ?>" method="post">
                                     <label for="qty"> Quantités </label>
-                                    <select name="qty" id="">
+                                    <select name="qty" required>
+                                    <option selected disabled>Selectionnez la quantité
+                                        
+                                    </option>
                                         <?php foreach ($qty as $qtys) {
                                             if ($qtys['produits_id'] == $id) {
                                                 if ($_POST['taille'] == $qtys['taille_id']) {
@@ -135,8 +138,9 @@ if (isset($_POST['addAvis'])) {
                                                 }
                                             }
                                         } ?>
-                                    </select>
 
+                                    </select>
+                                    <input type="hidden" name="posTaille" value="<?php if(isset($_POST['taille'])){print $_POST['taille'];}  ?>">
                                     <button type="submit" value="<?php print $all_prods['id']; ?>" class="p-2 border border-black bg-white">Ajouter au panier</button>
                                 </form>
                             </div>
