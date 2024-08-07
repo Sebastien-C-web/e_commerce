@@ -2,12 +2,15 @@
     require_once('classe/panierclass.php');
     require_once('ressources/produits.php');
     require_once('classe/address.php');
-    session_start();
+    require_once('classe/commande.php');
 
+    session_start();
+    date_default_timezone_set('Europe/Paris');
 
     $newAdresse = new Adresse();
     $newArticles = new Produits();
     $newPanier = new panier();
+    $newCommande = new Commande();
     $articles = $_SESSION['panier'];
 
     $adresse_1 = htmlspecialchars(trim($_POST['adresse_1']));
@@ -15,18 +18,35 @@
     $codepostal = htmlspecialchars(trim($_POST['codepostal']));
     $ville = htmlspecialchars(trim($_POST['ville']));
 
-    
-
-
-
     $newAdresse->setAdresse_1($adresse_1);
     $newAdresse->setAdresse_suite($adresse_suite);
     $newAdresse->setCodepostal($codepostal);
     $newAdresse->setVille($ville);
     $newAdresse->addAdresse();
-  
+
+    $ndc = $_SESSION["rowguid"];
+    $date = date('d-m-y H:i:s');
+    if (isset($_SESSION['user'])) {
+        $user_id = $_SESSION['user']['id'];
+        $newCommande->setUser_id($user_id);
+    }
+    $newCommande->setDate($date);
+    $newCommande->setNum_commande($ndc);
 
 
+    foreach ($articles as $key => $article) {
+
+        $produit = $newPanier->getArticle($key);
+        $newCommande->addProduitCommande(['prod_id' => $produit['id'], 'ndc' => $ndc, 'qty' => $article]);
+        $total += ($produit['prix'] * $article);
+        $total = number_format($total, 2, ".", "");
+        $newCommande->setTotal($total); 
+        $newCommande->addCommande();
+    }
+
+
+    
+    
 
 
 
@@ -73,7 +93,8 @@
 
             ]);
         }
-
+        unset($_SESSION["rowguid"]);
+        $_SESSION["rowguid"] = uniqid();
         /*
          * Send the customer off to complete the payment.
          * This request should always be a GET, thus we enforce 303 http response code
@@ -82,3 +103,5 @@
     } catch (\Mollie\Api\Exceptions\ApiException $e) {
         echo "API call failed: " . htmlspecialchars($e->getMessage());
     }
+   
+
