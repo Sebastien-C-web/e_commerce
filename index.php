@@ -8,7 +8,9 @@ $bdd->connecte();
 
 $newProd = new Produits();
 $produits = $newProd->getAllProduits();
-$_SESSION["rowguid"]=uniqid();
+if (!isset($_SESSION["rowguid"])) {
+    $_SESSION["rowguid"] = uniqid();
+}
 
 $lastProds = $newProd->lastProduits();
 
@@ -22,11 +24,12 @@ if (!isset($_SESSION['panier'])) {
 
 }
 
+
 ?>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -36,14 +39,26 @@ if (!isset($_SESSION['panier'])) {
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="url-to-cdn/splide.min.css">
+    <link rel="stylesheet" href="CSS/logo.css">
 </head>
-
 <body>
-    <embed width="10" height="10" src="imagelog/son12.mp3" loop="false" autostart="true" hidden="true">
 
-    <header>
-        <?php include('compo/header.php'); ?>
+
+
+
+ <embed width="10" height="10" src="imagelog/son12.mp3" loop="false" autostart="true" hidden="true">
+
+
+
+<header>
+        <?php include_once('compo/header.php'); ?>
     </header>
+
+
+
+   
+
+     
     <main>
         <section class="bg-[#EDAC70]">
             <div class="flex justify-center items-center underline">
@@ -130,7 +145,9 @@ if (!isset($_SESSION['panier'])) {
     </footer>
     <script>
         new Splide('.splide').mount();
-    </script>
+    
+    </script>  
+    <script src="JS/son.js"></script>         
 </body>
 
 </html>
