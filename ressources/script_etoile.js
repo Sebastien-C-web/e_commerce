@@ -1,9 +1,4 @@
-let taille = document.getElementById("taille");
-let formTaille = document.getElementById("formTaille");
 
-taille.addEventListener("change", (e) => {
-  formTaille.submit();
-})
 
 function selectEtoileA(aEtoiles, bUnselect, iNote, sClassSlelected) {
   for (let h = 0; h < aEtoiles.length; h++) {
@@ -64,7 +59,6 @@ for (k = 0; k < concatest.length; k++) {
     etoileB = formComment.getElementsByClassName('etoile' + l);
   selectEtoileA(etoileB, false, formComment.note2.value, sClassSlelected)
 }
-
 });
 
 

@@ -10,9 +10,7 @@ if (!isset($_SESSION['panier'])) {
 if (isset($_GET['id'])) {
     $produits_id = $_GET['id'];
 }
-print"<pre>";
-var_dump($_SESSION['panier']);
-print"</pre>";
+
 if (isset($_POST['qty'])) {
     $produit_qty = $_POST['qty'];
 }else{
@@ -24,7 +22,9 @@ if (isset($_POST['posTaille'])){
 }else{
     $taille = null;
 }
-
+print"<pre>";
+var_dump($taille);
+print"</pre>";
 
 if (isset($_SESSION['panier'][$produits_id]) && $produit_qty == null) {
     $_SESSION['panier'][$produits_id]++;

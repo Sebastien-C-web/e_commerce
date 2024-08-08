@@ -8,7 +8,7 @@ require_once('ressources/produits_quantite.php');
 ob_start();
 session_start();
 
-$newQuantite= new ProduitsQuantites();
+$newQuantite = new ProduitsQuantites();
 
 $newArticles = new Produits();
 
@@ -19,9 +19,11 @@ $newAdresse = new Adresse();
 $newPromo = new Promo();
 $promos = $newPromo->getAllPromos();
 
-$allquantite= $newQuantite->getAllQuantite();
+$allquantite = $newQuantite->getAllQuantite();
 
-$messageerreur="Il n'y a pas assez de stock pour ces articles !";
+$messageerreur = null;
+
+
 
 // $_SESSION['panier'] = [];
 $articles = $_SESSION['panier'];
@@ -44,12 +46,12 @@ if (isset($_POST["envoiCode"])) {
             } else {
                 foreach ($articles as $key => $article) {
                     $produit = $newPanier->getArticle($key);
-                    if($produit["id"] == $promo["produits_id"]){
-                    $reduction = $produit["prix"] * ($promo["remise"] / 100);
-                    $total = $total - $reduction;
-                    // print "C'est bon ma gueule!";
-                    // var_dump($total);
-                    break;
+                    if ($produit["id"] == $promo["produits_id"]) {
+                        $reduction = $produit["prix"] * ($promo["remise"] / 100);
+                        $total = $total - $reduction;
+                        // print "C'est bon ma gueule!";
+                        // var_dump($total);
+                        break;
                     }
                 }
             }
@@ -73,9 +75,9 @@ if (isset($_POST["envoiCode"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="CSS/style_panier.css">
-  <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <title>Panier</title>
 </head>
 
@@ -101,7 +103,6 @@ if (isset($_POST["envoiCode"])) {
                     $newPanier->incremepanier($idproduit);
                     header("Location: panier.php");
                     ob_clean();
-
                 }
             }
             if (isset($_POST['moins'])) {
@@ -124,7 +125,6 @@ if (isset($_POST["envoiCode"])) {
                 // var_dump($article);
                 $produit = $newPanier->getArticle($key);
                 /* var_dump($produit); */
-                $taille = $newPanier->tailleAffiche($key);
                 // var_dump($total);
                 // $total += ($produit['prix'] * $article);
 
@@ -149,18 +149,10 @@ if (isset($_POST["envoiCode"])) {
                         </div>
                         <p class="font-normal text-base leading-7 text-gray-500 mb-6"><?php echo $produit['description'] ?> <a href="javascript:;" class="text-indigo-600"></a>
                         </p>
-                        <p class="font-normal text-base leading-7 text-gray-500 mb-6">
-                            <?php foreach ($taille as $tailles) {
-                            if ($produit["id"] == $tailles['produits_id']){
-                               $new_taille = $tailles['taille'] ;
-                               print "$new_taille\n";
-                            }} ?>
-                             
-                        </p>
                         <div class="flex justify-between items-center">
                             <div class="flex items-center gap-4">
                                 <form action="" method="post">
-                                  
+
                                     <button type="submit" name="moins" value="<?php print $produit["id"] ?>" class="group rounded-[50px] border border-gray-200 shadow-sm shadow-transparent p-2.5 flex items-center justify-center bg-white transition-all duration-500 hover:shadow-gray-200 hover:bg-gray-50 hover:border-gray-300 focus-within:outline-gray-300">
                                         <svg class="stroke-gray-900 transition-all duration-500 group-hover:stroke-black" width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.5 9.5H13.5" stroke="" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
@@ -235,29 +227,30 @@ if (isset($_POST["envoiCode"])) {
                 <hr class="mt-4">
                 <div class="flex flex-row-reverse p-3">
                     <div class="flex-initial pl-3">
-                    <?php foreach ($articles as $key => $article) {
-                        foreach ($allquantite as $allquant) {
-                        if ($article > $allquant['quantites'] && $key == $allquant['produits_id']) { ?>
-                        <p class="font-bold text-xl uppercase text-red-500"><?php print $messageerreur ?></p>
-                        
-                        <?php break;
-                     } else { ?>
-                            <button type="submit" name="ajouter"
-                               <?php if(isset($reduction)) { ?>
-                                    value="<?php print $_POST["code"] ?>"
-                            <?php   } else { ?>
-                                    value= "0" 
-                          <?php  } ?> 
-                          class="rounded-full py-5 px-36 bg-orange-500 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-green-700 ">procéder au paiement</button>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
-                            <path d="M0 0h24v24H0V0z" fill="none"></path>
-                            <path d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8H6V6h9v4z" opacity=".3"></path>
-                            <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z"></path>
-                        </svg>
+                        <?php foreach ($articles as $key => $article) {
+                            foreach ($allquantite as $allquant) {
+                                if ($key == $allquant['produits_id']) {
+                                    if ($article > $allquant['quantites']) {
 
-                        </button>
-                      <?php  }}} ?>
+                                        $messageerreur = "Il n'y a pas assez de stock pour ces articles !";
+                                        ; ?>
 
+                                        <p class="font-bold text-xl uppercase text-red-500"><?php print $messageerreur; ?></p>
+
+                        <?php  }
+                                }
+                            }
+                        } ?>
+                        <?php if ($messageerreur == null) { ?>
+                            <button type="submit" name="ajouter" <?php if (isset($reduction)) { ?> value="<?php print $_POST["code"] ?>" <?php   } else { ?> value="0" <?php  } ?> class="rounded-full py-5 px-36 bg-orange-500 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-green-700 ">procéder au paiement</button>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
+                                <path d="M0 0h24v24H0V0z" fill="none"></path>
+                                <path d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8H6V6h9v4z" opacity=".3"></path>
+                                <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z"></path>
+                            </svg>
+
+                            </button>
+                        <?php  } ?>
                     </div>
 
                 </div>
