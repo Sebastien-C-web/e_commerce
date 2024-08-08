@@ -1,5 +1,15 @@
 <?php
 session_start();
+require_once("classe/users.php");
+require_once('config/db.php');
+require_once('ressources/produits.php');
+require_once('classe/panierclass.php');
+
+$newPanier = new panier();
+$newArticles = new Produits();
+$total = 0;
+
+
 
 ?>
 <!DOCTYPE html>
@@ -8,7 +18,9 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>contact</title>
+    <link rel="stylesheet" href="CSS/style_panier.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 
 </head>
 <body>
@@ -78,5 +90,6 @@ session_start();
         <?php include('compo/footer.php'); ?>
 
     </footer>
+    <script src="JS/son.js"></script> 
 </body>
 </html>

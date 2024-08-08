@@ -98,9 +98,8 @@ class panier extends db
         $sql->bindParam(":id", $id);
         $sql->execute();
         return $sql->fetch(PDO::FETCH_ASSOC);
+
     }
-
-
 
 
     public function addPanier()
@@ -180,3 +179,4 @@ class panier extends db
         return $sql->fetch(PDO::FETCH_ASSOC);
     }
 }
+
