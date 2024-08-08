@@ -95,6 +95,7 @@ if (isset($_POST["envoiCode"])) {
                     header("Location: panier.php");
                     ob_clean();
 
+
                 }
             }
             if (isset($_POST['moins'])) {
