@@ -92,10 +92,10 @@ if (isset($_POST['addAvis'])) {
             <div class="container mx-auto">
                 <?php foreach ($all_prod as $all_prods) {
                     if ($all_prods['id'] == $id) { ?>
-                        <div class=" flex justify-center py-6">
-                            <img src="ressources/uploads/<?php print $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="w-fit h-96">
+                        <div class=" flex flex-col md:flex-row justify-center items-center py-6">
+                            <img src="ressources/uploads/<?php print $all_prods['image']; ?>" alt="produit numero <?php print $id ?>" class="max-md:w-72 max-md:h-72 lg:w-fit lg:h-96 object-cover max-md:mx-2">
 
-                            <div class="flex flex-col items-center justify-around mx-6 ">
+                            <div class="flex flex-col items-center justify-center md:justify-around mx-6 ">
                                 <div class="">
                                     <h2 class="text-4xl font-semibold uppercase underline"><?php print $all_prods['name']; ?></h2>
                                 </div>
@@ -216,7 +216,7 @@ if (isset($_POST['addAvis'])) {
                     foreach ($all_users as $all_user) {
                         if ($all_user['id'] == $avis_prods['users_id']) { ?>
 
-                            <h3 class="text-xl font-semibold mx-56">
+                            <h3 class="text-xl font-semibold text-center underline">
                                 <?php print $all_user['name'] ?> :
                             </h3>
                             <div class="flex justify-center my-2">
