@@ -130,8 +130,9 @@ if (isset($_POST["delete"])) {
                         <form action="" method="post">
                             <button class="border-2 border-black bg-[#f97316] rounded-full w-[90%] h-fit text-white" type="submit" name="delete" value="<?php print $produit["id"]; ?>">DELETE</button>
                     </th>
+                   
+                    </form> 
                     <?php  } ?>
-                    </form>
                         </tr>
                 </tbody>
             </table>
