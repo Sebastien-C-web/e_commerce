@@ -78,9 +78,9 @@ if (isset($_POST["delete"])) {
                         <th class="px-5 py-2 border-2 border-black bg-white w-[5%]">Id promo</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white w-[10%] max-md:hidden">Code promo</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white ">Réduction</th>
-                        <th class=" px-5 py-2 border-2 border-black bg-white">Quantitée</th>
+                        <th class=" px-5 py-2 border-2 border-black bg-white max-md:hidden">Quantitée</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white w-[35%] max-md:hidden">Produit concerné</th>
-                        <th class=" px-5 py-2 border-2 border-black bg-white">Modif</th>
+                        <th class=" px-5 py-2 border-2 border-black bg-white max-md:hidden">Modif</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">DELETE</th>
                     </tr>
                 </thead>
@@ -91,13 +91,13 @@ if (isset($_POST["delete"])) {
                     <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["id"];  ?></th>
                     <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $promo["code"];  ?></th>
                     <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["remise"]; ?></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["quantite"]; ?></th>
+                    <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $promo["quantite"]; ?></th>
                     <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php foreach($produits as $produit) {
                         if($promo["produits_id"] == $produit["id"]) {
                             echo $produit["name"];
                         }
                     } ?></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white">
+                    <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden">
                             <form method="GET" action="modif_promo.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $promo["id"]; ?>">Modif</button></form>
                         </th>
                     <th class="px-5 py-2 border-2 border-black bg-white"> <form action="" method="post">
@@ -129,8 +129,8 @@ if (isset($_POST["delete"])) {
                     </div>
                     <div class="flex flex-col items-center">
                         <label for="assign">Assignation :</label>
-                        <select name="assign">
-                        <option value="">Veuillez choisir le produit concerné :</option>
+                        <select class="w-[80%]"   name="assign">
+                        <option value="">Produit concerné :</option>
                         <?php foreach($produits as $produit){ ?>
                         <option value="<?php
                             echo $produit["id"];?>"
