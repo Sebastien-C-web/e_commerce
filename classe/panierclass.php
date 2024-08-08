@@ -110,12 +110,10 @@ class panier extends db
         $total = $this->getTotal();
         $reduction_id = $this->getReductionid();
         $rowguid = $this->getRowguid();
-        $taille = $this->getTaille();
 
-        $sql2 = $this->db->prepare("SELECT * FROM panier WHERE rowguid = :rowguid AND produits_id = :produits_id AND taille_id = :taille_id");
+        $sql2 = $this->db->prepare("SELECT * FROM panier WHERE rowguid = :rowguid AND produits_id = :produits_id");
         $sql2->bindParam(":produits_id", $produits_id);
         $sql2->bindParam(':rowguid', $rowguid);
-        $sql2->bindParam(':taille_id', $taille);
         $sql2->execute();
         $exist = $sql2->fetch(PDO::FETCH_ASSOC);
 
@@ -125,12 +123,11 @@ class panier extends db
             $sql->bindParam(':rowguid', $rowguid);
             $sql->bindParam(':total', $total);
         } else {
-            $sql = $this->db->prepare("INSERT INTO panier (produits_id, total, reduction_id, rowguid, taille_id) VALUES (:produits_id, :total, :reduction_id, :rowguid, :taille_id)");
+            $sql = $this->db->prepare("INSERT INTO panier (produits_id, total, reduction_id, rowguid) VALUES (:produits_id, :total, :reduction_id, :rowguid)");
             $sql->bindParam(':produits_id', $produits_id);
             $sql->bindParam(':rowguid', $rowguid);
             $sql->bindParam(':total', $total);
             $sql->bindParam(':reduction_id', $reduction_id);
-            $sql->bindParam(':taille_id', $taille);
         }
 
 
@@ -144,15 +141,6 @@ class panier extends db
         $sql->execute();
     }
 
-    public function tailleAffiche($id)
-    {
-        $sql = $this->db->prepare('SELECT taille.taille, produits_quantite.produits_id FROM taille 
-                                                        JOIN produits_quantite ON taille.id = produits_quantite.taille_id
-                                                        WHERE produits_quantite.produits_id = :id');
-        $sql->bindParam(':id', $id);
-        $sql->execute();
-        return $sql->fetchAll();
-    }
 
 
     public function incremepanier($id)
