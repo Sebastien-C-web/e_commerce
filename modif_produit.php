@@ -4,18 +4,11 @@ require_once('config/db.php');
 require_once('ressources/avis.php');
 require_once('ressources/produits.php');
 require_once('ressources/produits_quantite.php');
-require_once('ressources/taille.php');
-require_once('classe/panierclass.php');
-
 session_start();
 
 
 $db = new db();
 $db->connecte();
-
-$newPanier = new panier();
-$newArticles = new Produits();
-$total = 0;
 
 $newProd = new Produits();
 $all_prod = $newProd->getAllProduits();
@@ -25,14 +18,11 @@ $id = $_GET['modif'];
 $newQuant = new ProduitsQuantites();
 $produitsQuants = $newQuant->getAllQuantite();
 
-$newTaille = new Taille();
-$produitsTailles = $newTaille->getAllTaille();
+
 
 if(isset($_POST["change"])){
 
 
-    $taille = $_POST["taille"];
-    $tailleID = $taille;
 
     $produitID = $_POST["change"];
     $quantite = $_POST["num"];
@@ -88,8 +78,6 @@ if (isset($_POST["modif_article"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/style_panier.css">
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <title>
         <?php foreach ($all_prod as $all_prods) {
             if ($all_prods['id'] == $id) {
@@ -121,44 +109,23 @@ if (isset($_POST["modif_article"])) {
                                     <h2>Quantitée en stock : <?php print $produitsQuant["quantites"]; ?></h2>
                             <?php  }
                             }
-                            ?>
-                            <h2>Tailles disponibles :<?php if(isset($produitsQuants)) {
-                                                                                        foreach ($produitsQuants as $produitsQuant) {
-                                                                                            if ($produitsQuant["produits_id"] == $id) {
-                                                                                                foreach($produitsTailles as $produitsTaille) {
-                                                                                                    if($produitsQuant["taille_id"] == $produitsTaille["id"]){
-                                                                                                        echo $produitsTaille["taille"];?> / <?php
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        }      ?>
+                            ?>       
                         </div>
-                <?php }
-                
-              ?>
             </article>
+            
             <article class="ml-24 flex flex-col items-center justify-center">
                 <form action="" method="post" class="flex flex-col items-center justify-center gap-2">
-                <div class="flex flex-col items-center justify-center">
-                    <label for="taille">Taille l'article :</label><br>
-                    <select name="taille">
-                        <option value="">Veuillez choisir la taille souhaitée</option>
-                        <?php foreach($produitsTailles as $produitsTaille){ ?>
-                        <option value="<?php
-                            echo $produitsTaille["id"];?>"
-                         > <?php echo $produitsTaille["taille"]; } ?> </option>
-                    </select>
-                </div>
                 <div class="flex flex-row gap-2">
                 <label for="num">Nouveau stock : </label>
-                <input type="text" class="border-2 border-black w-[50%] mr-5" name="num" required>
+                <input type="text" class="w-[120%] border-2 border-black w-[50%] mr-5" name="num" required>
                 </div>
                 <div class="flex flex col items-center justify-center">
                 <button class="border-2 border-black bg-gray-300 text-center" type="submit" name="change" value="<?php echo $all_prods["id"] ?>">Envoyer</button>
                 </div>
                 </form>
             </article>
-            <?php } } ?>
+            <?php } ?>
+            <?php }  ?>
         </section>
         <section>
             <form action="" method="post" class="flex flex-col justify-between border-2 border-gray-500 rounded-lg p-5 m-5" enctype="multipart/form-data">
@@ -202,7 +169,6 @@ if (isset($_POST["modif_article"])) {
     <footer>
         <?php include('compo/footer.php'); ?>
     </footer>
-    <script src="JS/son.js"></script> 
 </body>
 
 </html>
