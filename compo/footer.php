@@ -1,6 +1,6 @@
 <footer class="bg-black text-white py-8">
   <div class=" flex flex-col md:flex-row justify-between items-center">
-    <div class="flex space-x-4">
+    <div class="flex items-center gap-4 max-md:ml-2 flex-wrap md:flex-row">
       <img src="https://m.media-amazon.com/images/I/21-h5SxzHBL.jpg" class="h-14 w-14 object-contain">
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd9NBnD7PnD6TlJxOBEElCrSH-o4d25bsevA&s" class="h-14 w-14 object-contain">
       <img src="https://cdn.worldvectorlogo.com/logos/kalos-1.svg" class="h-14 w-14 object-contain">

@@ -66,7 +66,7 @@ $all_prod = $newProd->getAllProduits();
 
                         </div>
                         <h2 class="text-xl text-center">Articles : </h2>
-                        <div class="flex justify-center">
+                        <div class="flex flex-col md:flex-row justify-center items-center">
 
                             <?php foreach ($all_commande_prod as $all_commande_prods) {
                                 foreach ($all_prod as $produits) {
