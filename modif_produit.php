@@ -5,11 +5,17 @@ require_once('ressources/avis.php');
 require_once('ressources/produits.php');
 require_once('ressources/produits_quantite.php');
 require_once('ressources/taille.php');
+require_once('classe/panierclass.php');
+
 session_start();
 
 
 $db = new db();
 $db->connecte();
+
+$newPanier = new panier();
+$newArticles = new Produits();
+$total = 0;
 
 $newProd = new Produits();
 $all_prod = $newProd->getAllProduits();
@@ -82,6 +88,8 @@ if (isset($_POST["modif_article"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/style_panier.css">
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <title>
         <?php foreach ($all_prod as $all_prods) {
             if ($all_prods['id'] == $id) {
@@ -194,6 +202,7 @@ if (isset($_POST["modif_article"])) {
     <footer>
         <?php include('compo/footer.php'); ?>
     </footer>
+    <script src="JS/son.js"></script> 
 </body>
 
 </html>

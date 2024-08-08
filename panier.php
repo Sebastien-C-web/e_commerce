@@ -4,8 +4,11 @@ require_once('classe/panierclass.php');
 require_once('ressources/produits.php');
 require_once('classe/address.php');
 require_once('ressources/promo.php');
+require_once('ressources/produits_quantite.php');
 ob_start();
 session_start();
+
+$newQuantite= new ProduitsQuantites();
 
 $newArticles = new Produits();
 
@@ -16,7 +19,11 @@ $newAdresse = new Adresse();
 $newPromo = new Promo();
 $promos = $newPromo->getAllPromos();
 
+$allquantite= $newQuantite->getAllQuantite();
 
+$messageerreur="Il n'y a pas assez de stock pour ces articles !";
+
+// $_SESSION['panier'] = [];
 $articles = $_SESSION['panier'];
 
 
@@ -228,13 +235,20 @@ if (isset($_POST["envoiCode"])) {
                 <hr class="mt-4">
                 <div class="flex flex-row-reverse p-3">
                     <div class="flex-initial pl-3">
-                        <button type="submit" name="ajouter"
+                    <?php foreach ($articles as $key => $article) {
+                        foreach ($allquantite as $allquant) {
+                        if ($article > $allquant['quantites'] && $key == $allquant['produits_id']) { ?>
+                        <p class="font-bold text-xl uppercase text-red-500"><?php print $messageerreur ?></p>
+                        
+                        <?php break;
+                     } else { ?>
+                            <button type="submit" name="ajouter"
                                <?php if(isset($reduction)) { ?>
                                     value="<?php print $_POST["code"] ?>"
                             <?php   } else { ?>
                                     value= "0" 
-                          <?php  } ?>
-                     class="rounded-full py-5 px-15 md:px-36 bg-orange-500 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-green-700 ">procéder au paiement</button>
+                          <?php  } ?> 
+                          class="rounded-full py-5 px-36 bg-orange-500 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-green-700 ">procéder au paiement</button>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF">
                             <path d="M0 0h24v24H0V0z" fill="none"></path>
                             <path d="M5 5v14h14V7.83L16.17 5H5zm7 13c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-8H6V6h9v4z" opacity=".3"></path>
@@ -242,6 +256,7 @@ if (isset($_POST["envoiCode"])) {
                         </svg>
 
                         </button>
+                      <?php  }}} ?>
 
                     </div>
 

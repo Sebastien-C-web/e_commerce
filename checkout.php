@@ -4,6 +4,7 @@
     require_once('classe/address.php');
     require_once('classe/commande.php');
     require_once('ressources/promo.php');
+    require_once('ressources/produits_quantite.php');
 
     session_start();
     date_default_timezone_set('Europe/Paris');
@@ -11,7 +12,7 @@
     $newPromo = new Promo();
     $promos = $newPromo->getAllPromos();
 
-
+    $newQuantite= new ProduitsQuantites();
     $newAdresse = new Adresse();
     $newArticles = new Produits();
     $newPanier = new panier();
@@ -78,6 +79,7 @@
         $total2 -= $reduction;
         $total2 = number_format($total2, 2, ".", "");
         $newCommande->setTotal($total2);
+        $newQuantite->decremequantite(['quant' => $article, 'id' => $produit['id']]);
     }
     $newCommande->addCommande();
 

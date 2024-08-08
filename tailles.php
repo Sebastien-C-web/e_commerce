@@ -4,9 +4,15 @@ require_once("config/db.php");
 require_once('ressources/produits.php');
 require_once('ressources/produits_quantite.php');
 require_once('ressources/taille.php');
+require_once('classe/panierclass.php');
 
 $db = new db();
 $db->connecte();
+
+$newPanier = new panier();
+$newArticles = new Produits();
+$total = 0;
+
 
 $newProd = new Produits();
 $produits = $newProd->getAllProduits();
@@ -57,6 +63,8 @@ if (isset($_POST["delete"])) {
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js" integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" crossorigin="anonymous"></script>
     <link href="//cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css" rel="stylesheet">
     <script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
+    <link rel="stylesheet" href="CSS/style_panier.css">
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <script src="JS/tableau.js"></script>
 </head>
 
@@ -109,7 +117,7 @@ if (isset($_POST["delete"])) {
             </form>
         </section>
     </main>
-
+    <script src="JS/son.js"></script> 
 </body>
 
 </html>
