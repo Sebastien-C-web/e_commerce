@@ -103,6 +103,6 @@ $newCommande->addCommande();
         header("Location: " . $paymentLink->getCheckoutUrl(), true, 303);
     } catch (\Mollie\Api\Exceptions\ApiException $e) {
         echo "API call failed: " . htmlspecialchars($e->getMessage());
-    }
+   }  
    
 

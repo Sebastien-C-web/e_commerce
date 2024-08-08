@@ -14,20 +14,20 @@
             
                    
                 </button>
-                <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading xl:space-x-12 " id="navigation">
+                <ul class="hidden md:flex px-4 mx-auto font-semibold font-heading md:space-x-6 xl:space-x-12 " id="navigation">
                     <li><a class="hover:text-orange-500" href="index.php">Accueil</a></li>
-                    <li><a class="hover:text-orange-500" href="Articles.php">Nos Produits</a></li>
+                    <li><a class="hover:text-orange-500" href="Articles.php">Produits</a></li>
                     <?php if (isset($_SESSION['user'])) { ?>                        
                         <li><a href="logout.php" class="hover:text-orange-500">deconnexion</a></li>
-                        <li><a href="profil.php" class="hover:text-orange-500">profil</a></li>
+                        <li><a href="profil.php" class="hover:text-orange-500">Profil</a></li>
                         <?php if ($_SESSION['user']['statut'] == 'admin') { ?>
-                        <li><a class="hover:text-orange-600" href="stock.php">stock</a></li>
+                        <li><a class="hover:text-orange-600" href="stock.php">Stock</a></li>
                         <?php } ?>
                     <?php } else { ?>
                         <li><a class="hover:text-orange-500" href="connexion.php">Connexion</a></li>
                         <li><a class="hover:text-orange-500" href="sign_in.php">inscription</a></li>
                     <?php } ?>
-                    <li><a class="hover:text-orange-500" href="contact.php">Contact Us</a></li>
+                    <li><a class="hover:text-orange-500" href="contact.php">Contact</a></li>
                 </ul>
                 <div class="text-center">
             <button class="text-white bg-white focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" data-drawer-target="drawer-example" data-drawer-show="drawer-example" aria-controls="drawer-example">
