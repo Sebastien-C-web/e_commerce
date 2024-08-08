@@ -49,7 +49,7 @@
           </button>
 
           <div class="cart-item">
-            <?php if (isset($_SESSION['user']) && !empty($_SESSION['panier'])) { ?>
+            <?php if (!empty($_SESSION['panier'])) { ?>
               <?php foreach ($_SESSION['panier'] as $key => $article) {
                 $produit = $newPanier->getArticle($key);
                 $total += ($produit['prix'] * $article);
