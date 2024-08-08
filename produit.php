@@ -134,6 +134,8 @@ if (isset($_POST['addAvis'])) {
                                     <label for="qty"> Quantités </label>
                                     <select name="qty" required >
                                  
+                                    <select name="qty" required>
+                                        
                                         <?php foreach ($qty as $qtys) {
                                             if ($qtys['produits_id'] == $id) {
                                                 if ($_POST['taille'] == $qtys['taille_id']) {
