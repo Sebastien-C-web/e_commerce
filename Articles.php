@@ -134,5 +134,5 @@ $newpanier = new panier();
 
 <script src="script_panier.js"></script>
 </body>
-f
+
 </html>
