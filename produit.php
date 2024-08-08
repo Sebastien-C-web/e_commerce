@@ -1,4 +1,5 @@
-<?php require_once('./config/db.php');
+<?php 
+require_once('./config/db.php');
 require_once('ressources/avis.php');
 require_once('ressources/produits.php');
 require_once('ressources/produits_quantite.php');
@@ -131,10 +132,8 @@ if (isset($_POST['addAvis'])) {
 
                                 <form action="addPanier.php?id=<?php print $id; ?>" method="post">
                                     <label for="qty"> Quantités </label>
-                                    <select name="qty" required>
-                                    <option selected disabled>Selectionnez la quantité
-                                        
-                                    </option>
+                                    <select name="qty" required >
+                                 
                                         <?php foreach ($qty as $qtys) {
                                             if ($qtys['produits_id'] == $id) {
                                                 if ($_POST['taille'] == $qtys['taille_id']) {
