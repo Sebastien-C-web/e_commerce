@@ -100,4 +100,12 @@ class Promo extends db
             $sql->execute();
     }
 
+    public function minusPromo($id)
+    {
+        $sql = $this->connecte()->prepare("UPDATE reduction SET quantite = quantite - 1 WHERE id = :id");
+        $sql->bindParam(":id", $id);
+        $sql->execute();
+
+    }
+
 }
