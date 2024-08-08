@@ -3,7 +3,14 @@ require_once('ressources/avis.php');
 require_once('ressources/produits.php');
 require_once('ressources/produits_quantite.php');
 require_once('ressources/taille.php');
+require_once("classe/users.php");
+require_once('classe/panierclass.php');
 session_start();
+
+
+$newPanier = new panier();
+$newArticles = new Produits();
+$total = 0;
 $sql = new db();
 $sql->connecte();
 $newProd = new Produits();
@@ -69,6 +76,10 @@ if (isset($_POST['addAvis'])) {
     </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="ressources/style_etoile.css">
+    <link rel="stylesheet" href="CSS/style_panier.css">
+  <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 </head>
 
 <body>
