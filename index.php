@@ -57,17 +57,17 @@ if (!isset($_SESSION['panier'])) {
         <?php include_once('compo/header.php'); ?>
     </header>
 
+    
+  
 
-
-   
 
      
     <main>
-        <section class="bg-[#EDAC70]">
-            <div class="flex justify-center items-center underline">
+        <section class="bg-[#EDAC70] p-4 md:p-8">
+            <div class=" flex flex-col md:flex-row justify-center items-center underline">
                 <h1 class="text-2xl font-bold text-red-700">Nos produits phares : </h1>
             </div>
-            <article class="splide" aria-label="Splide Basic HTML Example">
+            <article class="splide mx-auto" aria-label="Splide Basic HTML Example">
                 <div class="splide__track">
                     <ul class="splide__list ">
                         <?php if (count($produits) < 3) {
@@ -75,37 +75,37 @@ if (!isset($_SESSION['panier'])) {
                         } else {
                             foreach ($produits as $key => $produit) {
                                 if ($key == $randomProd[0]) { ?>
-                                    <li class="splide__slide flex flex-row justify-center items-center gap-36 my-5">
+                                    <li class="splide__slide flex flex-col md:flex-row justify-center items-center gap-[5%] my-5">
                                         <div>
-                                            <a href="produit.php?id=<?php print $produit["id"]; ?>"><img class="w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>"> </a>
+                                            <a href="produit.php?id=<?php print $produit["id"]; ?>"><img class="md:w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>"> </a>
                                         </div>
                                         <div class="flex flex-col gap-36">
                                             <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
-                                            <h2 class="text-2xl"><?php print $produit["description"]; ?></h2>
+                                            <h2 class="hidden md:text-2xl"><?php print $produit["description"]; ?></h2>
                                             <h2 class="text-4xl font-extrabold text-white">Seulement <?php print $produit["prix"]; ?> € ! </h2>
                                         </div>
                                     </li>
                                 <?php }
                                 if ($key == $randomProd[1]) { ?>
-                                    <li class="splide__slide flex flex-row justify-center items-center gap-36 my-5">
+                                    <li class="splide__slide flex flex-col md:flex-row justify-center items-center gap-[5%] my-5">
                                         <div>
-                                        <a href="produit.php?id=<?php print $produit["id"]; ?>"><img class="w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>"></a>
+                                        <a href="produit.php?id=<?php print $produit["id"]; ?>"><img class="md:w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>"></a>
                                         </div>
                                         <div class="flex flex-col gap-36">
                                             <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
-                                            <h2 class="text-2xl"><?php print $produit["description"]; ?></h2>
+                                            <h2 class="hidden md:text-2xl"><?php print $produit["description"]; ?></h2>
                                             <h2 class="text-4xl font-extrabold text-white">Seulement <?php print $produit["prix"]; ?> € ! </h2>
                                         </div>
                                     </li>
                                 <?php }
                                 if ($key == $randomProd[2]) { ?>
-                                    <li class="splide__slide flex flex-row justify-center items-center gap-36 my-5">
+                                    <li class="splide__slide flex flex-col md:flex-row justify-center items-center gap-[5%] my-5">
                                         <div>
-                                        <a href="produit.php?id=<?php print $produit["id"]; ?>"><img class="w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>"></a>
+                                        <a href="produit.php?id=<?php print $produit["id"]; ?>"><img class="md:w-96 max-h-96" src="ressources/uploads/<?php echo $produit["image"]; ?>"></a>
                                         </div>
                                         <div class="flex flex-col gap-36">
                                             <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
-                                            <h2 class="text-2xl"><?php print $produit["description"]; ?></h2>
+                                            <h2 class="hidden md:text-2xl"><?php print $produit["description"]; ?></h2>
                                             <h2 class="text-4xl font-extrabold text-white">Seulement <?php print $produit["prix"]; ?> € ! </h2>
                                         </div>
                                     </li>
@@ -116,20 +116,20 @@ if (!isset($_SESSION['panier'])) {
                 </div>
             </article>
         </section>
-        <section class="flex flex-row justify-around my-10">
+        <section class="flex flex-col md:flex-row justify-around my-10">
             <?php if (count($produits) < 3) {
                 print "Pas assez de produits en base.";
             } else {
                 foreach ($lastProds as $lastProd) { ?>
                     <article>
-                        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                         <div class="maw-w-sm md:max-w-md lg:max-w-lg bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                 <img class="rounded-t-lg w-96 h-96" src="ressources/uploads/<?php echo $lastProd["image"]; ?>" alt="produit 1" />
                             <div class="p-5">
                                 <a href="#">
                                     <h5 class="mb-2 text-2xl font-bold truncate tracking-tight text-gray-900 dark:text-white"><?php print $lastProd["name"]; ?></h5>
                                 </a>
                                 <p class="mb-3 font-normal max-h-10 truncate text-gray-700 dark:text-gray-400"><?php print $lastProd["description"]; ?></p>
-                                <a href="produit.php?id=<?php print $lastProd["id"]; ?>"  class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                <a href="produit.php?id=<?php print $lastProd["id"]; ?>"  class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Infos
                                     <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
