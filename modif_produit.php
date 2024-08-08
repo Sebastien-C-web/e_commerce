@@ -28,7 +28,6 @@ if(isset($_POST["change"])){
     $quantite = $_POST["num"];
     $newQuant->setId($produitID);
     $newQuant->setQuantite($quantite);
-
     $newQuant->addQuantite();
 
 
