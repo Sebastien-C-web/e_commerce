@@ -70,6 +70,15 @@ class ProduitsQuantites extends db
         $sql->execute();
     }
 
+    public function decremequantite($param=[])
+    {
+        $quantites=$param['quant'];
+        $id=$param['id'];
+        $sql = $this->connecte()->prepare("UPDATE produits_quantite SET quantites = quantites - :quantites WHERE produits_id = :id");
+        $sql->bindParam(':quantites',$quantites);
+        $sql->bindParam(':id', $id);
+        $sql->execute();
+    }
 
 }
 

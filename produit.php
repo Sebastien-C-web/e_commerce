@@ -132,9 +132,7 @@ if (isset($_POST['addAvis'])) {
                                 <form action="addPanier.php?id=<?php print $id; ?>" method="post">
                                     <label for="qty"> Quantités </label>
                                     <select name="qty" required>
-                                    <option selected disabled>Selectionnez la quantité
                                         
-                                    </option>
                                         <?php foreach ($qty as $qtys) {
                                             if ($qtys['produits_id'] == $id) {
                                                 if ($_POST['taille'] == $qtys['taille_id']) {
