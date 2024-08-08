@@ -38,9 +38,9 @@
 
         $produit = $newPanier->getArticle($key);
         $newCommande->addProduitCommande(['prod_id' => $produit['id'], 'ndc' => $ndc, 'qty' => $article]);
-        $total += ($produit['prix'] * $article);
-        $total = number_format($total, 2, ".", "");
-        $newCommande->setTotal($total); 
+        $total2 += ($produit['prix'] * $article);
+        $total2 = number_format($total2, 2, ".", "");
+        $newCommande->setTotal($total2); 
         
     }
 $newCommande->addCommande();
@@ -65,7 +65,7 @@ $newCommande->addCommande();
             /* var_dump($article); */
             $produit = $newPanier->getArticle($key);
             /* var_dump($produit); */
-            $total += ($produit['prix'] * $article);
+            $total += $produit['prix'] * $article;
             $total = number_format($total, 2, ".", "");
 
 

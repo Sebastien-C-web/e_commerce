@@ -20,7 +20,7 @@ $promos = $newPromo->getAllPromos();
 $articles = $_SESSION['panier'];
 
 
-
+// var_dump($_SESSION['panier']);
 
 $total = 0;
 
@@ -65,6 +65,10 @@ if (isset($_POST["envoiCode"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="CSS/style_panier.css">
+  <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <title>Panier</title>
 </head>
 
@@ -88,6 +92,8 @@ if (isset($_POST["envoiCode"])) {
                 if ($_SESSION['panier'][$idproduit]) {
                     $_SESSION['panier'][$idproduit]++;
                     $newPanier->incremepanier($idproduit);
+                    header("Location: panier.php");
+                    ob_clean();
 
                 }
             }
@@ -108,12 +114,14 @@ if (isset($_POST["envoiCode"])) {
             foreach ($articles as $key => $article) {
 
 
-                /* var_dump($article); */
+                // var_dump($article);
                 $produit = $newPanier->getArticle($key);
                 /* var_dump($produit); */
                 $taille = $newPanier->tailleAffiche($key);
-                // var_dump($taille);
-                $total += ($produit['prix'] * $article);
+                // var_dump($total);
+                // $total += ($produit['prix'] * $article);
+
+                // var_dump($produit['prix']);
             ?>
 
                 <div class="rounded-3xl border-2 border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4 ">
