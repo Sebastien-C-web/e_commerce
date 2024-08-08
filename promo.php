@@ -75,7 +75,6 @@ if (isset($_POST["delete"])) {
             <div class="flex flex-row gap-10 justify-center">
                 <h1 class="pt-5">REDUCTIONS :</h1>
                 <a href="stock.php" class="pt-5 text-white">STOCK</h2></a>
-                <a href="tailles.php" class="pt-5 text-white">TAILLES</h2></a>
             </div>
             <table id="tab" class="mb-5">
                 <thead>

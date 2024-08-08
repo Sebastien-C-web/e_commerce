@@ -19,8 +19,6 @@ $produits = $newProd->getAllProduits();
 $newQuant = new ProduitsQuantites();
 $produitsQuants = $newQuant->getAllQuantite();
 
-$newTaille = new Taille();
-$produitsTailles = $newTaille->getAllTaille();
 
 if (!isset($_SESSION["user"]["statut"]) == "admin") {
     header("Location: index.php");
@@ -93,7 +91,6 @@ if (isset($_POST["delete"])) {
             <div class="flex flex-row gap-10 justify-center">
                 <h1 class="pt-5">STOCK :</h1>
                 <a href="promo.php" class="pt-5 text-white">REDUCTIONS</h2></a>
-                <a href="tailles.php" class="pt-5 text-white">TAILLES</h2></a>
             </div>
             <table id="tab" class="mb-5">
                 <thead>
@@ -104,7 +101,6 @@ if (isset($_POST["delete"])) {
                         <th class=" px-5 py-2 md:px-8 md:py-4 border-2 border-black bg-white max-md:hidden">Prix</th>
                         <th class="px-5 py-2 md:px-8 md:py-4 border-2 border-black bg-white">Stock</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Modif</th>
-                        <th class=" px-5 py-2  border-2 border-black bg-white max-md:hidden">Tailles disp.</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">DELETE</th>
                     </tr>
                 </thead>
@@ -129,26 +125,13 @@ if (isset($_POST["delete"])) {
                         <th class="px-5 py-2 border-2 border-black bg-white">
                             <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"]; ?>">Modif</button></form>
                         </th>
-                        <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php if (isset($produitsQuants)) {
-                                                                                    foreach ($produitsQuants as $produitsQuant) {
-                                                                                        if ($produitsQuant["produits_id"] == $produit["id"]) {
-                                                                                            foreach ($produitsTailles as $produitsTaille) {
-                                                                                                if ($produitsQuant["taille_id"] == $produitsTaille["id"]) {
-                                                                                                    echo $produitsTaille["taille"]; ?> / <?php
-                                                                                                                                        }
-                                                                                                                                    }
-                                                                                                                                }
-                                                                                                                            }
-                                                                                                                                            ?></th>
-                    <?php  } ?>
+                    
                     <th class="px-5 py-2 border-2 border-black bg-white">
                         <form action="" method="post">
                             <button class="border-2 border-black bg-[#f97316] rounded-full w-[90%] h-fit text-white" type="submit" name="delete" value="<?php print $produit["id"]; ?>">DELETE</button>
                     </th>
+                    <?php  } ?>
                     </form>
-                <?php
-                    }
-                ?>
                         </tr>
                 </tbody>
             </table>
