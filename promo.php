@@ -4,9 +4,13 @@ require_once("config/db.php");
 require_once('ressources/produits.php');
 require_once('ressources/produits_quantite.php');
 require_once('ressources/promo.php');
+require_once('classe/panierclass.php');
 
 $db = new db();
 $db->connecte();
+
+$newPanier = new panier();
+$total = 0;
 
 $newProd = new Produits();
 $produits = $newProd->getAllProduits();
@@ -31,17 +35,16 @@ if (isset($_POST["envoi_promo"])) {
     $newPromo->setProduitsId($produit);
     $newPromo->addPromo();
     header("Location: promo.php");
-
 }
 
 if (isset($_POST["delete"])) {
     foreach ($promos as $promo) {
         if ($_POST["delete"] == $promo["id"]) {
-                    $newPromo->deletePromo($promo["id"]);
-                    header("Location: promo.php");
-                }
-            }
+            $newPromo->deletePromo($promo["id"]);
+            header("Location: promo.php");
         }
+    }
+}
 
 ?>
 
@@ -58,6 +61,8 @@ if (isset($_POST["delete"])) {
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js" integrity="sha256-sw0iNNXmOJbQhYFuC9OF2kOlD5KQKe1y5lfBn4C9Sjg=" crossorigin="anonymous"></script>
     <link href="//cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css" rel="stylesheet">
     <script src="//cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
+    <link rel="stylesheet" href="CSS/style_panier.css">
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <script src="JS/tableau.js"></script>
 </head>
 
@@ -85,29 +90,31 @@ if (isset($_POST["delete"])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($promos as $promo) { ?>
-                    <tr>
+                    <?php foreach ($promos as $promo) { ?>
+                        <tr>
 
-                    <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["id"];  ?></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $promo["code"];  ?></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["remise"]; ?></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $promo["quantite"]; ?></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php foreach($produits as $produit) {
-                        if($promo["produits_id"] == $produit["id"]) {
-                            echo $produit["name"];
-                        }
-                    } ?></th>
-                    <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden">
-                            <form method="GET" action="modif_promo.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $promo["id"]; ?>">Modif</button></form>
-                        </th>
-                    <th class="px-5 py-2 border-2 border-black bg-white"> <form action="" method="post">
-                    <button class="border-2 border-black bg-[#f97316] rounded-full w-[90%] h-fit text-white" type="submit" name="delete"
-                            value="<?php print $promo["id"]; ?>">DELETE</button></form></th>
-                        
-                    <?php } ?>
-                    </tr>
+                            <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["id"];  ?></th>
+                            <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $promo["code"];  ?></th>
+                            <th class="px-5 py-2 border-2 border-black bg-white"><?php echo $promo["remise"]; ?></th>
+                            <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $promo["quantite"]; ?></th>
+                            <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php foreach ($produits as $produit) {
+                                                                                                    if ($promo["produits_id"] == $produit["id"]) {
+                                                                                                        echo $produit["name"];
+                                                                                                    }
+                                                                                                } ?></th>
+                            <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden">
+                                <form method="GET" action="modif_promo.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $promo["id"]; ?>">Modif</button></form>
+                            </th>
+                            <th class="px-5 py-2 border-2 border-black bg-white">
+                                <form action="" method="post">
+                                    <button class="border-2 border-black bg-[#f97316] rounded-full w-[90%] h-fit text-white" type="submit" name="delete" value="<?php print $promo["id"]; ?>">DELETE</button>
+                                </form>
+                            </th>
+
+                        <?php } ?>
+                        </tr>
                 </tbody>
-                </table>
+            </table>
 
         </section>
         </section>
@@ -117,7 +124,7 @@ if (isset($_POST["delete"])) {
                 <div class="flex max-md:flex-col justify-around items-center">
                     <div class="flex flex-col items-center">
                         <label for="code">Code promo :</label>
-                        <input  type="text" class="border-2 border-black" name="code">
+                        <input type="text" class="border-2 border-black" name="code">
                     </div>
                     <div class="flex flex-col items-center">
                         <label for="reduc">Réduction (en %) :</label>
@@ -129,25 +136,30 @@ if (isset($_POST["delete"])) {
                     </div>
                     <div class="flex flex-col items-center">
                         <label for="assign">Assignation :</label>
-                        <select class="w-[80%]"   name="assign">
-                        <option value="">Produit concerné :</option>
-                        <?php foreach($produits as $produit){ ?>
-                        <option value="<?php
-                            echo $produit["id"];?>"
-                         > <?php echo $produit["id"];?>-  <?php echo $produit["name"]; } ?> </option>
+                        <select class="w-[80%]" name="assign">
+                            <option value="">Produit concerné :</option>
+                            <?php foreach ($produits as $produit) { ?>
+                                <option value="<?php
+                                                echo $produit["id"]; ?>"> <?php echo $produit["id"]; ?>- <?php echo $produit["name"];
+                                                                                } ?> </option>
                         </select>
                     </div>
                 </div>
                 </div>
                 <div class="flex flex-col items-center mt-5 mb-5">
                     <button class="border-2 border-black bg-[#f97316] w-[10%] rounded-full text-white text-center" type="submit" name="envoi_promo">Envoyer</button>
-                    </div>
+                </div>
             </form>
         </section>
     </main>
     <footer>
 
+        <?php include('compo/footer.php'); ?>
+
     </footer>
+
+    <script src="JS/son.js"></script>
+
 </body>
 
 </html>
