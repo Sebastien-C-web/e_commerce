@@ -123,15 +123,15 @@ if (isset($_POST["delete"])) {
                                                                                         print "La quantitée n'a pas encore été définie";
                                                                                     } ?>
                         <th class="px-5 py-2 border-2 border-black bg-white">
-                            <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"]; ?>">Modif</button></form>
+                            <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"] ?>">Modif</button></form>
                         </th>
-                    
                     <th class="px-5 py-2 border-2 border-black bg-white">
                         <form action="" method="post">
                             <button class="border-2 border-black bg-[#f97316] rounded-full w-[90%] h-fit text-white" type="submit" name="delete" value="<?php print $produit["id"]; ?>">DELETE</button>
                     </th>
-                    <?php  } ?>
+                    
                     </form>
+                    <?php  }  ?>
                         </tr>
                 </tbody>
             </table>
