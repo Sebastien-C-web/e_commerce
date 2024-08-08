@@ -33,7 +33,7 @@ if (isset($_POST['envoi_article'])) {
 
     $name = $_POST["name"];
     $description = $_POST["description"];
-    $image = $imgInfos. "_". time();
+    $image = $imgInfos . "_" . time();
     $prix = $_POST["prix"];
 
     $newProd->setName($name);
@@ -42,7 +42,7 @@ if (isset($_POST['envoi_article'])) {
     $newProd->setPrix($prix);
     $newProd->addProduit();
     if (isset($image)) {
-        move_uploaded_file($_FILES["image"]["tmp_name"], "ressources/uploads/" .$image);
+        move_uploaded_file($_FILES["image"]["tmp_name"], "ressources/uploads/" . $image);
     };
 
     header("Location: stock.php");
@@ -57,19 +57,19 @@ if (isset($_POST["qtte"])) {
     header("Location: stock.php");
 }
 
- 
+
 if (isset($_POST["delete"])) {
     foreach ($produits as $produit) {
         if ($_POST["delete"] == $produit["id"]) {
-                    $newProd->deleteProduit($produit["id"]);
-                    header("Location: stock.php");
-                }
-            }
+            $newProd->deleteProduit($produit["id"]);
+            header("Location: stock.php");
         }
+    }
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -91,9 +91,9 @@ if (isset($_POST["delete"])) {
     <main>
         <section class="bg-[#EDAC70] flex flex-col justify-center items-center gap-5 px-5 ">
             <div class="flex flex-row gap-10 justify-center">
-            <h1 class="pt-5">STOCK :</h1>
-            <a href="promo.php" class="pt-5 text-white">REDUCTIONS</h2></a>
-            <a href="tailles.php" class="pt-5 text-white">TAILLES</h2></a>
+                <h1 class="pt-5">STOCK :</h1>
+                <a href="promo.php" class="pt-5 text-white">REDUCTIONS</h2></a>
+                <a href="tailles.php" class="pt-5 text-white">TAILLES</h2></a>
             </div>
             <table id="tab" class="mb-5">
                 <thead>
@@ -101,10 +101,10 @@ if (isset($_POST["delete"])) {
                         <th class="px-5 py-2 border-2 border-black bg-white w-[5%] max-md:hidden">Id produit</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Nom</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white w-[35%] max-md:hidden">Description</th>
-                        <th class=" px-5 py-2 border-2 border-black bg-white max-md:hidden">Prix</th>
-                        <th class=" px-5 py-2 border-2 border-black bg-white">Stock</th>
+                        <th class=" px-5 py-2 md:px-8 md:py-4 border-2 border-black bg-white max-md:hidden">Prix</th>
+                        <th class="px-5 py-2 md:px-8 md:py-4 border-2 border-black bg-white">Stock</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">Modif</th>
-                        <th class=" px-5 py-2 border-2 border-black bg-white">Tailles disp.</th>
+                        <th class=" px-5 py-2  border-2 border-black bg-white max-md:hidden">Tailles disp.</th>
                         <th class=" px-5 py-2 border-2 border-black bg-white">DELETE</th>
                     </tr>
                 </thead>
@@ -116,38 +116,39 @@ if (isset($_POST["delete"])) {
                             <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $produit["description"]; ?>
                             </th>
                             <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php echo $produit["prix"]; ?> € </th>
-                            <th class="px-5 py-2 border-2 border-black bg-white"><?php if (isset($produitsQuants)) {
+                            <th class="px-5 py-2 border-2 border-black bg-white "><?php if (isset($produitsQuants)) {
                                                                                         foreach ($produitsQuants as $produitsQuant) {
                                                                                             if ($produitsQuant["produits_id"] == $produit["id"]) {
-                                                                                                echo $produitsQuant["quantites"];?> / <?php
-                                                                                            }
-                                                                                        }
-                                                                                    ?></th>
+                                                                                                echo $produitsQuant["quantites"]; ?> / <?php
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                                        ?></th>
                         <?php } else {
                                                                                         print "La quantitée n'a pas encore été définie";
                                                                                     } ?>
                         <th class="px-5 py-2 border-2 border-black bg-white">
                             <form method="GET" action="modif_produit.php"><button class="bg-black text-white border-2 border-black p-2" id="modif" type="submit" name="modif" value="<?php print $produit["id"]; ?>">Modif</button></form>
                         </th>
-                        <th class="px-5 py-2 border-2 border-black bg-white"><?php if (isset($produitsQuants)) {
-                                                                                        foreach ($produitsQuants as $produitsQuant) {
-                                                                                            if ($produitsQuant["produits_id"] == $produit["id"]) {
-                                                                                                foreach($produitsTailles as $produitsTaille) {
-                                                                                                    if($produitsQuant["taille_id"] == $produitsTaille["id"]){
-                                                                                                        echo $produitsTaille["taille"];?> / <?php
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        }    
-                                                                                    ?></th>
-                        <?php  } ?>
-                        <th class="px-5 py-2 border-2 border-black bg-white">
+                        <th class="px-5 py-2 border-2 border-black bg-white max-md:hidden"><?php if (isset($produitsQuants)) {
+                                                                                    foreach ($produitsQuants as $produitsQuant) {
+                                                                                        if ($produitsQuant["produits_id"] == $produit["id"]) {
+                                                                                            foreach ($produitsTailles as $produitsTaille) {
+                                                                                                if ($produitsQuant["taille_id"] == $produitsTaille["id"]) {
+                                                                                                    echo $produitsTaille["taille"]; ?> / <?php
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                                            ?></th>
+                    <?php  } ?>
+                    <th class="px-5 py-2 border-2 border-black bg-white">
                         <form action="" method="post">
-                        <button class="border-2 border-black bg-[#f97316] rounded-full w-[90%] h-fit text-white" type="submit" name="delete"
-                            value="<?php print $produit["id"]; ?>">DELETE</button></th></form>
-                    <?php  
-                    } 
-                    ?>
+                            <button class="border-2 border-black bg-[#f97316] rounded-full w-[90%] h-fit text-white" type="submit" name="delete" value="<?php print $produit["id"]; ?>">DELETE</button>
+                    </th>
+                    </form>
+                <?php
+                    }
+                ?>
                         </tr>
                 </tbody>
             </table>
@@ -172,21 +173,21 @@ if (isset($_POST["delete"])) {
                     </div>
                     <div class="flex flex-col items-center">
                         <label for="image">Image de l'article :</label><br>
-                        <input type="file" name="image" ><br>
+                        <input type="file" name="image"><br>
                     </div>
                 </div>
                 <div class="flex flex-col items-center mt-2 mb-5">
                     <button class="border-2 border-black bg-[#f97316] w-[10%] rounded-full text-white text-center" type="submit" name="envoi_article">Envoyer</button>
-                    </div>
+                </div>
             </form>
         </section>
     </main>
-    
+
     <footer>
         <?php include('compo/footer.php'); ?>
 
     </footer>
-    <script src="JS/son.js"></script>  
+    <script src="JS/son.js"></script>
 </body>
 
 </html>
