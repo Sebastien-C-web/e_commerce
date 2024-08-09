@@ -17,14 +17,7 @@ if (isset($_POST['qty'])) {
     $produit_qty = null;
 }
 
-if (isset($_POST['posTaille'])){
-    $taille = $_POST['posTaille'];
-}else{
-    $taille = null;
-}
-print"<pre>";
-var_dump($taille);
-print"</pre>";
+
 
 if (isset($_SESSION['panier'][$produits_id]) && $produit_qty == null) {
     $_SESSION['panier'][$produits_id]++;
@@ -34,12 +27,11 @@ if (isset($_SESSION['panier'][$produits_id]) && $produit_qty == null) {
     $_SESSION['panier'][$produits_id] = 1;
     echo "le produit a bien été ajouté au panier";
 }
-var_dump($_SESSION["panier"]);
+
 foreach ($_SESSION["panier"] as $id => $quantity) {
     $panier->setProduitsid($id);
     $panier->setRowguid($_SESSION["rowguid"]);
     $panier->setTotal($quantity);
-    $panier->setTaille($taille);
     $panier->addPanier();
 }
 
