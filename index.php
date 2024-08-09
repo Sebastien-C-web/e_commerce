@@ -81,7 +81,7 @@ if (!isset($_SESSION['panier'])) {
                                         </div>
                                         <div class="flex flex-col gap-36">
                                             <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
-                                            <h2 class="hidden md:text-2xl"><?php print $produit["description"]; ?></h2>
+                                            <h2 class="max-lg:hidden lg:text-2xl"><?php print $produit["description"]; ?></h2>
                                             <h2 class="text-4xl font-extrabold text-white">Seulement <?php print $produit["prix"]; ?> € ! </h2>
                                         </div>
                                     </li>
@@ -93,7 +93,7 @@ if (!isset($_SESSION['panier'])) {
                                         </div>
                                         <div class="flex flex-col gap-36">
                                             <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
-                                            <h2 class="hidden md:text-2xl"><?php print $produit["description"]; ?></h2>
+                                            <h2 class=" max-lg:hidden lg:text-2xl"><?php print $produit["description"]; ?></h2>
                                             <h2 class="text-4xl font-extrabold text-white">Seulement <?php print $produit["prix"]; ?> € ! </h2>
                                         </div>
                                     </li>
@@ -105,7 +105,7 @@ if (!isset($_SESSION['panier'])) {
                                         </div>
                                         <div class="flex flex-col gap-36">
                                             <h1 class="text-4xl font-bold"><?php print $produit["name"]; ?></h1>
-                                            <h2 class="hidden md:text-2xl"><?php print $produit["description"]; ?></h2>
+                                            <h2 class="max-lg:hidden lg:text-2xl"><?php print $produit["description"]; ?></h2>
                                             <h2 class="text-4xl font-extrabold text-white">Seulement <?php print $produit["prix"]; ?> € ! </h2>
                                         </div>
                                     </li>
